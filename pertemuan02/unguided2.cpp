@@ -1,3 +1,6 @@
+//Satrio Wibowo
+//2311102149
+
 #include <iostream>
 using namespace std;
 
