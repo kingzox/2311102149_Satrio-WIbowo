@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//Deklarasi class yang digunakan untuk elemen dalam linked list
 class node {
 public:
     string produk_149;
@@ -10,6 +11,7 @@ public:
     node* next;
 };
 
+//Deklaras class 'doublelinkedlist' yang akan mewakili double linked list
 class doublelinkedlist {
 public:
     node *head;
@@ -19,6 +21,7 @@ public:
         tail = nullptr;
     }
 
+//Fungsi untuk menambahkan node baru ke depan linked list
     void push(string produk_149, int harga_149) {
         node* newNode = new node;
         newNode->harga_149 = harga_149;
@@ -35,6 +38,7 @@ public:
         head = newNode;
     }
 
+//Fungsi untuk memnghapus node pertama dari linked list
     void pop() {
         if (head == nullptr) {
             return;
@@ -52,6 +56,7 @@ public:
         delete temp;
     }
 
+//Fungsi untuk memoerbarui harga dan nama produk dari suatu node dalam linked list
     bool update(int hargaBaru, string produkLama, string produkBaru) {
         node* current = head;
         while (current != nullptr) {
@@ -65,6 +70,7 @@ public:
         return false;
     }
 
+//Fungsi untuk menambahkan node baru pada posisi tertentu
     void tambahData(int posisi, int harga_149, string produk_149) {
         if (posisi < 1) {
             cout << "Posisi harus lebih dari 0" << endl;
@@ -95,6 +101,7 @@ public:
         }
     }
 
+//Fungsi untuk menghapus node pada posisi tertentu
     void hapusData(int posisi) {
         if (posisi < 1) {
             cout << "Posisi harus lebih dari 0" << endl;
@@ -137,6 +144,7 @@ public:
         delete current;
     }
 
+//Fungsi untuk menghapus semua node 
     void deleteAll() {
         node* current = head;
         while (current != nullptr) {
@@ -148,6 +156,7 @@ public:
         tail = nullptr;
     }
 
+//Fungsi untuk menampilkan isi linked list
     void display() {
         node* current = head;
         while (current != nullptr) {
