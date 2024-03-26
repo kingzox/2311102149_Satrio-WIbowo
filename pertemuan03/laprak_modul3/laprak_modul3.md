@@ -2,333 +2,1046 @@
 <p align="center">Satrio Wibowo - 2311102149</p>
 
 ## Dasar Teori
+1. Single Linked List/Singly Linked List<br/>
+Single Linked List (SLL) adalah suatu struktur data yang terdiri dari node yang saling terhubung melalui pointer. Di SLL, setiap node hanya memiliki pointer ke node berikutnya, dan pointer terakhir node menunjuk ke NULL.
 
-Array adalah variabel yang terdiri dari sekumpulan data dengan tipe data yang sama. Setiap data disimpan dalam alamat memori yang berbeda-beda dan disebut elemen array. Setiap elemen memiliki nilai indek yang sesuai dengan urutannya, dan nilai indek inilah yang memungkinkan kita untuk mengakses data. Dalam Java dan C++, tanda [ ] (bracket) digunakan untuk menandai array. Tipe data array biasanya berbentuk seperti ini: tipe_data nama_array[jumlah_elemen]. Array terbagi menjadi 3, yaitu:
+Single Linked List dapat dianalogikan sebagai berikut: <br/>
+![image](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/77269721-11d0-405a-972c-45ea40749e0f)<br/>
+Beberapa operasi umum yang dilakukan oleh SLL termasuk: Push: Operasi untuk menambahkan data ke dalam daftar yang terhubung. Data yang paling baru akan berada di depan atau di belakang data lainnya, tergantung pada operasi pushDepan atau pushBelakang yang digunakan.
 
-1. Array 1 Dimensi</br>
 
-Sebuah array satu dimensi, juga disebut vektor, adalah sebuah variabel yang dapat menyimpan lebih dari satu nilai yang sama dan terdiri dari elemen-elemen yang disusun dalam satu baris dan memiliki tipe data yang sama. Satu indeks dapat diakses untuk setiap elemen.
+Pop adalah operasi untuk menghapus data dari daftar yang terhubung. Data yang dihapus adalah data paling depan atau paling belakang 1. Referensi adalah operasi untuk menampilkan data yang ada dalam daftar yang terhubung.
 
-2. Array 2 Dimensi</br>
 
-Array dua dimensi adalah kumpulan dari satu atau lebih array satu dimensi yang disusun secara terstruktur. Mereka menyimpan data dalam bentuk tabel yang terdiri dari baris dan kolom dan memiliki dua indeks untuk setiap elemen.
+2. Double Linked List/Doubly Linked List<br/>
+Double Linked List/Doubly Linked List(DLL) adalah sekumpulan node data yang terurut linear atau sekuensial dengan dua pointer: prev dan next.
+Doule Linked List dapat dianalogikan seperti berikut: <br/>
+![image](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/79952450-4be7-4eb8-b2f8-b2fe955a0ad0) <br/>
 
-3. Array Multidimensi</br>
+- Keunggulan: Saat menyusuri list, Anda dapat mengaksesnya dari kiri ke kanan atau dari kanan ke kiri.
+Sangat mudah untuk menghapus node dari daftar karena mereka dapat mengubah pointer sebelumnya dan berikutnya.
+Bisa digunakan untuk mengurutkan data ke atas atau ke bawah.
 
-Array multidimensi adalah tipe data dalam pemrograman yang memungkinkan Anda menyimpan elemen dalam bentuk grid atau tabel dengan dua atau lebih dimensi, yang berarti Anda dapat menggunakan dua atau lebih indeks untuk mengakses elemen tersebut.
-Dalam hal matriks multidimensi, misalnya, setiap elemen adalah array yang mewakili satu baris matriks, dan matriks itu sendiri adalah array yang berisi semua baris matriks.
-Data yang memiliki struktur lebih kompleks sering diwakili oleh array multidimensi, seperti data spasial dalam grafika komputer, data tabel dalam basis data, atau matriks dalam perhitungan matematika dan ilmu pengetahuan.
+- Kekurangan: Karena setiap node memiliki dua pointer, membutuhkan lebih banyak memori.=
+Karena harus melakukan pengecekan pointer prev dan next, diperlukan lebih banyak operasi untuk mengakses data.
+
+
+
+
+
+
+
+
+
+
 
 
 ## Guided
 
-### 1. [Program Input Array Tiga Dimensi]
+### 1. [Latihan Single Linked List]
+
+```C++
+// Latihan Single Linked List
+
+#include <iostream>
+using namespace std;
+
+///PROGRAM SINGLE LINKED LIST NON-CIRCULAR
+//Deklarasi Struct Node
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head;
+Node* tail;
+
+//Inisialisasi Node
+void init() {
+    head = NULL;
+    tail = NULL;
+}
+
+// Pengecekan
+bool isEmpty() {
+    if (head == NULL)
+        return true;
+    else
+        return false;
+}
+
+//Tambah Depan
+void insertDepan(int nilai) {
+    //Buat Node baru
+    Node* baru = new Node;
+    baru->data = nilai;
+    baru->next = NULL;
+
+    if (isEmpty() == true) {
+        head = tail = baru;
+        tail->next = NULL;
+    }
+    else {
+        baru->next = head;
+        head = baru;
+    }
+}
+
+//Tambah Belakang
+void insertBelakang(int nilai) {
+    //Buat Node baru
+    Node* baru = new Node;
+    baru->data = nilai;
+    baru->next = NULL;
+
+    if (isEmpty() == true) {
+        head = tail = baru;
+        tail->next = NULL;
+    }
+    else {
+        tail->next = baru;
+        tail = baru;
+    }
+}
+
+//Hitung Jumlah List
+int hitungList() {
+    Node* hitung;
+    hitung = head;
+    int jumlah = 0;
+
+    while (hitung != NULL) {
+        jumlah++;
+        hitung = hitung->next;
+    }
+
+    return jumlah;
+}
+
+//Tambah Tengah
+void insertTengah(int data, int posisi) {
+    if (posisi < 1 || posisi > hitungList()) {
+        cout << "Posisi diluar jangkauan" << endl;
+    }
+    else if (posisi == 1) {
+        cout << "Posisi bukan posisi tengah" << endl;
+    }
+    else {
+        Node* baru, * bantu;
+        baru = new Node();
+        baru->data = data;
+
+        // tranversing
+        bantu = head;
+        int nomor = 1;
+
+        while (nomor < posisi - 1) {
+            bantu = bantu->next;
+            nomor++;
+        }
+
+        baru->next = bantu->next;
+        bantu->next = baru;
+    }
+}
+
+//Hapus Depan
+void hapusDepan() {
+    Node* hapus;
+
+    if (isEmpty() == false) {
+        if (head->next != NULL) {
+            hapus = head;
+            head = head->next;
+            delete hapus;
+        }
+        else {
+            head = tail = NULL;
+        }
+    }
+    else {
+        cout << "List kosong!" << endl;
+    }
+}
+
+//Hapus Belakang
+void hapusBelakang() {
+    Node* hapus;
+    Node* bantu;
+
+    if (isEmpty() == false) {
+        if (head != tail) {
+            hapus = tail;
+            bantu = head;
+
+            while (bantu->next != tail) {
+                bantu = bantu->next;
+            }
+
+            tail = bantu;
+            tail->next = NULL;
+            delete hapus;
+        }
+        else {
+            head = tail = NULL;
+        }
+    }
+    else {
+        cout << "List kosong!" << endl;
+    }
+}
+
+//Hapus Tengah
+void hapusTengah(int posisi) {
+    Node* hapus, * bantu, * bantu2;
+
+    if (posisi < 1 || posisi > hitungList()) {
+        cout << "Posisi di luar jangkauan" << endl;
+    }
+    else if (posisi == 1) {
+        cout << "Posisi bukan posisi tengah" << endl;
+    }
+    else {
+        int nomor = 1;
+        bantu = head;
+
+        while (nomor <= posisi) {
+            if (nomor == posisi - 1) {
+                bantu2 = bantu;
+            }
+
+            if (nomor == posisi) {
+                hapus = bantu;
+            }
+
+            bantu = bantu->next;
+            nomor++;
+        }
+
+        bantu2->next = bantu;
+        delete hapus;
+    }
+}
+
+//Ubah Depan
+void ubahDepan(int data) {
+    if (isEmpty() == false) {
+        head->data = data;
+    }
+    else {
+        cout << "List masih kosong!" << endl;
+    }
+}
+
+//Ubah Tengah
+void ubahTengah(int data, int posisi) {
+    Node* bantu;
+
+    if (isEmpty() == false) {
+        if (posisi < 1 || posisi > hitungList()) {
+            cout << "Posisi di luar jangkauan" << endl;
+        }
+        else if (posisi == 1) {
+            cout << "Posisi bukan posisi tengah" << endl;
+        }
+        else {
+            bantu = head;
+            int nomor = 1;
+
+            while (nomor < posisi) {
+                bantu = bantu->next;
+                nomor++;
+            }
+
+            bantu->data = data;
+        }
+    }
+    else {
+        cout << "List masih kosong!" << endl;
+    }
+}
+
+//Ubah Belakang
+void ubahBelakang(int data) {
+    if (isEmpty() == false) {
+        tail->data = data;
+    }
+    else {
+        cout << "List masih kosong!" << endl;
+    }
+}
+
+//Hapus List
+void clearList() {
+    Node* bantu, * hapus;
+    bantu = head;
+
+    while (bantu != NULL) {
+        hapus = bantu;
+        bantu = bantu->next;
+        delete hapus;
+    }
+
+    head = tail = NULL;
+    cout << "List berhasil terhapus!" << endl;
+}
+
+//Tampilkan List
+void tampil() {
+    Node* bantu;
+    bantu = head;
+
+    if (isEmpty() == false) {
+        while (bantu != NULL) {
+            cout << bantu->data << ends;
+            bantu = bantu->next;
+        }
+
+        cout << endl;
+    }
+    else {
+        cout << "List masih kosong!" << endl;
+    }
+}
+
+int main() {
+    init();
+    insertDepan(3);
+    tampil();
+    insertBelakang(5);
+    tampil();
+    insertDepan(2);
+    tampil();
+    insertDepan(1);
+    tampil();
+    hapusDepan();
+    tampil();
+    hapusBelakang();
+    tampil();
+    insertTengah(7, 2);
+    tampil();
+    hapusTengah(2);
+    tampil();
+    ubahDepan(1);
+    tampil();
+    ubahBelakang(8);
+    tampil();
+    ubahTengah(11, 2);
+    tampil();
+
+    return 0;
+}
+```
+Program single-linked list non-circular di atas dibuat menggunakan bahasa C++. Pertama, kita mendeklarasikan struct Node dengan data dan pointer next. Kemudian, kita membuat fungsi untuk menambahkan data di depan, belakang, dan tengah. Kemudian, kita membuat fungsi untuk menghitung jumlah list, menghapus data di depan, belakang, dan tengah, mengubah data di depan, belakang, dan tengah, menghapus semua data, dan menampilkan data. Kemudian, kita memasukkan fungsi-fungsi tersebut ke dalam fungsi Node. Hasilnya adalah 3 5 2 3 5 7 3 8 11.
+
+### 2. [Latihan Double Linked List]
 
 ```C++
 #include <iostream>
- using namespace std;
- 
- // PROGRAM INPUT ARRAY 3 DIMENSI
- int main(){
-    // Deklarasi array
-    int arr[2][3][3];
-    // Input elemen
-     for (int x = 0; x < 2; x++){
-        for (int y = 0; y < 3; y++){
-            for (int z = 0; z < 3; z++){
-                 cout << "Input Array[" << x << "][" << y << "][" <<
- z << "] = ";
-        cin >> arr[x][y][z];
-         }
-     }
-cout << endl;
- }
- // Output Array
- for (int x = 0; x < 2; x++){
-    for (int y = 0; y < 3; y++){
-        for (int z = 0; z < 3; z++){
-            cout << "Data Array[" << x << "][" << y << "][" << z<< "] = " << arr[x][y][z] << endl;
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+class DoublyLinkedList {
+public:
+    Node* head;
+    Node* tail;
+
+    DoublyLinkedList() {
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    void push(int data) {
+        Node* newNode = new Node;
+        newNode->data = data;
+        newNode->prev = nullptr;
+        newNode->next = head;
+        if (head != nullptr) {
+            head->prev = newNode;
+        }
+        else {
+            tail = newNode;
+        }
+        head = newNode;
+    }
+
+    void pop() {
+        if (head == nullptr) {
+            return;
+        }
+        Node* temp = head;
+        head = head->next;
+        if (head != nullptr) {
+            head->prev = nullptr;
+        }
+        else {
+            tail = nullptr;
+        }
+        delete temp;
+    }
+
+    bool update(int oldData, int newData) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == oldData) {
+                current->data = newData;
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
+    }
+
+    void deleteAll() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* temp = current;
+            current = current->next;
+            delete temp;
+        }
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    void display() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    DoublyLinkedList list;
+    while (true) {
+        cout << "1. Add data" << endl;
+        cout << "2. Delete data" << endl;
+        cout << "3. Update data" << endl;
+        cout << "4. Clear data" << endl;
+        cout << "5. Display data" << endl;
+        cout << "6. Exit" << endl;
+        int choice;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1: {
+                int data;
+                cout << "Enter data to add: ";
+                cin >> data;
+                list.push(data);
+                break;
+            }
+            case 2: {
+                list.pop();
+                break;
+            }
+            case 3: {
+                int oldData, newData;
+                cout << "Enter old data: ";
+                cin >> oldData;
+                cout << "Enter new data: ";
+                cin >> newData;
+                bool updated = list.update(oldData, newData);
+                if (!updated) {
+                    cout << "Data not found" << endl;
+                }
+                break;
+            }
+            case 4: {
+                list.deleteAll();
+                break;
+            }
+            case 5: {
+                list.display();
+                break;
+            }
+            case 6: {
+                return 0;
+            }
+            default: {
+                cout << "Invalid choice" << endl;
+                break;
+            }
         }
     }
- }
- cout << endl;
- // Tampilan array
- for (int x = 0; x < 2; x++){
-    for (int y = 0; y < 3; y++){
-        for (int z = 0; z < 3; z++){
-             cout << arr[x][y][z] << ends;
-         }
-    cout << endl;
-     }
- cout << endl;
- }
- }
-       
+    return 0;
+}
 ```
-Program ini berfungsi sebagai input array tiga dimensi, dan pengguna dapat menginputkan nilai elemen untuk masing-masing bari dan kolom. Di sini dideklarasikan array arr[2][3][3]; oleh karena itu, kita akan mengimpor sesuai dengan kondisi program saat ini. Setelah itu, data array akan ditampilkan untuk melihat apakah semua nilai inputnya benar. Terakhir, menampilkan susunan array pada data array yang kita inputkan sebelumnya. Program menggunakan nested tiga kali di sini.
-
-### 2. [Program Mencari Nilai Maksimal pada Array]
-
-```C++
- #include <iostream>
- using namespace std;
- 
- int main(){
-    int maks, a, i = 1, lokasi;
-    cout << "Masukkan panjang array: ";
-     cin >> a;
-    int array[a];
-    cout << "Masukkan " << a << " angka\n";
-    for (i = 0; i < a; i++){
-        cout << "Array ke-" << (i) << ": ";
-        cin >> array[i];
- }
-    maks = array[0];
-    for (i = 0; i < a; i++){
-        if (array[i] > maks)
-     {
-         maks = array[i];
-             lokasi = i;
-     }
- }
-    cout<<"Nilai maksimum adalah "<<maks<<" berada di Array ke "<<lokasi<<endl;
- }
-
-```
-Program di atas berguna untuk mencari nilai maksimal dari elemen array yang telah dimasukkan oleh user. Karena program ini hanya menggunakan array 1 dimensi, maka tidak akan menggunakan nested for. Pertama, user akan diminta untuk menentukan penjang elemen arraynya, misalnya, input 3. Kemudian, nilai array 1 dimensi akan diisi dari indeks 0 hingga indeks 2, dan kemudian elemen akan dicari nilai maksimalnya dengan menggunakan percabangan if di dalam array.
+Program di atas merupakan sebuah implementasi dari program Guided1.cpp dengan menggunakan konsep class dan objek. Pertama-tama, kita mendefinisikan sebuah kelas Node yang menyimpan data, serta pointer ke node sebelumnya dan setelahnya. Selanjutnya, kita mendefinisikan sebuah kelas DoublyLinkedList yang memiliki pointer ke kepala dan ekor dari linked list. Konstruktor digunakan untuk menginisialisasi pointer kepala dan ekor menjadi NULL. Fungsi push digunakan untuk menambahkan data di depan linked list, fungsi pop untuk menghapus data di depan, fungsi update untuk mengubah data, fungsi deleteAll untuk menghapus semua data, dan fungsi display untuk menampilkan data. Selanjutnya, kita memanggil fungsi-fungsi ini di dalam fungsi main. Hasilnya adalah 3 5 2 3 5 7 3 8 11.
 
 
     
 ## Unguided 
 
-### 1. [Buatlah program untuk menampilkan Output seperti berikut ini dengan data yang diinputkan oleh user!]
-![Soal_Unguided-01_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/6b4cf71c-2f08-45ef-8691-108d5161d748)
+### 1. [Soal mengenai Single Linked List]
+Buatlah program menu Single Linked List Non-Circular untuk menyimpan Nama dan Usia mahasiswa, dengan menggunakan inputan dari user. Lakukan operasi berikut:<br/>
+ㅤ1. Masukkan data sesuai urutan berikut. (Gunakan insert depan, belakang atau tengah). Data pertama yang dimasukkan adalah nama dan usia anda.<br/>
+<img width="136" alt="Soal_Unguided-01_Modul 3_Satrio Wibowo" src="https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/8393cc86-17f5-42be-8595-cede542b6bc7"><br/>
+  2. Hapus data Akechi<br/>
+ㅤ3. Tambahkan data berikut diantara John dan Jane: "Futaba 18"<br/>
+ㅤ4. Tambahkan data berikut di awal: "Igor 20"<br/>
+ㅤ5. Ubah data Michael menjadi: "Reyn 18"<br/>
+ㅤ6. Tampilkan seluruh data<br/>
 
 ```C++
-//Satrio Wibowo
-//2311102149
-
-#include<iostream>
-using namespace std;
-
-int main(){
-
-    int arr_149[50]; //Deklarasi isi array
-    int size_149=0; //Menghitiung ukuran array
-
-    cout<<"Tekan titik (.) untuk berhenti menginputkan data"<<endl;
-    cout<<"Masukkan data array: "<<endl;
-    while(cin>>arr_149[size_149]){ //Perulangan untuk memproses inputan user
-    size_149++ ;}
-
-    cout << "Data Array: ";
-    //Perulangan for untuk mencetak data array
-    for (int i = 0; i < size_149; ++i){
-        cout << arr_149[i] << " ";
-    }
-    cout << endl;
-    //Mencetak angka genap
-    cout<<"Nomor Genap: ";
-    //Perulangan for untuk mencetak  nomor genap dari array
-    for(int j=0;j<size_149;j++){
-        //Percabangan if untuk menentukan kondisi jika angka yang ada pada data array merupakan angka genap
-        if(arr_149[j]%2==0){
-            cout<<arr_149[j]<<", ";
-        }
-    }
-    cout<<endl;
-    //Mencetak angka ganjil
-    cout<<"Nomor Ganjil: ";
-    //Perulangan for untuk mencetak  nomor genap dari array
-    for(int i=0;i<size_149;i++){
-         //Percabangan if untuk menentukan kondisi jika angka yang ada pada data array merupakan angka ganjil
-        if(arr_149[i]%2 !=0){
-            cout<<arr_149[i]<<", ";
-        }
-    }
-    return 0;
-}
-```
-#### Output:
-![Output Ungided1_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/12d12933-1860-4fb4-853f-040288dcc9ce)
-
-Program di atas merupakan program yang mememinta user untuk memasukkan data ke dalam sebuah array. Inputan data akan berhenti ketika user menekan tombol titik. Setelah data selesai dimasukkan, program akan mencetak seluruh data, serta angka genap dan ganjil yang ada dalam array. Program juga menggunakan perulangan while untuk memproses inputan user dan perulangan for untuk mencetak data dari array.
-
-### 2. [ Buatlah program Input array tiga dimensi (seperti pada guided) tetapi jumlah atau ukuran elemennya diinputkan oleh user!]
-
-```C++
-//Satrio Wibowo
-//2311102149
-
 #include <iostream>
 using namespace std;
 
+// Node struct untuk merepresentasikan node dalam linked list
+struct Node {
+    string nama_149;
+    int usia_149;
+    Node* next;
+};
+
+// Kelas untuk mengelola linked list
+class LinkedList {
+private:
+    Node* head;
+
+public:
+    // Constructor
+    LinkedList() {
+        head = nullptr;
+    }
+
+    // Destructor
+    ~LinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+        head = nullptr;
+    }
+
+    // Fungsi untuk menambahkan node di depan
+    void insertFront(string nama_149, int usia_149) {
+        Node* newNode = new Node;
+        newNode->nama_149 = nama_149;
+        newNode->usia_149 = usia_149;
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // Fungsi untuk menambahkan node di belakang
+    void insertBack(string nama_149, int usia_149) {
+        Node* newNode = new Node;
+        newNode->nama_149 = nama_149;
+        newNode->usia_149 = usia_149;
+        newNode->next = nullptr;
+        if (head == nullptr) {
+            head = newNode;
+            return;
+        }
+        Node* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+
+    // Fungsi untuk menambahkan node di tengah
+    void insertMiddle(string nama_149, int usia_149, int posisi) {
+        if (posisi <= 0) {
+            cout << "Posisi harus lebih besar dari 0" << endl;
+            return;
+        }
+        if (posisi == 1) {
+            insertFront(nama_149, usia_149);
+            return;
+        }
+        Node* newNode = new Node;
+        newNode->nama_149 = nama_149;
+        newNode->usia_149 = usia_149;
+        Node* current = head;
+        for (int i = 1; i < posisi - 1 && current != nullptr; ++i) {
+            current = current->next;
+        }
+        if (current == nullptr) {
+            cout << "Posisi terlalu besar" << endl;
+            return;
+        }
+        newNode->next = current->next;
+        current->next = newNode;
+    }
+
+    // Fungsi untuk mencari node berdasarkan nama
+    Node* search(string nama_149) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->nama_149 == nama_149) {
+                return current;
+            }
+            current = current->next;
+        }
+        return nullptr;
+    }
+
+    // Fungsi untuk menghapus node berdasarkan nama
+    void remove(string nama_149) {
+        if (head == nullptr) {
+            return;
+        }
+        if (head->nama_149 == nama_149) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+        Node* current = head;
+        while (current->next != nullptr) {
+            if (current->next->nama_149 == nama_149) {
+                Node* temp = current->next;
+                current->next = current->next->next;
+                delete temp;
+                return;
+            }
+            current = current->next;
+        }
+    }
+
+    // Fungsi untuk menampilkan seluruh data
+    void display() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->nama_149 << " " << current->usia_149 << endl;
+            current = current->next;
+        }
+    }
+};
+
 int main() {
-    //Variable untuk menyimpan ukuran elemen array tiga dimensi
-    int xsize_149, ysize_149, zsize_149;
+    LinkedList list;
 
-    // user menginputkan ukuran elemen array tiga dimensi
-    cout << "Masukkan ukuran elemen array tiga dimensi x: "; cin>>xsize_149;
-    cout << "Masukkan ukuran elemen array tiga dimensi y: "; cin>>ysize_149;
-    cout << "Masukkan ukuran elemen array tiga dimensi z: "; cin>>zsize_149;
-   
-    //Deklarasi array untuk ukuran yang akan dimasukkan user
-    int arr[xsize_149][ysize_149][zsize_149];
+    // Input data pengguna
+    string namaSaya;
+    int usiaSaya;
 
-    // loop untuk mengisi elemen array dengan data yang diinputkan user
-    for (int x = 0; x < xsize_149; x++) {
-        for (int y = 0; y < ysize_149; y++) {
-            for (int z = 0; z < zsize_149; z++) {
-                cout << "Input Array[" << x << "][" << y << "][" << z << "] = ";
-                cin >> arr[x][y][z];
-            }
-        }
-        cout << endl;
+    // Input data pengguna sendiri
+    cout << "Masukkan nama Anda: ";
+    getline(cin, namaSaya);
+    cout << "Masukkan usia Anda: ";
+    cin >> usiaSaya;
+    cin.ignore(); // Membersihkan newline dari buffer stdin
+
+    // Masukkan data pengguna ke dalam linked list
+    list.insertFront(namaSaya, usiaSaya);
+
+    // Input data nama dan usia mahasiswa lain dari pengguna
+    int jumlahMahasiswa;
+    cout << "Masukkan jumlah mahasiswa lain: ";
+    cin >> jumlahMahasiswa;
+    cin.ignore(); // Membersihkan newline dari buffer stdin
+
+    for (int i = 0; i < jumlahMahasiswa; ++i) {
+        string namaMahasiswa;
+        int usiaMahasiswa;
+
+        cout << "Masukkan nama mahasiswa ke-" << i+1 << ": ";
+        getline(cin, namaMahasiswa);
+        cout << "Masukkan usia mahasiswa ke-" << i+1 << ": ";
+        cin >> usiaMahasiswa;
+        cin.ignore(); // Membersihkan newline dari buffer stdin
+
+        list.insertBack(namaMahasiswa, usiaMahasiswa);
     }
 
-    // Perulangan For untuk menampilkan elemen array berserta indeksnya
-    for (int x = 0; x < xsize_149; x++) {
-        for (int y = 0; y < ysize_149; y++) {
-            for (int z = 0; z < zsize_149; z++) {
-                cout << "Data Array[" << x << "][" << y << "][" << z << "] = " << arr[x][y][z] << endl;
-            }
-        }
-    }
+    // Tampilkan seluruh data
+    cout << "Data mahasiswa:" << endl;
+    list.display();
     cout << endl;
 
-    //Perulangan For untuk menampilkan elemen array dalam format tiga dimensi
-    for (int x = 0; x < xsize_149; x++) {
-        for (int y = 0; y < ysize_149; y++) {
-            for (int z = 0; z < zsize_149; z++) {
-                cout << arr[x][y][z] << " ";
+    // Menu operasi
+    while(true){
+    char opsi;
+    cout << "Menu Operasi:" << endl;
+    cout << "a. Hapus data mahasiswa" << endl;
+    cout << "b. Tambahkan data mahasiswa di depan" << endl;
+    cout << "c. Tambahkan data mahasiswa di tengah" << endl;
+    cout << "d. Tambahkan data mahasiswa di belakang" << endl;
+    cout << "e. Tampilkan data" << endl;
+    cout << "f. Keluar" << endl;
+    cout << "Pilih opsi (a/b/c/d/e): ";
+    cin >> opsi;
+    cin.ignore(); // Membersihkan newline dari buffer stdin
+
+    // Proses operasi sesuai dengan opsi yang dipilih
+    switch (opsi) {
+        case 'a': {
+            string namaHapus;
+            cout << "Masukkan nama mahasiswa yang ingin dihapus: ";
+            getline(cin, namaHapus);
+            list.remove(namaHapus);
+            break;
+        }
+        case 'b': {
+            string namaTambahDepan;
+            int usiaTambahDepan;
+            cout << "Masukkan nama mahasiswa yang ingin ditambahkan di depan: ";
+            getline(cin, namaTambahDepan);
+            cout << "Masukkan usia mahasiswa yang ingin ditambahkan di depan: ";
+            cin>> usiaTambahDepan;
+            cin.ignore(); // Membersihkan newline dari buffer stdin
+            list.insertFront(namaTambahDepan, usiaTambahDepan);
+            break;
+        }
+        case 'c': {
+            string namaTambahTengah;
+            int usiaTambahTengah;
+            int posisiTambahTengah;
+            cout << "Masukkan nama mahasiswa yang ingin ditambahkan di tengah: ";
+            getline(cin, namaTambahTengah);
+            cout << "Masukkan usia mahasiswa yang ingin ditambahkan di tengah: ";
+            cin >> usiaTambahTengah;
+            cout << "Masukkan posisi untuk menambahkan mahasiswa di tengah: ";
+            cin >> posisiTambahTengah;
+            cin.ignore(); // Membersihkan newline dari buffer stdin
+            list.insertMiddle(namaTambahTengah, usiaTambahTengah, posisiTambahTengah);
+            break;
+        }
+        case 'd': {
+            string namaTambahBelakang;
+            int usiaTambahBelakang;
+            cout << "Masukkan nama mahasiswa yang ingin ditambahkan di belakang: ";
+            getline(cin, namaTambahBelakang);
+            cout << "Masukkan usia mahasiswa yang ingin ditambahkan di belakang: ";
+            cin >> usiaTambahBelakang;
+            cin.ignore(); // Membersihkan newline dari buffer stdin
+            list.insertBack(namaTambahBelakang, usiaTambahBelakang);
+            break;
+        }
+        case 'e': {
+            cout << "Data mahasiswa setelah operasi:" << endl;
+            list.display();
+            break;
+        }
+        case 'f' : {
+            cout<<"Anda telah keluar dari menu!"<<endl;
+            exit(0);
+        }
+        default:
+            cout << "Opsi tidak valid" << endl;
+    
+    }
+    }
+
+    return 0;
+
+}
+
+```
+#### Output:
+![Output Unguided 1 1 Modul 3](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/028b6b0d-c50a-4ad0-8cc3-fe028e82eef1)<br/>
+![Output Unguided 1 2 Modul 3](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/1d0985eb-ab5f-4de5-b172-735322a8ce4c)<br/>
+![Output Unguided 1 3 Modul 3](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/6f2988bb-0534-4ab6-a008-f8e4a9761b05)<br/>
+
+Program di atas menggunakan struct Node yang berisi string nama_149, int usia_149, dan Node *next. Program ini memiliki beberapa fungsi, antara lain:
+- InsertFront digunakan untuk menambah node di depan
+- InsertBack digunakan untuk menambah node di belakang
+- InsertMiddle digunakan untuk menambah node di tengah
+- search digunakan untuk mencari node berdasarkan nama
+- remove digunakan untuk menghapus node berdasarkan nama
+- display digunakan untuk menampilkan seluruh data(baik sebelum diubah/sesudah diubah)
+ Lalu pada main function, semua fungsi terkait linked list dipanggil untuk menjalankan progra sehingga menghasilkan output seperti yang telah dijelaskan pada soal Unguided 1 di atas. 
+
+
+### 2. [Soal mengenai Double Linked List]
+Modifikasi Guided Double Linked List dilakukan dengan penambahan operasi untuk menambah data, menghapus, dan update di tengah / di urutan tertentu yang diminta. Selain itu, buatlah agar tampilannya menampilkan Nama Produk dan Harga.<br/>
+Case:<br/>
+1. Tambahkan produk Azarine dengan harga 65000 diantara Somethinc dan Skintific
+2. Hapus produk Wardah
+3. Update produk Hanasui menjadi Cleora dengan harga 55000
+4. Tampilkan menu, di mana tampilan akhirnya akan menjadi seperti dibawah ini:
+![Soal_Unguided-02_Modul 3_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/fedecd77-5b3b-42ff-902e-b062d887e404)
+
+```C++
+#include <iostream>
+
+using namespace std;
+
+//Deklarasi class yang digunakan untuk elemen dalam linked list
+class node {
+public:
+    string produk_149;
+    int harga_149;
+    node* prev;
+    node* next;
+};
+
+//Deklaras class 'doublelinkedlist' yang akan mewakili double linked list
+class doublelinkedlist {
+public:
+    node *head;
+    node* tail;
+    doublelinkedlist() {
+        head = nullptr;
+        tail = nullptr;
+    }
+
+//Fungsi untuk menambahkan node baru ke depan linked list
+    void push(string produk_149, int harga_149) {
+        node* newNode = new node;
+        newNode->harga_149 = harga_149;
+        newNode->produk_149 = produk_149;
+        newNode->prev = nullptr;
+        newNode->next = head;
+
+        if (head != nullptr) {
+            head->prev = newNode;
+        }
+        else {
+            tail = newNode;
+        }
+        head = newNode;
+    }
+
+//Fungsi untuk memnghapus node pertama dari linked list
+    void pop() {
+        if (head == nullptr) {
+            return;
+        }
+
+        node* temp = head;
+        head = head->next;
+
+        if (head != nullptr) {
+            head->prev = nullptr;
+        }
+        else {
+            tail = nullptr;
+        }
+        delete temp;
+    }
+
+//Fungsi untuk memoerbarui harga dan nama produk dari suatu node dalam linked list
+    bool update(int hargaBaru, string produkLama, string produkBaru) {
+        node* current = head;
+        while (current != nullptr) {
+            if (current->produk_149 == produkLama) {
+                current->produk_149 = produkBaru;
+                current->harga_149 = hargaBaru;
+                return true;
             }
-            cout << endl;
+            current = current->next;
+        }
+        return false;
+    }
+
+//Fungsi untuk menambahkan node baru pada posisi tertentu
+    void tambahData(int posisi, int harga_149, string produk_149) {
+        if (posisi < 1) {
+            cout << "Posisi harus lebih dari 0" << endl;
+            return;
+        }
+
+        if (head == nullptr || posisi == 1) {
+            push(produk_149, harga_149);
+            return;
+        }
+
+        node* current = head;
+        for (int y = 1; y < posisi - 1 && current->next != nullptr; y++) {
+            current = current->next;
+        }
+
+        node* newNode = new node;
+        newNode->harga_149 = harga_149;
+        newNode->produk_149 = produk_149;
+        newNode->next = current->next;
+        newNode->prev = current;
+        if (current->next != nullptr) {
+            current->next->prev = newNode;
+        }
+        current->next = newNode;
+        if (newNode->next == nullptr) {
+            tail = newNode;
+        }
+    }
+
+//Fungsi untuk menghapus node pada posisi tertentu
+    void hapusData(int posisi) {
+        if (posisi < 1) {
+            cout << "Posisi harus lebih dari 0" << endl;
+            return;
+        }
+
+        if (head == nullptr) {
+            return;
+        }
+
+        if (posisi == 1) {
+            node* temp = head;
+            head = head->next;
+            if (head != nullptr) {
+                head->prev = nullptr;
+            }
+            else {
+                tail = nullptr;
+            }
+            delete temp;
+            return;
+        }
+
+        node* current = head;
+        for (int i = 1; current != nullptr && i < posisi; i++) {
+            current = current->next;
+        }
+
+        if (current == nullptr) {
+            cout << "Posisi melebihi panjang list" << endl;
+            return;
+        }
+
+        current->prev->next = current->next;
+        if (current->next != nullptr) {
+            current->next->prev = current->prev;
+        } else {
+            tail = current->prev;
+        }
+        delete current;
+    }
+
+//Fungsi untuk menghapus semua node 
+    void deleteAll() {
+        node* current = head;
+        while (current != nullptr) {
+            node* temp = current;
+            current = current->next;
+            delete temp;
+        }
+        head = nullptr;
+        tail = nullptr;
+    }
+
+//Fungsi untuk menampilkan isi linked list
+    void display() {
+        node* current = head;
+        while (current != nullptr) {
+            cout << current->produk_149 << " " << current->harga_149 << endl;
+            current = current->next;
         }
         cout << endl;
     }
+};
 
+int main() {
+    doublelinkedlist list;
+    cout << "menu\n";
+    list.push("Hanasui", 30000);
+    list.push("Wardah", 50000);
+    list.push("Skintific", 100000);
+    list.push("Somethinc", 150000);
+    list.push("Originote", 60000);
+    list.display();
+    int pilih_149;
+    while (true) {
+        cout<<"-----------------------------\n";
+        cout << "TOKO SKINCARE PURWOKERTO\n";
+        cout<<"-----------------------------\n";
+        cout<<endl;
+        cout << "1. Tambah Data\n";
+        cout << "2. Hapus Data\n";
+        cout << "3. Update Data\n";
+        cout << "4. Tambah Data Urutan Tertentu\n";
+        cout << "5. Hapus Data Urutan Tertentu\n";
+        cout << "6. Hapus Seluruh Data\n";
+        cout << "7. Tampilkan Data\n";
+        cout << "8. Exit\n";
+        cout<<endl;
+        cout<<"Masukkan Pilihan Anda: "; cin >> pilih_149;
+        switch (pilih_149) {
+            case 1: {
+                int harga_149;
+                string produk_149;
+                cout << "INPUT NAMA PRODUK : ";
+                cin>>produk_149;
+                cout << "INPUT HARGA : ";
+                cin >> harga_149;
+                list.push(produk_149, harga_149);
+                break;
+            }
+            case 2: {
+                list.pop();
+                break;
+            }
+            case 3: {
+                string produkLama, produkBaru;
+                int hargaBaru;
+                cout << "MASUKKAN PRODUK LAMA : ";
+                cin>>produkLama;
+                cout << "MASUKKAN PRODUK BARU : ";
+                cin>> produkBaru;
+                cout << "MASUKKAN HARGA PRODUK : ";
+                cin >> hargaBaru;
+                list.update(hargaBaru, produkLama, produkBaru);
+                break;
+            }
+            case 4: {
+                int posisi;
+                int harga_149;
+                string produk_149;
+                cout << "INPUT NAMA PRODUK : ";
+                cin>>produk_149;
+                cout << "INPUT HARGA : ";
+                cin >> harga_149;
+                cout << "INPUT POSISI : ";
+                cin >> posisi;
+                list.tambahData(posisi, harga_149, produk_149);
+                cout << "DATA BARU DITAMBAHKAN PADA POSISI : " << posisi;
+                break;
+            }
+            case 5: {
+                int posisi;
+                cout << "POSISI DATA YANG DIHAPUS : ";
+                cin >> posisi;
+                list.hapusData(posisi);
+                cout << "DATA " << posisi << " DIHAPUS\n";
+                break;
+            }
+            case 6: {
+                list.deleteAll();
+                break;
+            }
+            case 7: {
+                list.display();
+                break;
+            }
+            case 8: {
+                return 0;
+            }
+            default: {
+                cout << "Input anda masukkan tidak sesuai\n";
+                break;
+            }
+        }
+    }
     return 0;
 }
 
 ```
 #### Output: 
-![Output Unguided2_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/34237a9d-bfa9-444b-8f06-0591ecb37e8e)
+![Output Unguided 2 1 Modul 3 Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/b143d396-a271-41ff-ba60-255bb1e3c51c) <br/>
+![Output Unguided 2 2 Modul 3 Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/45881d6d-b9c6-4104-b04d-756c096c3e9e) <br/>
+![Output Unguided 2 3 Modul 3 Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/29e9aa0a-4b17-4812-8619-9ab2d892ebba)<br/>
 
-Program di atas merupakan sebuah program dalam bahasa pemrograman C++ yang meminta user untuk memasukkan ukuran array tiga dimensi (x, y, dan z), mengisi array tersebut dengan nilai yang dimasukkan pengguna, dan kemudian menampilkan nilai dari setiap elemen array beserta indeksnya. Selain itu, program juga menampilkan elemen array dalam format tiga dimensi dengan mengatur baris dan kolom sesuai dengan indeksnya.
 
 
-  ### 3. [Buatlah program menu untuk mencari nilai Maksimum, Minimum dan Nilai rata – rata dari suatu array dengan input yang dimasukan oleh user!]
 
-```C++
-
-//Satrio Wibowo
-//2311102149
-
-#include <iostream> 
-using namespace std; 
- 
-int bilangan_149[10]; 
-int main(){ 
-
-int pilihan_149; 
-int i; 
-cout<<" =============="<<endl;
-cout<<"      MENU     "<<endl;
-cout<<" =============="<<endl;
-
-cout<<" 1. Input Array"<<endl;
-cout<<" 2. Tampil Array"<<endl; 
-cout<<" 3. Cari Nilai Minimum"<<endl;
-cout<<" 4. Cari Nilai Maksimum"<<endl; 
-cout<<" 5. Hitung Rata-rat"<<endl; 
-
-cout<<endl; 
-cout<<" Masukkan Pilihan: "; 
-cin >>pilihan_149 ; 
-cout << endl; 
-switch (pilihan_149){ 
-//Input Array 
-case 1: 
-for ( i=0; i < 10; i++ ) { 
-    cout << " Masukan Array ke " << i+1 << " : "; 
-    cin >> bilangan_149[i]; 
-        if ( i == 9 ) { 
-            cout << " Berhasil menginput Array ... " <<endl; 
-    } 
-} 
-break; 
-
-//Tampil Array 
-case 2: 
-for ( i=0; i < 10; i++ ) { 
-    cout << "Array ke " << i+1 << " : " << bilangan_149[i] << endl; 
-} 
-break; 
-
-//Nilai Minimum Array 
-case 3: 
-int minimal, terkecil; 
-minimal = bilangan_149[0]; 
-    for( i=0; i < 10; i++) { 
-         terkecil = min(minimal,bilangan_149[i]); 
-    } 
-        cout << " Nilai Minimum Adalah : " << terkecil << endl; 
-break; 
-
-//Nilai Maksimum Array 
-case 4: 
-int maksimal, terbesar; 
-maksimal = bilangan_149[0]; 
-for( i=0; i < 10; i++) { 
-    terbesar = max(maksimal,bilangan_149[i]); 
-    } 
-        cout << " Nilai Maksimum Adalah : " << terbesar << endl; 
-            if ( terbesar == 0) { 
-                cout << " ket : Jika nilai 0 silahkan inputkan array! " <<endl; 
-    } 
-break; 
-
-//Mencari Nilai Rata - rata
-case 5: 
-float sum; 
-sum = 0; 
-for ( i=0; i < 10; i++ ) {
-    sum = sum + bilangan_149[i]; 
-} 
-cout << " Total Nilai: " << sum << endl; 
-cout << " Rata-Rata adalah: " << sum/10 << endl;
-if ( sum == 0) { 
-        cout << " ket : Jika nilai 0 silahkan input array ! " << endl; 
-} 
-        cout << endl; 
-break;
-
-//Output jika salah memasukkan pilihan
-default:
-cout<<"Pilihan yang anda masukkan salah, silahkan inputkan ulang pilihan anda!"<<endl;
-break;
-        
-} 
-    system ("pause");
-    system ("cls"); 
-    main(); 
-    return 0; 
-}
-```
-#### Output: 
-![Output Unguided3 1_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/6af9123a-f072-4bbf-afde-7d2f574cf04e)
-![Output Unguided 3 2_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/5d31b3c3-3b91-4506-b45b-5bfb498bd745)
-![Output Unguided 3 3_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/61362529-9d47-47f0-96c7-49499fef383a)
-![Output Unguided 3 4_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/c9ba6fa9-181d-48ad-9967-b9ee28c7af12)
-![Output Unguided 3 5_Satrio Wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/1a6fb8d0-03a8-4b6c-8c41-1c50d4c5cd43)
-
-Program tersebut memiliki 5 case yang berbeda, pada case pertama kita diharuskan menginputkan array terlebih dahulu. Untuk menginput dan tercetak 10 array yang kita inputkan maka menggunakan statement for(i=0;i<10;i++). Pada case ke 2 akan ditampilkan array yang telah kita inputkan. Pada case ke 3 kita mencari nilai minimum
-dari indeks yang telah diinputkan dari pilihan 1. Pada case 4 program menampilkan nilai maksimum dari yang kita inputkan ada pilihan 1. Pada case 5 program mencari rata rata dari semua bilangan yang telah kita inputkan dengan menggunakan rumus sum/10, yang berarti rata rata = total nilai%banyaknya bilangan.
 
 
 ## Kesimpulan
-Array merupakan struktur data yang fundamental dalam pemrograman, memungkinkan pengguna untuk menyimpan dan mengelola kumpulan data dalam satu variabel. Penting untuk dicatat bahwa pendeklarasian mengalokasikan memori secara statis, sehingga ukuran array harus ditentukan sebelum penggunaannya. Namun demikian, array memiliki keunggulan antara lain  memudahkan pengolahan data dengan menyediakan cara efisien untuk mengakses dan memanipulasi elemen-elemen dalam array menggunakan perulangan dan operasi array.  Array juga memungkinkan penggunaan memori yang efisien dan operasi yang cepat, menjadikannya pilihan yang sangat berguna untuk pemrosesan data massal seperti pengolahan gambar, pengolahan sinyal, dan analisis data besar lainnya. Oleh karena itu, array menjadi kunci penting dalam pengembangan program komputer yang efektif dan efisien.
+Dari praktikum yang telah dilakukan dapat disimpulkan bahwa Single Linked List terhubung dan Double Linked List adalah struktur data yang digunakan untuk menyimpan dan mengelola data dalam urutan tertentu. SSL memiliki pointer ke node berikutnya dan menyimpan data, sedangkan DLL memungkinkan navigasi maju dan mundur. Linked list memiliki batas data yang dinamis tidak seperti array yang statis.
 
 ## Referensi
-[1] Muhammad Taufik Dwi Putra, Deden Pradeka, dan Ana Rahma Yuniati. Belajar Dasar Pemrograman dengan C++. Bandung: Widina Media Utama, 2022.<br/>
-[2] Shofyann Hanief, Wayan Jepriana., Konsep Algoritme dan Aplikasinya dalam Bahasa Pemrograman C++. Yogyakarta: Andi Publisher, 2020.
+[1]  Abu Sara, M. R., Klaib, M. F. J., & Hasan, M. (2021). Hybrid Array List: An Efficient Dynamic Array with Linked List Structure. Indonesia Journal on Computing (Indo-JC), 5(3), 47-62. <br/>
+[2] Clinton L. Jeffery. Build Your Own Programming Language: A programmer's guide to designing compilers, interpreters, and DSLs for solving modern computing problems. United Kingdom: Packt Publishing Ltd. 2021.
