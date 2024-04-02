@@ -1030,5 +1030,10 @@ Sementara itu, linked list non-circular lebih sederhana dalam implementasinya da
 
 
 ## Referensi
-[1]  Abu Sara, M. R., Klaib, M. F. J., & Hasan, M. (2021). Hybrid Array List: An Efficient Dynamic Array with Linked List Structure. Indonesia Journal on Computing (Indo-JC), 5(3), 47-62. <br/>
-[2] Clinton L. Jeffery. Build Your Own Programming Language: A programmer's guide to designing compilers, interpreters, and DSLs for solving modern computing problems. United Kingdom: Packt Publishing Ltd. 2021.
+[1] Abu Sara, M. R., Klaib, M. F. J., & Hasan, M. (2021). Hybrid Array List: An Efficient Dynamic Array with Linked List Structure. Indonesia Journal on Computing (Indo-JC), 5(3), 47-62. <br/>
+[2] Asisten Praktikum. Modul 4 Linked Liar Circular dan Non Circular. 2024. <br/>
+[3] GeeksforGeeks. 2023, November 14. Circular Linked List[online]. Available: https://www.geeksforgeeks.org/circular-linked-list/ <br/>
+
+
+
+
