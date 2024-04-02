@@ -1,12 +1,13 @@
 #include <iostream>
-#include <iomanip>
-#include <string>
+#include <iomanip> //Impor library  iomanip untuk mengatur format
+#include <string> //Import library string untuk penggunaan tipe data string
 using namespace std;
 
+//Deklarasi class Node untuk mepresentasikan  node dari linked list
 class Node {
 public:
-    string nama_149;
-    string nim_149;
+    string nama_149; //variabel untuk menyimpan data nama dengan tipe data string
+    string nim_149; //variabel untuk menyimpan data nim mhs dengan tipe data string
     Node* next;
 
     Node(string nama_149, string nim_149) {
@@ -19,17 +20,19 @@ public:
 class LinkedList {
 public:
     Node* head;
-
+    //Konstruktor class linked list untuk inisialisasi head  menjadi NULL
     LinkedList() {
         head = nullptr;
     }
 
+    //Fungsi untuk tambah depan
     void tambahDepan(string nama_149, string nim_149) {
         Node* newNode = new Node(nama_149, nim_149);
         newNode->next = head;
         head = newNode;
     }
 
+    //Fungsi untuk tambah belakang
     void tambahBelakang(string nama_149, string nim_149) {
         Node* newNode = new Node(nama_149, nim_149);
         if (head == nullptr) {
@@ -43,6 +46,7 @@ public:
         temp->next = newNode;
     }
 
+    //Fungsi untuk tambah tengah
     void tambahTengah(string nama_149, string nim_149, int posisi) {
         if (posisi < 1) {
             cout << "Posisi tidak valid" << endl;
@@ -70,6 +74,7 @@ public:
         temp->next = newNode;
     }
 
+    //FUngsi untuk ubah depan
     void ubahDepan(string nama_149, string nim_149) {
         if (head == nullptr) {
             cout << "List kosong" << endl;
@@ -79,6 +84,7 @@ public:
         head->nim_149 = nim_149;
     }
 
+    //Fungsi untuk ubah belakang
     void ubahBelakang(string nama_149, string nim_149) {
         if (head == nullptr) {
             cout << "List kosong" << endl;
@@ -92,6 +98,7 @@ public:
         temp->nim_149 = nim_149;
     }
 
+    //Fungsi untuk ubah tengah
     void ubahTengah(string nama_149, string nim_149, int posisi) {
         if (head == nullptr) {
             cout << "List kosong" << endl;
@@ -113,6 +120,7 @@ public:
         temp->nim_149 = nim_149;
     }
 
+    //Fungsi untuk hapus depan
     void hapusDepan() {
         if (head == nullptr) {
             cout << "List kosong" << endl;
@@ -123,6 +131,7 @@ public:
         delete temp;
     }
 
+    //Fungsi untuk hapus belakang
     void hapusBelakang() {
         if (head == nullptr) {
             cout << "List kosong" << endl;
@@ -141,6 +150,7 @@ public:
         temp->next = nullptr;
     }
 
+    //Fungsi untuk hapus tengah
     void hapusTengah(int posisi) {
         if (head == nullptr) {
             cout << "List kosong" << endl;
@@ -170,6 +180,7 @@ public:
         delete curr;
     }
 
+    //Fungsi untuk hapus semua data
     void hapusList() {
         while (head != nullptr) {
             Node* temp = head;
@@ -178,6 +189,7 @@ public:
         }
     }
 
+    //Fungsi untuk menampilkan semua data
     void tampilkan() {
         if (head == nullptr) {
             cout << "List kosong" << endl;
@@ -195,7 +207,7 @@ public:
 int main() {
     LinkedList linkedList;
 
-    int pilihan_149, posisi;
+    int pilihan_149, posisi; //variabel untuk menyimpan pilihan
     string nama_149, nim_149;
 
     while (true) {
@@ -226,7 +238,7 @@ int main() {
                 cin >> nama_149;
                 cout << "Masukkan NIM: ";
                 cin >> nim_149;
-                linkedList.tambahDepan(nama_149, nim_149);
+                linkedList.tambahDepan(nama_149, nim_149); //Summon fungsi tambah depan
                 cout<<"Data berhasil ditambahkan!"<<endl;
                 break;
             case 2:
@@ -234,7 +246,7 @@ int main() {
                 cin >> nama_149;
                 cout << "Masukkan NIM: ";
                 cin >> nim_149;
-                linkedList.tambahBelakang(nama_149, nim_149);
+                linkedList.tambahBelakang(nama_149, nim_149); //summon fungsi tambah belakang
                 cout<<"Data berhasil ditambahkan!"<<endl;
                 break;
             case 3:
@@ -244,7 +256,7 @@ int main() {
                 cin >> nim_149;
                 cout << "Masukkan Posisi: ";
                 cin >> posisi;
-                linkedList.tambahTengah(nama_149, nim_149, posisi);
+                linkedList.tambahTengah(nama_149, nim_149, posisi); //summon fungsi tambah tengah
                 cout<<"Data berhasil ditambahkan!"<<endl;
                 break;
             case 4:
@@ -252,7 +264,7 @@ int main() {
                 cin >> nama_149;
                 cout << "Masukkan NIM : ";
                 cin >> nim_149;
-                linkedList.ubahDepan(nama_149, nim_149);
+                linkedList.ubahDepan(nama_149, nim_149); //summon fungsi ubah depan
                 cout<<"Data berhasil diperbarui!"<<endl;
                 break;
             case 5:
@@ -260,7 +272,7 @@ int main() {
                 cin >> nama_149;
                 cout << "Masukkan NIM : ";
                 cin >> nim_149;
-                linkedList.ubahBelakang(nama_149, nim_149);
+                linkedList.ubahBelakang(nama_149, nim_149); //summon fungsi ubah belakang
                 cout<<"Data berhasil diperbarui!"<<endl;
                 break;
             case 6:
@@ -270,29 +282,29 @@ int main() {
                 cin >> nim_149;
                 cout << "Masukkan Posisi: ";
                 cin >> posisi;
-                linkedList.ubahTengah(nama_149, nim_149, posisi);
+                linkedList.ubahTengah(nama_149, nim_149, posisi); //summon fungsi ubah tengah
                 cout<<"Data berhasil diperbarui!"<<endl;
                 break;
             case 7:
-                linkedList.hapusDepan();
+                linkedList.hapusDepan(); //summon fungsi hapus depan
                 cout<<"Data berhasil dihapus\n";
                 break;
             case 8:
-                linkedList.hapusBelakang();
+                linkedList.hapusBelakang(); //summon fungsi hapus belakang
                 cout<<"Data berhasil dihapus\n";
                 break;
             case 9:
                 cout << "Masukkan Posisi: ";
                 cin >> posisi;
-                linkedList.hapusTengah(posisi);
+                linkedList.hapusTengah(posisi); //summon fungsi hapus tengah
                 cout<<"Data berhasil dihapus\n";
                 break;
             case 10:
-                linkedList.hapusList();
+                linkedList.hapusList(); //summon fungsi  hapus list
                 cout<<"Semua data telah dihapus."<<endl;
                 break;
             case 11:
-                linkedList.tampilkan();
+                linkedList.tampilkan(); //summon fungsi tampil data
                 break;
             default:
                 cout << "Pilihan tidak valid!" << endl;
