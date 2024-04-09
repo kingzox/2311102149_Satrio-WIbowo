@@ -1,986 +1,313 @@
-# <h1 align="center">Laporan Praktikum Modul 4 - LINKED LIST CIRCULAR DAN NON CIRCULAR</h1>
+# <h1 align="center">Laporan Praktikum Modul 5 - HASH TABLE</h1>
 <p align="center">Satrio Wibowo - 2311102149</p>
 
+tahap edit
+
 ## Dasar Teori
-1. Linked List Non Circular<br/>
-
-Linked list non-circular adalah suatu struktur data yang terdiri dari simpul-simpul yang tidak saling terhubung antara simpul pertama (head) dan simpul terakhir (tail). Dalam linked list ini, pointer yang menunjuk ke simpul terakhir memiliki nilai 'NULL', yang menandakan akhir dari data dalam list tersebut. Ini berbeda dengan linked list circular di mana simpul terakhirnya mengarah kembali ke simpul pertama. Dalam penggunaannya, linked list non-circular memungkinkan penambahan dan penghapusan elemen dengan mengatur pointer secara tepat, sehingga menjaga konsistensi dan integritas data. Linked 
-list non circular dapat digambarkan sebagai berikut:<br/>
-
-![image](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/0fab43c2-3b95-44ae-ba7c-cb609b38cc1d)
-
-2. Linked List Circular<br/>
-Linked list circular adalah struktur data di mana simpul terakhir (tail) tidak memiliki nilai 'NULL' dan terhubung kembali dengan simpul pertama (head), menciptakan siklus tertutup dalam urutan simpulnya. Dalam penggunaannya, linked list circular membutuhkan node tambahan yang disebut node current untuk mengontrol iterasi data, memastikan program berhenti pada simpul awal setelah melakukan serangkaian operasi. Linked list circular berguna untuk menyimpan data yang perlu diakses secara berulang, seperti daftar putar lagu, antrian pesan, atau penggunaan memori berulang dalam aplikasi tertentu. Keberadaan siklus tertutup memungkinkan akses efisien ke data yang berulang tanpa memerlukan akhir yang jelas pada struktur data. Linked list circular dapat
-digambarkan sebagai berikut: <br/>
-
-![image](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/f37e2d82-9122-464e-9df2-00c068227cbb)
-
-
 
 
 
 ## Guided
 
-### 1. [Linked list non circular]
+### 1. [Latihan Hash Table]
 
 ```C++
 #include <iostream>
 
 using namespace std;
 
-// PROGRAM SINGLE LINKED LIST NON-CIRCULAR
+const int MAX_SIZE = 10;
 
-// Deklarasi struct node
+// Fungsi Hash Sederhana
+int hash_func(int key)
+{
+    return key % MAX_SIZE;
+}
+
+// Struktur Data Untuk Setiap Node
 struct Node
 {
-    int data;
+    int key;
+    int value;
     Node *next;
+    Node(int key, int value) : key(key), value(value), next(nullptr) {}
 };
 
-Node *head; // Deklarasi head
-Node *tail; // Deklarasi tail
-
-// Inisialisasi Node
-void init()
+// Class Hash Table
+class HashTable
 {
-    head = NULL;
-    tail = NULL;
-}
+private:
+    Node **table;
 
-// Pengecekkan apakah linked list kosong
-bool isEmpty()
-{
-    if (head == NULL)
+public:
+    HashTable()
     {
-        return true;
+        table = new Node *[MAX_SIZE]();
     }
-    else
+    ~HashTable()
     {
-        return false;
-    }
-}
-    // Tambah depan
-    void insertDepan(int nilai)
-    {
-
-        // buat node baru
-        Node *baru = new Node();
-        baru->data = nilai;
-        baru->next = NULL;
-        if (isEmpty() == true)
+        for (int i = 0; i < MAX_SIZE; i++)
         {
-            head = tail = baru;
-            head->next = NULL;
-        }
-        else
-        {
-            baru->next = head;
-            head = baru;
-        }
-    }
-
-    // Tambah belakang
-    void insertBelakang(int nilai)
-    {
-        // buat node baru
-        Node *baru = new Node();
-        baru->data = nilai;
-        baru->next = NULL;
-        if (isEmpty() == true)
-        {
-            head = tail = baru;
-            head->next = NULL;
-        }
-        else
-        {
-            tail->next = baru;
-            tail = baru;
-        }
-    }
-
-    // Hitung jumlah list
-    int hitungList()
-    {
-        Node *hitung;
-        hitung = head;
-        int jumlah = 0;
-        while (hitung != NULL)
-        {
-            jumlah++;
-            hitung = hitung->next;
-        }
-        return jumlah;
-    }
-
-    // Tambah tengah
-    void insertTengah(int data, int posisi)
-    {
-        if (posisi < 1 || posisi > hitungList())
-        {
-            cout << "Posisi di luar jangkauan" << endl;
-        }
-        else if (posisi == 1)
-        {
-            cout << "Posisi bukan posisi tengah" << endl;
-        }
-        else
-        {
-            Node *baru, *bantu;
-            baru = new Node();
-            baru->data = data;
-
-            // tranversing
-            bantu = head;
-            int nomor = 1;
-            while (nomor < posisi - 1)
+            Node *current = table[i];
+            while (current != nullptr)
             {
-                bantu = bantu->next;
-                nomor++;
-            }
-
-            baru->next = bantu->next;
-            bantu->next = baru;
-        }
-    }
-
-    // Hapus depan
-    void hapusDepan()
-    {
-        Node *hapus;
-        if (isEmpty() == false)
-        {
-            if (head->next != NULL)
-            {
-                hapus = head;
-                head = head->next;
-                delete hapus;
-            }
-            else
-            {
-                head = tail = NULL;
+                Node *temp = current;
+                current = current->next;
+                delete temp;
             }
         }
-        else
-        {
-            cout << "Linked list masih kosong" << endl;
-        }
+        delete[] table;
     }
 
-    // Hapus belakang
-    void hapusBelakang()
+    // Insertion
+    void insert(int key, int value)
     {
-        Node *hapus;
-        Node *bantu;
-        if (isEmpty() == false)
+        int index = hash_func(key);
+        Node *current = table[index];
+        while (current != nullptr)
         {
-            if (head != tail)
+            if (current->key == key)
             {
-                hapus = tail;
-                bantu = head;
-                while (bantu->next != tail)
+                current->value = value;
+                return;
+            }
+            current = current->next;
+        }
+        Node *node = new Node(key, value);
+        node->next = table[index];
+        table[index] = node;
+    }
+
+    // Searching
+    int get(int key)
+    {
+        int index = hash_func(key);
+        Node *current = table[index];
+        while (current != nullptr)
+        {
+            if (current->key == key)
+            {
+                return current->value;
+            }
+            current = current->next;
+        }
+        return -1;
+    }
+
+    // Deletion
+    void remove(int key)
+    {
+        int index = hash_func(key);
+        Node *current = table[index];
+        Node *prev = nullptr;
+        while (current != nullptr)
+        {
+            if (current->key == key)
+            {
+                if (prev == nullptr)
                 {
-                    bantu = bantu->next;
+                    table[index] = current->next;
                 }
-                tail = bantu;
-                tail->next = NULL;
-                delete hapus;
-            }
-            else
-            {
-                head = tail = NULL;
-            }
-        }
-        else
-        {
-            cout << "Linked list masih kosong" << endl;
-        }
-    }
-    // Hapus tengah
-    void hapusTengah(int posisi)
-    {
-        Node *hapus, *bantu, *sebelum;
-        if (posisi < 1 || posisi > hitungList())
-        {
-            cout << "Posisi di luar jangkauan" << endl;
-        }
-        else if (posisi == 1)
-        {
-            cout << "Posisi bukan posisi tengah" << endl;
-        }
-        else
-        {
-            int nomor = 1;
-            bantu = head;
-            while (nomor <= posisi)
-            {
-                if (nomor == posisi - 1)
+                else
                 {
-                    sebelum = bantu;
+                    prev->next = current->next;
                 }
-                if (nomor == posisi)
-                {
-                    hapus = bantu;
-                }
-                bantu = bantu->next;
-                nomor++;
+                delete current;
+                return;
             }
-            sebelum->next = bantu;
-            delete hapus;
+            prev = current;
+            current = current->next;
         }
     }
 
-    // ubah depan
-    void ubahDepan(int data)
+    // Traversal
+    void traverse()
     {
-        if (isEmpty() == 0)
+        for (int i = 0; i < MAX_SIZE; i++)
         {
-            head->data = data;
-        }
-        else
-        {
-            cout << "Linked list masih kosong" << endl;
-        }
-    }
-
-    // ubah tengah
-    void ubahTengah(int data, int posisi)
-    {
-        Node *bantu;
-        if (isEmpty() == 0)
-        {
-            if (posisi < 1 || posisi > hitungList())
+            Node *current = table[i];
+            while (current != nullptr)
             {
-                cout << "Posisi di luar jangkauan" << endl;
-            }
-            else if (posisi == 1)
-            {
-                cout << "Posisi bukan posisi tengah" << endl;
-            }
-            else
-            {
-                int nomor = 1;
-                bantu = head;
-                while (nomor < posisi)
-                {
-                    bantu = bantu->next;
-                    nomor++;
-                }
-                bantu->data = data;
+                cout << current->key << " : " << current->value << endl;
+                current = current->next;
             }
         }
-        else
-        {
-            cout << "Linked list masih kosong" << endl;
-        }
     }
-
-    // ubah belakang
-    void ubahBelakang(int data)
-    {
-        if (isEmpty() == 0)
-        {
-            tail->data = data;
-        }
-        else
-        {
-            cout << "Linked list masih kosong" << endl;
-        }
-    }
-
-    // Hapus list
-    void clearList()
-    {
-        Node *bantu, *hapus;
-        bantu = head;
-        while (bantu != NULL)
-        {
-            hapus = bantu;
-            bantu = bantu->next;
-            delete hapus;
-        }
-        head = tail = NULL;
-        cout << "List berhasil terhapus!" << endl;
-    }
-
-    // Tampilkan list
-    void tampilList()
-    {
-        Node *bantu;
-        bantu = head;
-        if (isEmpty() == false)
-        {
-            while (bantu != NULL)
-            {
-                cout << bantu->data << " ";
-                bantu = bantu->next;
-            }
-            cout << endl;
-        }
-        else
-        {
-            cout << "Linked list masih kosong" << endl;
-        }
-    }
-
-    int main()
-    {
-        init();
-        insertDepan(3);
-        tampilList();
-        insertBelakang(5);
-        tampilList();
-        insertDepan(2);
-        tampilList();
-        insertDepan(1);
-        tampilList();
-        hapusDepan();
-        tampilList();
-        hapusBelakang();
-        tampilList();
-        insertTengah(7, 2);
-        tampilList();
-        hapusTengah(2);
-        tampilList();
-        ubahDepan(1);
-        tampilList();
-        ubahBelakang(8);
-        tampilList();
-        ubahTengah(11, 2);
-        tampilList();
-
-        return 0;
-    }
-```
-Program di atas adalah sebuah implementasi dari single linked list non-circular menggunakan bahasa C++. Pertama, sebuah struktur Node dideklarasikan yang menyimpan data dan pointer ke node selanjutnya. Variabel head dan tail diinisialisasi dengan nilai NULL untuk menandakan list kosong. Selanjutnya, fungsi-fungsi dibuat untuk menambahkan data ke depan, belakang, dan tengah, serta untuk menghitung jumlah elemen, menghapus elemen di berbagai posisi, mengubah data, menghapus semua elemen, dan menampilkan isi list. Semua fungsi ini dipanggil dari dalam main function. Berikut output dari program di atas:
-3 <br/>
-3 5 <br/>
-2 3 5 <br/>
-1 2 3 5 <br/>
-2 3 5 <br/>
-2 3 <br/>
-2 7 3 <br/>
-2 3 <br/>
-1 3 <br/>
-1 8 <br/>
-1 11 <br/>
-
-### 2. [Latihan Double Linked List]
-
-```C++
-#include <iostream>
-using namespace std;
-
-// Deklarasi Struct Node
-struct Node
-{
-    string data;
-    Node* next;
 };
-
-Node* head, * tail, * baru, * bantu, * hapus;
-
-void init()
-{
-    head = NULL;
-    tail = head;
-}
-
-// Pengecekan
-int isEmpty()
-{
-    if (head == NULL)
-        return 1; // true
-    else
-        return 0; // false
-}
-
-// Buat Node Baru
-void buatNode(string data)
-{
-    baru = new Node;
-    baru->data = data;
-    baru->next = NULL;
-}
-
-// Hitung List
-int hitungList()
-{
-    bantu = head;
-    int jumlah = 0;
-    while (bantu != NULL)
-    {
-        jumlah++;
-        bantu = bantu->next;
-    }
-    return jumlah;
-}
-
-// Tambah Depan
-void insertDepan(string data)
-{
-    // Buat Node baru
-    buatNode(data);
-
-    if (isEmpty() == 1)
-    {
-        head = baru;
-        tail = head;
-        baru->next = head;
-    }
-    else
-    {
-        while (tail->next != head)
-        {
-            tail = tail->next;
-        }
-        baru->next = head;
-        head = baru;
-        tail->next = head;
-    }
-}
-
-// Tambah Belakang
-void insertBelakang(string data)
-{
-    // Buat Node baru
-    buatNode(data);
-
-    if (isEmpty() == 1)
-    {
-        head = baru;
-        tail = head;
-        baru->next = head;
-    }
-    else
-    {
-        while (tail->next != head)
-        {
-            tail = tail->next;
-        }
-        tail->next = baru;
-        baru->next = head;
-    }
-}
-
-// Tambah Tengah
-void insertTengah(string data, int posisi)
-{
-    if (isEmpty() == 1)
-    {
-        head = baru;
-        tail = head;
-        baru->next = head;
-    }
-    else
-    {
-        baru->data = data;
-        // transversing
-        int nomor = 1;
-        bantu = head;
-        while (nomor < posisi - 1)
-        {
-            bantu = bantu->next;
-            nomor++;
-        }
-        baru->next = bantu->next;
-        bantu->next = baru;
-    }
-}
-
-// Hapus Depan
-void hapusDepan()
-{
-    if (isEmpty() == 0)
-    {
-        hapus = head;
-        tail = head;
-        if (hapus->next == head)
-        {
-            head = NULL;
-            tail = NULL;
-            delete hapus;
-        }
-        else
-        {
-            while (tail->next != hapus)
-            {
-                tail = tail->next;
-            }
-            head = head->next;
-            tail->next = head;
-            hapus->next = NULL;
-            delete hapus;
-        }
-    }
-    else
-    {
-        cout << "List masih kosong!" << endl;
-    }
-}
-
-// Hapus Belakang
-void hapusBelakang()
-{
-    if (isEmpty() == 0)
-    {
-        hapus = head;
-        tail = head;
-        if (hapus->next == head)
-        {
-            head = NULL;
-            tail = NULL;
-            delete hapus;
-        }
-        else
-        {
-            while (hapus->next != head)
-            {
-                hapus = hapus->next;
-            }
-            while (tail->next != hapus)
-            {
-                tail = tail->next;
-            }
-            tail->next = head;
-            hapus->next = NULL;
-            delete hapus;
-        }
-    }
-    else
-    {
-        cout << "List masih kosong!" << endl;
-    }
-}
-
-// Hapus Tengah
-void hapusTengah(int posisi)
-{
-    if (isEmpty() == 0)
-    {
-        // transversing
-        int nomor = 1;
-        bantu = head;
-        while (nomor < posisi - 1)
-        {
-            bantu = bantu->next;
-            nomor++;
-        }
-        hapus = bantu->next;
-        bantu->next = hapus->next;
-        delete hapus;
-    }
-    else
-    {
-        cout << "List masih kosong!" << endl;
-    }
-}
-
-// Hapus List
-void clearList()
-{
-    if (head != NULL)
-    {
-        hapus = head->next;
-        while (hapus != head)
-        {
-            bantu = hapus->next;
-            delete hapus;
-            hapus = bantu;
-        }
-        delete head;
-        head = NULL;
-    }
-    cout << "List berhasil terhapus!" << endl;
-}
-
-// Tampilkan List
-void tampil()
-{
-    if (isEmpty() == 0)
-    {
-        tail = head;
-        do
-        {
-            cout << tail->data << ends;
-            tail = tail->next;
-        } while (tail != head);
-        cout << endl;
-    }
-    else
-    {
-        cout << "List masih kosong!" << endl;
-    }
-}
 
 int main()
 {
-    init();
-    insertDepan("Ayam");
-    tampil();
-    insertDepan("Bebek");
-    tampil();
-    insertBelakang("Cicak");
-    tampil();
-    insertBelakang("Domba");
-    tampil();
-    hapusBelakang();
-    tampil();
-    hapusDepan();
-    tampil();
-    insertTengah("Sapi", 2);
-    tampil();
-    hapusTengah(2);
-    tampil();
+    HashTable ht;
+    // Insertion
+    ht.insert(1, 10);
+    ht.insert(2, 20);
+    ht.insert(3, 30);
+
+    // Searching
+    cout << "Get key 1: " << ht.get(1) << endl;
+    cout << "Get key 4: " << ht.get(4) << endl;
+
+    // Deletion
+    ht.remove(4);
+
+    // Traversal
+    ht.traverse();
+
     return 0;
 }
 ```
-Program di atas merupakan sebuah program yang menggunakan single linked list circular untuk menyimpan data. Dalam program ini, digunakan struktur Node yang memiliki data bertipe string dan pointer next. Variabel head, tail, baru, bantu, dan hapus dideklarasikan sebagai pointer yang menunjuk ke Node. Fungsi-fungsi dibuat untuk menambahkan data ke depan, belakang, dan tengah; menghapus data dari depan, belakang, dan tengah; menghitung jumlah data; menampilkan data; serta menghapus semua data. Semua fungsi ini kemudian dipanggil dari dalam main function. Berikut untuk output dari program di atas:
-Ayam <br/>
-Bebek Ayam <br/>
-Bebek Ayam Cicak <br/>
-Bebek Ayam Cicak Domba <br/>
-Bebek Ayam Cicak <br/>
-Ayam Cicak <br/>
-Ayam Sapi Cicak <br/>
-Ayam Cicak <br/>
+
+### 2. [Latihan Hash Table Menggunakan Node]
+
+```C++
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// ukuran tabel hash
+const int TABLE_SIZE = 11;
+
+string name; //deklarasi variabel string name
+string phone_number; //deklarasi variabel string phone_number
+
+// Struktur Data Untuk Setiap Node
+class HashNode
+{
+//deklarasi variabel name dan phone_number
+public:
+    string name;
+    string phone_number;
+
+    HashNode(string name, string phone_number)
+    {
+        this->name = name;
+        this->phone_number = phone_number;
+    }
+};
+
+// Class HashMap
+class HashMap
+{
+private:
+    vector<HashNode*> table[TABLE_SIZE];
+
+public:
+    // Fungsi Hash Sederhana
+    int hashFunc(string key)
+    {
+        int hash_val = 0;
+        for (char c : key)
+        {
+            hash_val += c;
+        }
+        return hash_val % TABLE_SIZE;
+    }
+
+    // Tambah data
+    void insert(string name, string phone_number)
+    {
+        int hash_val = hashFunc(name);
+        for (auto node : table[hash_val])
+        {
+            if (node->name == name)
+            {
+                node->phone_number = phone_number;
+                return;
+            }
+        }
+        table[hash_val].push_back(new HashNode(name, phone_number));
+    }
+
+    // Hapus data
+    void remove(string name)
+    {
+        int hash_val = hashFunc(name);
+        for (auto it = table[hash_val].begin(); it != table[hash_val].end(); it++)
+        {
+            if ((*it)->name == name)
+            {
+                table[hash_val].erase(it);
+                return;
+            }
+        }
+    }
+
+    // Cari data berdasarkan nama
+    string searchByName(string name)
+    {
+        int hash_val = hashFunc(name);
+        for (auto node : table[hash_val])
+        {
+            if (node->name == name)
+            {
+                return node->phone_number;
+            }
+        }
+        return "";
+    }
+
+    // Cetak data
+    void print()
+    {
+        for (int i = 0; i < TABLE_SIZE; i++)
+        {
+            cout << i << ": ";
+            for (auto pair : table[i])
+            {
+                if (pair != nullptr)
+                {
+                    cout << "[" << pair->name << ", " << pair->phone_number << "]";
+                }
+            }
+        }
+    }
+};
+
+int main()
+{
+    HashMap employee_map;
+    employee_map.insert("Mistah", "1234");
+    employee_map.insert("Pastah", "5678");
+    employee_map.insert("Ghana", "91011");
+    cout << "Nomer Hp Mistah : " << employee_map.searchByName("Mistah") << endl;
+    cout << "Phone Hp Pastah : " << employee_map.searchByName("Pastah") << endl;
+    employee_map.remove("Mistah");
+    cout << "Nomer Hp Mistah setelah dihapus : " << employee_map.searchByName("Mistah") << endl << endl;
+    cout << "Hash Table : " << endl;
+    employee_map.print();
+
+    return 0;
+}
+```
+
 
 
     
 ## Unguided 
 
-### 1. [ Soal mengenai Single Linked List non Citcular]
-Buatlah program menu Linked List Non Circular untuk menyimpan Nama dan NIM mahasiswa, dengan menggunakan input dari user. Setelah membuat menu tersebut, masukkan data sesuai urutan berikut, lalu tampilkan data yang telah dimasukkan. <br/>
-
-1. Masukkan data sesuai urutan berikut. (Gunakan insert depan, belakang atau tengah). Data kedua yang dimasukkan adalah nama dan NIM anda.<br/>
-![unguided1 modul 4_soal](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/b95ab9c7-e3ee-4cf0-b145-a39c1fab033a)
-2. Tambahkan data berikut diantara Farrel dan Denis: Wati 2330004 <br/>
-3. Hapus data Denis <br/>
-4. Tambahkan data berikut di awal: Owi 2330000<br/>
-5. Tambahkan data berikut di akhir: David 23300100<br/>
-6. Ubah data Udin menjadi data berikut: Idin 23300045<br/>
-7. Ubah data terkahir menjadi berikut: Lucy 23300101<br/>
-8. Hapus data awal<br/>
-9. Ubah data awal menjadi berikut: Bagas 2330002<br/>
-10. Hapus data akhir <br/>
-11. Tampilkan seluruh data <br/>
-
+### 1. [Hash Table]
+Implementasikan hash table untuk menyimpan data mahasiswa. Setiap mahasiswa memiliki NIM dan nilai. Implementasikan fungsi untuk menambahkan data baru, menghapus data, mencari data berdasarkan NIM, dan mencari data berdasarkan nilai. Dengan ketentuan :
+1. Setiap mahasiswa memiliki NIM dan nilai.
+2. Program memiliki tampilan pilihan menu berisi poin C.
+3. Implementasikan fungsi untuk menambahkan data baru, menghapus data,
+mencari data berdasarkan NIM, dan mencari data berdasarkan rentang nilai
+(80 – 90).
 
 ```C++
-#include <iostream>
-#include <iomanip> //Impor library  iomanip untuk mengatur format
-#include <string> //Import library string untuk penggunaan tipe data string
-using namespace std;
 
-//Deklarasi class Node untuk mepresentasikan  node dari linked list
-class Node {
-public:
-    string nama_149; //variabel untuk menyimpan data nama dengan tipe data string
-    string nim_149; //variabel untuk menyimpan data nim mhs dengan tipe data string
-    Node* next;
 
-    Node(string nama_149, string nim_149) {
-        this->nama_149 = nama_149;
-        this->nim_149 = nim_149;
-        this->next = nullptr;
-    }
-};
+  
+   
+   
+    
+  
 
-class LinkedList {
-public:
-    Node* head;
-    //Konstruktor class linked list untuk inisialisasi head  menjadi NULL
-    LinkedList() {
-        head = nullptr;
-    }
-
-    //Fungsi untuk tambah depan
-    void tambahDepan(string nama_149, string nim_149) {
-        Node* newNode = new Node(nama_149, nim_149);
-        newNode->next = head;
-        head = newNode;
-    }
-
-    //Fungsi untuk tambah belakang
-    void tambahBelakang(string nama_149, string nim_149) {
-        Node* newNode = new Node(nama_149, nim_149);
-        if (head == nullptr) {
-            head = newNode;
-            return;
-        }
-        Node* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-    }
-
-    //Fungsi untuk tambah tengah
-    void tambahTengah(string nama_149, string nim_149, int posisi) {
-        if (posisi < 1) {
-            cout << "Posisi tidak valid" << endl;
-            return;
-        }
-        Node* newNode = new Node(nama_149, nim_149);
-        if (posisi == 1) {
-            newNode->next = head;
-            head = newNode;
-            return;
-        }
-        Node* temp = head;
-        for (int i = 1; i < posisi - 1; ++i) {
-            if (temp == nullptr) {
-                cout << "Posisi tidak valid" << endl;
-                return;
-            }
-            temp = temp->next;
-        }
-        if (temp == nullptr) {
-            cout << "Posisi tidak valid" << endl;
-            return;
-        }
-        newNode->next = temp->next;
-        temp->next = newNode;
-    }
-
-    //FUngsi untuk ubah depan
-    void ubahDepan(string nama_149, string nim_149) {
-        if (head == nullptr) {
-            cout << "List kosong" << endl;
-            return;
-        }
-        head->nama_149 = nama_149;
-        head->nim_149 = nim_149;
-    }
-
-    //Fungsi untuk ubah belakang
-    void ubahBelakang(string nama_149, string nim_149) {
-        if (head == nullptr) {
-            cout << "List kosong" << endl;
-            return;
-        }
-        Node* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
-        }
-        temp->nama_149 = nama_149;
-        temp->nim_149 = nim_149;
-    }
-
-    //Fungsi untuk ubah tengah
-    void ubahTengah(string nama_149, string nim_149, int posisi) {
-        if (head == nullptr) {
-            cout << "List kosong" << endl;
-            return;
-        }
-        Node* temp = head;
-        for (int i = 1; i < posisi; ++i) {
-            if (temp == nullptr) {
-                cout << "Posisi tidak valid" << endl;
-                return;
-            }
-            temp = temp->next;
-        }
-        if (temp == nullptr) {
-            cout << "Posisi tidak valid" << endl;
-            return;
-        }
-        temp->nama_149 = nama_149;
-        temp->nim_149 = nim_149;
-    }
-
-    //Fungsi untuk hapus depan
-    void hapusDepan() {
-        if (head == nullptr) {
-            cout << "List kosong" << endl;
-            return;
-        }
-        Node* temp = head;
-        head = head->next;
-        delete temp;
-    }
-
-    //Fungsi untuk hapus belakang
-    void hapusBelakang() {
-        if (head == nullptr) {
-            cout << "List kosong" << endl;
-            return;
-        }
-        if (head->next == nullptr) {
-            delete head;
-            head = nullptr;
-            return;
-        }
-        Node* temp = head;
-        while (temp->next->next != nullptr) {
-            temp = temp->next;
-        }
-        delete temp->next;
-        temp->next = nullptr;
-    }
-
-    //Fungsi untuk hapus tengah
-    void hapusTengah(int posisi) {
-        if (head == nullptr) {
-            cout << "List kosong" << endl;
-            return;
-        }
-        if (posisi < 1) {
-            cout << "Posisi tidak valid" << endl;
-            return;
-        }
-        if (posisi == 1) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-            return;
-        }
-        Node* prev = nullptr;
-        Node* curr = head;
-        for (int i = 1; i < posisi && curr != nullptr; ++i) {
-            prev = curr;
-            curr = curr->next;
-        }
-        if (curr == nullptr) {
-            cout << "Posisi tidak valid" << endl;
-            return;
-        }
-        prev->next = curr->next;
-        delete curr;
-    }
-
-    //Fungsi untuk hapus semua data
-    void hapusList() {
-        while (head != nullptr) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
-    }
-
-    //Fungsi untuk menampilkan semua data
-    void tampilkan() {
-        if (head == nullptr) {
-            cout << "List kosong" << endl;
-            return;
-        }
-        cout << setw(10) << left << "Nama" << setw(10) << left << "NIM" << endl;
-        Node* temp = head;
-        while (temp != nullptr) {
-            cout << setw(10) << left << temp->nama_149 << setw(10) << left << temp->nim_149 << endl;
-            temp = temp->next;
-        }
-    }
-};
-
-int main() {
-    LinkedList linkedList;
-
-    int pilihan_149, posisi; //variabel untuk menyimpan pilihan
-    string nama_149, nim_149;
-
-    while (true) {
-        cout<<"-------------------------------------------"<<endl;
-        cout << "PROGRAM SINGLE LINKED LIST NON-CIRCULAR" << endl;
-        cout<<"-------------------------------------------"<<endl;
-        cout<<endl;
-        cout << "1. Tambah Depan" << endl;
-        cout << "2. Tambah Belakang" << endl;
-        cout << "3. Tambah Tengah" << endl;
-        cout << "4. Ubah Depan" << endl;
-        cout << "5. Ubah Belakang" << endl;
-        cout << "6. Ubah Tengah" << endl;
-        cout << "7. Hapus Depan" << endl;
-        cout << "8. Hapus Belakang" << endl;
-        cout << "9. Hapus Tengah" << endl;
-        cout << "10. Hapus List" << endl;
-        cout << "11. Tampilkan" << endl;
-        cout << "0. Keluar" << endl;
-        cout << "Pilih Operasi: ";
-        cin >> pilihan_149;
-
-        switch (pilihan_149) {
-            case 0:
-                return 0;
-            case 1:
-                cout << "Masukkan Nama: ";
-                cin >> nama_149;
-                cout << "Masukkan NIM: ";
-                cin >> nim_149;
-                linkedList.tambahDepan(nama_149, nim_149); //Summon fungsi tambah depan
-                cout<<"Data berhasil ditambahkan!"<<endl;
-                break;
-            case 2:
-                cout << "Masukkan Nama: ";
-                cin >> nama_149;
-                cout << "Masukkan NIM: ";
-                cin >> nim_149;
-                linkedList.tambahBelakang(nama_149, nim_149); //summon fungsi tambah belakang
-                cout<<"Data berhasil ditambahkan!"<<endl;
-                break;
-            case 3:
-                cout << "Masukkan Nama: ";
-                cin >> nama_149;
-                cout << "Masukkan NIM: ";
-                cin >> nim_149;
-                cout << "Masukkan Posisi: ";
-                cin >> posisi;
-                linkedList.tambahTengah(nama_149, nim_149, posisi); //summon fungsi tambah tengah
-                cout<<"Data berhasil ditambahkan!"<<endl;
-                break;
-            case 4:
-                cout << "Masukkan Nama : ";
-                cin >> nama_149;
-                cout << "Masukkan NIM : ";
-                cin >> nim_149;
-                linkedList.ubahDepan(nama_149, nim_149); //summon fungsi ubah depan
-                cout<<"Data berhasil diperbarui!"<<endl;
-                break;
-            case 5:
-                cout << "Masukkan Nama : ";
-                cin >> nama_149;
-                cout << "Masukkan NIM : ";
-                cin >> nim_149;
-                linkedList.ubahBelakang(nama_149, nim_149); //summon fungsi ubah belakang
-                cout<<"Data berhasil diperbarui!"<<endl;
-                break;
-            case 6:
-                cout << "Masukkan Nama : ";
-                cin >> nama_149;
-                cout << "Masukkan NIM : ";
-                cin >> nim_149;
-                cout << "Masukkan Posisi: ";
-                cin >> posisi;
-                linkedList.ubahTengah(nama_149, nim_149, posisi); //summon fungsi ubah tengah
-                cout<<"Data berhasil diperbarui!"<<endl;
-                break;
-            case 7:
-                linkedList.hapusDepan(); //summon fungsi hapus depan
-                cout<<"Data berhasil dihapus\n";
-                break;
-            case 8:
-                linkedList.hapusBelakang(); //summon fungsi hapus belakang
-                cout<<"Data berhasil dihapus\n";
-                break;
-            case 9:
-                cout << "Masukkan Posisi: ";
-                cin >> posisi;
-                linkedList.hapusTengah(posisi); //summon fungsi hapus tengah
-                cout<<"Data berhasil dihapus\n";
-                break;
-            case 10:
-                linkedList.hapusList(); //summon fungsi  hapus list
-                cout<<"Semua data telah dihapus."<<endl;
-                break;
-            case 11:
-                linkedList.tampilkan(); //summon fungsi tampil data
-                break;
-            default:
-                cout << "Pilihan tidak valid!" << endl;
-        }
-    }
-
-    return 0;
-}
+    
+ 
+       
+               
 
 
 ```
