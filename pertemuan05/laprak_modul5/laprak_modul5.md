@@ -1,10 +1,39 @@
-# <h1 align="center">Laporan Praktikum Modul 5 - HASH TABLE</h1>
+  # <h1 align="center">Laporan Praktikum Modul 5 - HASH TABLE</h1>
 <p align="center">Satrio Wibowo - 2311102149</p>
 
-tahap edit
 
 ## Dasar Teori
+## Pengertian
+HashTable adalah jenis struktur data yang mengatur data dalam bentuk pasangan kunci-nilai. Biasanya, HashTable terdiri dari dua elemen inti: array atau vektor, dan fungsi hash. Hashing adalah metode yang digunakan untuk mengonversi kunci data menjadi indeks array yang sesuai.
 
+HashTable sering digunakan dalam implementasi struktur data seperti kamus, set, cache, dan basis data untuk menyimpan dan mencari data dengan efisien. Keuntungan utama HashTable adalah kemampuannya untuk memberikan waktu akses yang cepat, terutama ketika jumlah data besar, karena waktu aksesnya hampir konstan.
+
+## Fungsi
+Fungsi utama dari HashTable adalah untuk mengatur data ke dalam struktur yang efisien dan memungkinkan akses yang cepat terhadap data berdasarkan kunci unik yang terkait dengannya.
+
+Fungsi-fungsi yang umumnya dimiliki oleh HashTable termasuk:
+
+- Penyisipan (Insertion) : Proses menambahkan pasangan kunci-nilai ke dalam HashTable<br/>
+- Penghapusan (Deletion) : Proses menghilangkan pasangan kunci-nilai dari HashTable berdasarkan kunci yang diberikan<br/>
+- Pencarian (Search) : Proses mencari nilai yang terkait dengan kunci tertentu dalam HashTable<br/>
+- Fungsi Hash (Hash Function) : Metode yang mengubah kunci menjadi indeks array di dalam HashTable<br/>
+- Penanganan Konflik (Collision Handling) : Strategi untuk mengatasi situasi di mana dua kunci menghasilkan nilai hash yang sama<br/>
+- Pembaruan (Update) : Proses memperbarui nilai yang terkait dengan kunci tertentu dalam HashTable<br/>
+
+## Langkah Membuat Hash Table
+- Tentukan ukuran tabel hash: Pertama, tentukan ukuran tabel hash yang akan digunakan. Ukuran ini harus dipilih dengan hati-hati, karena akan memengaruhi kinerja dan efisiensi Hash Table. Pilih ukuran yang memadai untuk menyimpan semua data yang diharapkan, namun tidak terlalu besar sehingga membuang-buang memori.
+
+- Buat struktur data: Buat struktur data yang akan digunakan untuk menyimpan pasangan kunci-nilai. Ini bisa berupa array, linked list, atau kombinasi dari keduanya, tergantung pada strategi penanganan konflik yang akan digunakan.
+
+- Tentukan fungsi hash: Implementasikan fungsi hash yang akan mengonversi kunci menjadi indeks array dalam tabel hash. Fungsi hash harus memberikan distribusi yang merata untuk menghindari kolisi dan memastikan kunci tersebar secara merata di seluruh tabel hash.
+
+- Penanganan konflik: Tentukan strategi untuk menangani konflik hash, yaitu situasi di mana dua kunci menghasilkan nilai hash yang sama. Strategi umum termasuk chaining (menggunakan linked list untuk menampung nilai yang berkonflik pada indeks yang sama) atau probing (mencari lokasi kosong terdekat dalam tabel hash).
+
+- Implementasikan operasi dasar: Implementasikan operasi dasar seperti penyisipan, penghapusan, pencarian, dan pembaruan. Pastikan untuk memperhatikan strategi penanganan konflik yang telah ditentukan saat mengimplementasikan operasi-operasi ini.
+
+- Uji dan evaluasi: Setelah mengimplementasikan Hash Table, uji kinerjanya dengan menggunakan berbagai kasus uji untuk memastikan bahwa fungsi hash dan strategi penanganan konflik berfungsi seperti yang diharapkan. Lakukan evaluasi untuk memastikan bahwa Hash Table memberikan kinerja yang baik dalam hal waktu akses dan penggunaan memori.
+
+- Optimasi jika diperlukan: Jika diperlukan, lakukan optimasi pada implementasi Hash Table untuk meningkatkan kinerjanya. Ini bisa melibatkan pengoptimalan fungsi hash, strategi penanganan konflik, atau penggunaan struktur data yang lebih efisien.
 
 
 ## Guided
@@ -507,39 +536,35 @@ int main() {
 ![m5 unguided keluar](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/4e70184c-4fb8-4562-a83f-a4a9801c7f22)
 
 
+Program di atas adalah sebuah sistem manajemen data mahasiswa yang menggunakan struktur data Hash Table untuk penyimpanan data. Program ini mengizinkan user untuk menambah, menghapus, mencari, serta menampilkan data mahasiswa.
 
+Pada awalnya, program menyediakan sebuah struktur data Mahasiswa yang memiliki tiga atribut: nim_149 (NIM mahasiswa), nama_149 (nama mahasiswa), dan nilai (nilai mahasiswa). Selanjutnya, program menggunakan class HashTable untuk mengimplementasikan tabel hash dengan ukuran hash_size yang telah ditentukan sebelumnya.
 
+Kelas HashTable memiliki beberapa fungsi, antara lain:
 
+tambahData: Menambahkan data mahasiswa ke dalam tabel hash dengan menggunakan fungsi hash untuk menentukan indeks penyimpanan. <br/>
+hapusData: Menghapus data mahasiswa berdasarkan NIM dari tabel hash. <br/>
+cariDataNIM: Mencari data mahasiswa berdasarkan NIM yang diberikan. <br/>
+cariDataNilai: Mencari data mahasiswa berdasarkan rentang nilai yang diberikan. <br/>
+tampilkanData: Menampilkan semua data mahasiswa yang tersimpan dalam tabel hash. <br/>
 
+Kemudian, di dalam fungsi main, program menampilkan menu yang memungkinkan user untuk memilih operasi yang ingin dilakukan terhadap data mahasiswa, seperti menambah, menghapus, mencari, atau menampilkan data. User dapat memasukkan pilihan menu dan program akan menjalankan fungsi yang sesuai sesuai dengan pilihan yang dibuat. Perulangan akan terus berlangsung hingga User memilih untuk keluar dari program.
 
-Program di atas adalah implementasi dari struktur data linked list non circular dalam bahasa C++. Program ini menggunakan dua kelas utama, yaitu Node dan LinkedList. Kelas Node merepresentasikan setiap simpul dalam linked list dengan dua atribut yaitu nama_149 dan nim_149 yang menyimpan nama dan NIM mahasiswa serta sebuah pointer next yang menunjukkan ke simpul selanjutnya dalam linked list. Konstruktor dari kelas Node digunakan untuk inisialisasi atribut-atribut tersebut.
-
-Kelas LinkedList digunakan untuk mengatur linked list secara keseluruhan. Atribut head dari kelas LinkedList adalah pointer ke simpul pertama dalam linked list. Program ini menyediakan beberapa fungsi utama untuk mengelola linked list, antara lain:
-
-tambahDepan: Menambahkan simpul baru di depan linked list. <br/>
-tambahBelakang: Menambahkan simpul baru di belakang linked list. <br/>
-tambahTengah: Menambahkan simpul baru di posisi tertentu dalam linked list. <br/>
-ubahDepan, ubahBelakang, ubahTengah: Mengubah data pada simpul pertama, terakhir, atau di posisi tertentu dalam linked list. <br/>
-hapusDepan, hapusBelakang, hapusTengah: Menghapus simpul pertama, terakhir, atau di posisi tertentu dalam linked list. <br/>
-hapusList: Menghapus semua data dalam linked list. <br/>
-tampilkan: Menampilkan semua data dalam linked list. <br/>
-
-Fungsi-fungsi ini diimplementasikan dalam metode-metode kelas LinkedList sesuai dengan fungsionalitas yang disediakan. Selain itu, terdapat sebuah loop utama dalam fungsi main() yang memberikan menu kepada pengguna untuk memilih operasi yang ingin dilakukan terhadap linked list. Setiap operasi dipanggil dengan memanggil metode yang sesuai dari objek linkedList. Program akan terus berjalan hingga pengguna memilih untuk keluar (pilihan 0).
-
+Melalui program ini, pengguna dapat dengan mudah mengelola data mahasiswa dan melakukan operasi-operasi dasar seperti penambahan, penghapusan, pencarian berdasarkan NIM atau rentang nilai, serta penampilan keseluruhan data.
 
 ## Kesimpulan
+Hash Table merupakan struktur data yang efisien untuk menyimpan dan mengakses data dengan cepat menggunakan teknik hashing. Ini memungkinkan akses data dalam waktu yang hampir konstan dengan menggunakan kunci sebagai referensi untuk mengindeks nilai dalam struktur data.
 
-Dari praktikum yang telah dilakukan dapat disimpulkan bahwa Linked list circular dan non-circular merupakan dua jenis struktur data yang digunakan untuk menyimpan dan mengatur elemen secara dinamis. Linked list non-circular memiliki node terakhir yang tidak terhubung kembali ke node pertama, sehingga tidak membentuk lingkaran. Di sisi lain, linked list circular memiliki node terakhir yang terhubung kembali ke node pertama, membentuk lingkaran tanpa titik akhir yang jelas. 
+Keuntungan Hash Table meliputi kemampuannya untuk memberikan waktu akses yang cepat, terutama saat jumlah data besar, karena waktu aksesnya hampir konstan. Selain itu, Hash Table dapat digunakan dalam berbagai aplikasi seperti basis data, kamus, cache, dan pengindeksan karena kemampuannya untuk menyimpan dan mencari data dengan efisien. Namun, untuk mencapai efisiensi yang optimal, penting untuk memilih fungsi hash yang baik dan memiliki strategi penanganan konflik yang tepat. Konflik hash terjadi ketika dua kunci menghasilkan nilai hash yang sama, dan strategi seperti chaining atau probing digunakan untuk mengatasi situasi ini.
 
-Keuntungan dari linked list circular adalah tidak perlu adanya pointer NULL karena node terakhir menunjuk kembali ke node pertama, sehingga operasi seperti buffering atau pengulangan data dapat dilakukan lebih efisien. Namun, penggunaan linked list circular memerlukan penanganan khusus untuk menghindari deadlock atau kesalahan pengaturan pointer. 
+Secara keseluruhan, Hash Table adalah alat yang sangat berguna dalam pengelolaan data yang memungkinkan akses data cepat dan efisien berdasarkan kunci unik.
 
-Sementara itu, linked list non-circular lebih sederhana dalam implementasinya dan lebih mudah dipahami, tetapi memiliki keterbatasan dalam beberapa aplikasi yang memerlukan struktur data berbentuk lingkaran. Dengan demikian, pemilihan jenis linked list yang tepat harus didasarkan pada kebutuhan spesifik dari suatu aplikasi atau masalah yang dihadapi.
 
 
 ## Referensi
-[1] Abu Sara, M. R., Klaib, M. F. J., & Hasan, M. (2021). Hybrid Array List: An Efficient Dynamic Array with Linked List Structure. Indonesia Journal on Computing (Indo-JC), 5(3), 47-62. <br/>
-[2] Asisten Praktikum. Modul 4 Linked Liar Circular dan Non Circular. 2024. <br/>
-[3] GeeksforGeeks. 2023, November 14. Circular Linked List[online]. Available: https://www.geeksforgeeks.org/circular-linked-list/ <br/>
+[1] Santiago Tapia-Fernández, Daniel García-García, dan Pablo García-Hernandez. Key Concepts, Weakness and Benchmark on Hash Table Data Structures. 15(3). 100. Maret 2022. <br/>
+[2] Asisten Praktikum. Modul 5 Hash Table. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
+[3] Rahardja, U., Hidayanto, A. N., Lutfiani, N., Febiani, D. A., dan Aini, Q. Immutability of Distributed Hash Model on Blockchain Node Storage. Sci. J. Informatics, 8(1), 137-143. 2021.<br/>
 
 
 
