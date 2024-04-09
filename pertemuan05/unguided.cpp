@@ -113,7 +113,7 @@ int main() {
                     cin >> nim_149;
                     cout << "Masukkan nilai mahasiswa: ";
                     cin >> nilai;
-                    hashTable.tambahData(nama_149, nim_149, nilai);
+                    hashTable.tambahData(nama_149, nim_149, nilai); //memanggil fungsi tambahData pada case 1
                 }
                 break;
             case 2:
@@ -122,7 +122,7 @@ int main() {
                     string nim_149;
                     cout << "Masukkan NIM data mahasiswa yang ingin dihapus: ";
                     cin >> nim_149;
-                    hashTable.hapusData(nim_149);
+                    hashTable.hapusData(nim_149); //memanggil fungsi hapusData pada case 2
                 }
                 break;
             case 3:
@@ -132,7 +132,7 @@ int main() {
                     cout << "Masukkan NIM data mahasiswa yang ingin dicari: ";
                     cin >> nim_149;
                     {
-                        Mahasiswa* mhs = hashTable.cariDataNIM(nim_149);
+                        Mahasiswa* mhs = hashTable.cariDataNIM(nim_149); //memanggil fungsi cariData pada case 3
                         if (mhs != nullptr) {
                             cout << "Data ditemukan: NIM=" << mhs->nim_149 << ", Nama=" << mhs->nama_149 << ", Nilai=" << mhs->nilai << endl;
                         } else {
@@ -149,12 +149,12 @@ int main() {
                     cin >> nilai_min;
                     cout << "Masukkan nilai maksimum: ";
                     cin >> nilai_max;
-                    hashTable.cariDataNilai(nilai_min, nilai_max);
+                    hashTable.cariDataNilai(nilai_min, nilai_max); //memanggil fungsi cariDataNilai pada case 4
                 }
                 break;
             case 5:
                 cout << "\n========== Tampilkan Semua Data Mahasiswa ==========\n";
-                hashTable.tampilkanData();
+                hashTable.tampilkanData(); //memanggil fungsi tampilkanData pada case 5
                 break;
             case 6:
                 cout << "Anda telah keluar dari program\n";
@@ -163,7 +163,7 @@ int main() {
                 cout << "Pilihan tidak valid.\n";
                 break;
         }
-    } while (choice != 6);
+    } while (choice != 6); //perulangan untuk mengulang menu jika choice bernilai tidak sama dengan 6
 
     return 0;
 }
