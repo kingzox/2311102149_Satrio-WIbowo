@@ -157,6 +157,23 @@ int main()
 }
 ```
 
+Program di atas adalah implementasi sebuah hash table dalam bahasa C++. Pertama-tama, sebuah ukuran tabel hash ditentukan, yaitu 10. Kemudian, sebuah fungsi hash, hash_func, dibuat untuk menghasilkan nilai kunci modulo dengan ukuran maksimum tabel hash (MAX_SIZE). Fungsi hash_func bertujuan untuk menghitung indeks dari kunci yang akan dimasukkan.
+
+Selanjutnya, sebuah struktur data Node didefinisikan, yang berisi kunci (key), nilai (value), dan pointer ke node berikutnya. Node ini berfungsi untuk menyimpan data yang akan dimasukkan ke dalam tabel hash.
+
+Setelah itu, sebuah kelas HashTable dibuat yang berisi fungsi-fungsi untuk mengelola tabel hash, yaitu:
+
+Fungsi insert untuk memasukkan data ke dalam tabel hash.
+Fungsi get untuk mencari data berdasarkan kunci yang diinputkan.
+Fungsi remove untuk menghapus data berdasarkan kunci yang diinputkan.
+Output dari program tersebut adalah sebagai berikut:
+
+Get key 1: 10 <br/>
+Get key 4: -1 <br/>
+3 : 30 <br/>
+2 : 20 <br/>
+1 : 10 <br/>
+
 ### 2. [Latihan Hash Table Menggunakan Node]
 
 ```C++
@@ -282,7 +299,7 @@ int main()
 }
 ```
 
-
+Program yang diberikan adalah implementasi sederhana dari struktur data hash table dalam bahasa C++. Tujuannya adalah untuk mengorganisir dan menyimpan data pasangan nama dan nomor telepon. Struktur data utama yang digunakan adalah kelas HashMap, yang mengelola penyimpanan data dalam bentuk array vektor dari pointer ke HashNode. Setiap HashNode menyimpan informasi nama dan nomor telepon. Proses penambahan data dilakukan melalui metode insert, di mana nama dan nomor telepon baru dimasukkan ke dalam tabel hash. Jika entri dengan nama yang sama sudah ada, nomor teleponnya diperbarui. Fungsi remove digunakan untuk menghapus entri dari hash table berdasarkan nama yang diberikan. Untuk mencari nomor telepon berdasarkan nama, digunakan fungsi searchByName. Program mencetak hasil akhir dari hash table dengan metode print. Dalam fungsi main, beberapa entri ditambahkan ke hash table, lalu nomor telepon dicari dan salah satu entri dihapus. Hasil akhir dari hash table dicetak untuk dilihat. Ini adalah contoh sederhana penggunaan hash table untuk menyimpan dan mengakses data dengan efisien berdasarkan kunci unik. 
 
     
 ## Unguided 
@@ -296,41 +313,204 @@ mencari data berdasarkan NIM, dan mencari data berdasarkan rentang nilai
 (80 – 90).
 
 ```C++
+#include <iostream>
+#include <iomanip>
+#include <list>
 
+using namespace std;
 
-  
-   
-   
-    
-  
+// Struktur data untuk mahasiswa
+struct Mahasiswa {
+    string nim_149;
+    string nama_149;
+    int nilai;
+};
 
-    
- 
-       
-               
+// Ukuran tabel hash
+const int hash_size = 10;
 
+// Class Hash Table
+class HashTable {
+private:
+    list<Mahasiswa> table[hash_size];
+
+    // Fungsi hash
+    int hashFunction(const string& key) {
+        int sum = 0;
+        for (char c : key) {
+            sum += c;
+        }
+        return sum % hash_size;
+    }
+
+public:
+    // Fungsi untuk menambahkan data baru
+    void tambahData(const string& nama_149, const string& nim_149, int nilai) {
+        Mahasiswa mhs;
+        mhs.nim_149 = nim_149;
+        mhs.nama_149 = nama_149;
+        mhs.nilai = nilai;
+        int index = hashFunction(nim_149);
+        table[index].push_back(mhs);
+    }
+
+    // Fungsi untuk menghapus data
+    void hapusData(const string& nim_149) {
+        int index = hashFunction(nim_149);
+        for (auto it = table[index].begin(); it != table[index].end(); ++it) {
+            if (it->nim_149 == nim_149) {
+                table[index].erase(it);
+                break;
+            }
+        }
+    }
+
+    // Fungsi untuk mencari data berdasarkan NIM
+    Mahasiswa* cariDataNIM(const string& nim_149) {
+        int index = hashFunction(nim_149);
+        for (auto it = table[index].begin(); it != table[index].end(); ++it) {
+            if (it->nim_149 == nim_149) {
+                return &(*it);
+            }
+        }
+        return nullptr;
+    }
+
+    // Fungsi untuk mencari data berdasarkan rentang nilai
+    void cariDataNilai(int nilai_min, int nilai_max) {
+        for (int i = 0; i < hash_size; ++i) {
+            for (auto it = table[i].begin(); it != table[i].end(); ++it) {
+                if (it->nilai >= nilai_min && it->nilai <= nilai_max) {
+                    cout << "NIM: " << it->nim_149 << ", Nama: " << it->nama_149 << ", Nilai: " << it->nilai << endl;
+                }
+            }
+        }
+    }
+
+    // Fungsi untuk menampilkan semua data
+    void tampilkanData() {
+        cout << setw(10) << "NIM" << setw(20) << "Nama" << setw(10) << "Nilai" << endl;
+        for (int i = 0; i < hash_size; ++i) {
+            for (auto it = table[i].begin(); it != table[i].end(); ++it) {
+                cout << setw(10) << it->nim_149 << setw(20) << it->nama_149 << setw(10) << it->nilai << endl;
+            }
+        }
+    }
+};
+
+int main() {
+    HashTable hashTable;
+
+    // Menu
+    int choice;
+    do {
+        cout << "\n========== Program Manajemen Data Mahasiswa ==========\n";
+        cout << "Menu:\n";
+        cout << "1. Tambah Data Mahasiswa\n";
+        cout << "2. Hapus Data Mahasiswa\n";
+        cout << "3. Cari Data Mahasiswa berdasarkan NIM\n";
+        cout << "4. Cari Data Mahasiswa berdasarkan Rentang Nilai\n";
+        cout << "5. Tampilkan Semua Data Mahasiswa\n";
+        cout << "6. Keluar\n";
+        cout << "Pilihan: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                {
+                    cout << "\n========== Tambah Data Mahasiswa ==========\n";
+                    string nim_149, nama_149;
+                    int nilai;
+                    cout << "Masukkan nama mahasiswa: ";
+                    cin.ignore(); // clear newline character from buffer
+                    getline(cin, nama_149);
+                    cout << "Masukkan NIM mahasiswa: ";
+                    cin >> nim_149;
+                    cout << "Masukkan nilai mahasiswa: ";
+                    cin >> nilai;
+                    hashTable.tambahData(nama_149, nim_149, nilai); //memanggil fungsi tambahData pada case 1
+                }
+                break;
+            case 2:
+                {
+                    cout << "\n========== Hapus Data Mahasiswa ==========\n";
+                    string nim_149;
+                    cout << "Masukkan NIM data mahasiswa yang ingin dihapus: ";
+                    cin >> nim_149;
+                    hashTable.hapusData(nim_149); //memanggil fungsi hapusData pada case 2
+                }
+                break;
+            case 3:
+                {
+                    cout << "\n========== Cari Data Mahasiswa berdasarkan NIM ==========\n";
+                    string nim_149;
+                    cout << "Masukkan NIM data mahasiswa yang ingin dicari: ";
+                    cin >> nim_149;
+                    {
+                        Mahasiswa* mhs = hashTable.cariDataNIM(nim_149); //memanggil fungsi cariData pada case 3
+                        if (mhs != nullptr) {
+                            cout << "Data ditemukan: NIM=" << mhs->nim_149 << ", Nama=" << mhs->nama_149 << ", Nilai=" << mhs->nilai << endl;
+                        } else {
+                            cout << "Data tidak ditemukan.\n";
+                        }
+                    }
+                }
+                break;
+            case 4:
+                {
+                    cout << "\n========== Cari Data Mahasiswa berdasarkan Rentang Nilai ==========\n";
+                    int nilai_min, nilai_max;
+                    cout << "Masukkan nilai minimum: ";
+                    cin >> nilai_min;
+                    cout << "Masukkan nilai maksimum: ";
+                    cin >> nilai_max;
+                    hashTable.cariDataNilai(nilai_min, nilai_max); //memanggil fungsi cariDataNilai pada case 4
+                }
+                break;
+            case 5:
+                cout << "\n========== Tampilkan Semua Data Mahasiswa ==========\n";
+                hashTable.tampilkanData(); //memanggil fungsi tampilkanData pada case 5
+                break;
+            case 6:
+                cout << "Anda telah keluar dari program\n";
+                break;
+            default:
+                cout << "Pilihan tidak valid.\n";
+                break;
+        }
+    } while (choice != 6); //perulangan untuk mengulang menu jika choice bernilai tidak sama dengan 6
+
+    return 0;
+}
 
 ```
 #### Output :
-### 1. Tampilan Menu Pilihan 
+#### 1. Tampilan Menu
+![m5 unguided-tampilan menu](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/b33b937a-42c9-44e6-8f22-3a19b6b52b61)<br/>
 
-![unguided 1 1 modul 4 satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/4dd272ef-6652-4d6a-a176-47990cf13319) <br/>
+#### 2. Input Data
+![m5 unguided-input data](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/300e4c62-fa06-4dc6-b3da-25658c392af8)<br/>
 
-![unguided 1 ubah tengah](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/29c9aa5c-7644-4521-ab25-5ea525fe8d0f) <br/>
-![unguided 1 ubah depan](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/b87cba4e-185b-4a7d-a398-2bbed13489dd) <br/>
-![unguided 1 ubah belakang](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/8133eda8-2214-459c-9039-766ed15ef141)<br/>
-![unguided 1 tambah tengah modul 4 satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/cdcc1803-be18-4698-96c2-350626a174e7) <br/>
-![unguided 1 tambah depan modul 4 satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/2369a961-b023-4291-8545-e22ac24d1831) <br/>
-![unguided 1 tambah belakang modul 4 satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/c2ac812b-1762-4981-b90e-03aaecf75063) <br/>
-![unguided 1 hapus tengah modul 4 satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/d2b83407-882f-400d-b184-3fab4f1a6bf9) <br>
-![unguided 1 hapus depan](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/69917e72-fdf6-459d-b2b2-fb2a5805855e) <br/>
-![unguided 1 hapus belakang](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/7aa09278-57a9-4f39-a6e5-e85e5dc8ec17) <br/>
+#### 3. Tampil Data
+![m5 unguided tampil data 1](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/c9e350b7-57b3-4523-95ac-8a1ed5a38cd8) <br/>
 
-### 2. Inputan data
-![unguided 2 modul 4 satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/3bd33c60-7ec8-4d2d-a990-168e35499752)
+#### 4. Cari Data Berdasarkan NIM
+![m5 unguided-cari data dari nim](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/9fa4aa57-1a59-4128-bec1-df547a02db37)<br/>
 
-### 3. Hasil akhir setelah data dioperasikan
-![unguided 3 modul 4 satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/9bd78a85-a072-41df-bbf7-41df1f473b61)
+#### 5. Cari Data Berdasarkan Rentang Nilai
+![m5 unguided cari data rentang nilai](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/3fa6dcc9-d2c0-410c-bb6e-e4aa6d8e3f13)<br/>
+
+#### 6. Hapus Data
+![m5 unguided hapus data](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/445fa416-02d2-48af-9968-e838f768efff)<br/>
+
+#### 7. Keluar
+![m5 unguided keluar](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/4e70184c-4fb8-4562-a83f-a4a9801c7f22)
+
+
+
+
+
+
 
 Program di atas adalah implementasi dari struktur data linked list non circular dalam bahasa C++. Program ini menggunakan dua kelas utama, yaitu Node dan LinkedList. Kelas Node merepresentasikan setiap simpul dalam linked list dengan dua atribut yaitu nama_149 dan nim_149 yang menyimpan nama dan NIM mahasiswa serta sebuah pointer next yang menunjukkan ke simpul selanjutnya dalam linked list. Konstruktor dari kelas Node digunakan untuk inisialisasi atribut-atribut tersebut.
 
