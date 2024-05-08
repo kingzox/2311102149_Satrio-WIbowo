@@ -9,7 +9,7 @@
 
 ## Guided
 
-### 1. [Latihan Hash Table]
+### 1. [Latihan Stack]
 
 ```C++
 #include <iostream>
@@ -136,354 +136,156 @@ Adapun beberapa fungsi dari setiap bagian program, yaitu:
 - Fungsi cetakArrayBuku(): Fungsi ini digunakan untuk mencetak semua elemen dalam stack, dimulai dari elemen teratas hingga elemen terbawah.
 - Fungsi main(): Di dalam fungsi main(), dilakukan serangkaian operasi untuk menguji fungsi-fungsi yang telah didefinisikan sebelumnya. Elemen-elemen buku ditambahkan ke stack menggunakan pushArrayBuku(), kemudian beberapa operasi lainnya seperti mencetak, menghapus, dan mengubah elemen dilakukan untuk mengilustrasikan cara kerja dari masing-masing fungsi stack.
 
-### 2. [Latihan Hash Table Menggunakan Node]
-
-```C++
-#include <iostream>
-#include <string>
-#include <vector>
-
-using namespace std;
-
-// ukuran tabel hash
-const int TABLE_SIZE = 11;
-
-string name; //deklarasi variabel string name
-string phone_number; //deklarasi variabel string phone_number
-
-// Struktur Data Untuk Setiap Node
-class HashNode
-{
-//deklarasi variabel name dan phone_number
-public:
-    string name;
-    string phone_number;
-
-    HashNode(string name, string phone_number)
-    {
-        this->name = name;
-        this->phone_number = phone_number;
-    }
-};
-
-// Class HashMap
-class HashMap
-{
-private:
-    vector<HashNode*> table[TABLE_SIZE];
-
-public:
-    // Fungsi Hash Sederhana
-    int hashFunc(string key)
-    {
-        int hash_val = 0;
-        for (char c : key)
-        {
-            hash_val += c;
-        }
-        return hash_val % TABLE_SIZE;
-    }
-
-    // Tambah data
-    void insert(string name, string phone_number)
-    {
-        int hash_val = hashFunc(name);
-        for (auto node : table[hash_val])
-        {
-            if (node->name == name)
-            {
-                node->phone_number = phone_number;
-                return;
-            }
-        }
-        table[hash_val].push_back(new HashNode(name, phone_number));
-    }
-
-    // Hapus data
-    void remove(string name)
-    {
-        int hash_val = hashFunc(name);
-        for (auto it = table[hash_val].begin(); it != table[hash_val].end(); it++)
-        {
-            if ((*it)->name == name)
-            {
-                table[hash_val].erase(it);
-                return;
-            }
-        }
-    }
-
-    // Cari data berdasarkan nama
-    string searchByName(string name)
-    {
-        int hash_val = hashFunc(name);
-        for (auto node : table[hash_val])
-        {
-            if (node->name == name)
-            {
-                return node->phone_number;
-            }
-        }
-        return "";
-    }
-
-    // Cetak data
-    void print()
-    {
-        for (int i = 0; i < TABLE_SIZE; i++)
-        {
-            cout << i << ": ";
-            for (auto pair : table[i])
-            {
-                if (pair != nullptr)
-                {
-                    cout << "[" << pair->name << ", " << pair->phone_number << "]";
-                }
-            }
-        }
-    }
-};
-
-int main()
-{
-    HashMap employee_map;
-    employee_map.insert("Mistah", "1234");
-    employee_map.insert("Pastah", "5678");
-    employee_map.insert("Ghana", "91011");
-    cout << "Nomer Hp Mistah : " << employee_map.searchByName("Mistah") << endl;
-    cout << "Phone Hp Pastah : " << employee_map.searchByName("Pastah") << endl;
-    employee_map.remove("Mistah");
-    cout << "Nomer Hp Mistah setelah dihapus : " << employee_map.searchByName("Mistah") << endl << endl;
-    cout << "Hash Table : " << endl;
-    employee_map.print();
-
-    return 0;
-}
-```
-
-Program yang diberikan adalah implementasi sederhana dari struktur data hash table dalam bahasa C++. Tujuannya adalah untuk mengorganisir dan menyimpan data pasangan nama dan nomor telepon. Struktur data utama yang digunakan adalah kelas HashMap, yang mengelola penyimpanan data dalam bentuk array vektor dari pointer ke HashNode. Setiap HashNode menyimpan informasi nama dan nomor telepon. Proses penambahan data dilakukan melalui metode insert, di mana nama dan nomor telepon baru dimasukkan ke dalam tabel hash. Jika entri dengan nama yang sama sudah ada, nomor teleponnya diperbarui. Fungsi remove digunakan untuk menghapus entri dari hash table berdasarkan nama yang diberikan. Untuk mencari nomor telepon berdasarkan nama, digunakan fungsi searchByName. Program mencetak hasil akhir dari hash table dengan metode print. Dalam fungsi main, beberapa entri ditambahkan ke hash table, lalu nomor telepon dicari dan salah satu entri dihapus. Hasil akhir dari hash table dicetak untuk dilihat. Ini adalah contoh sederhana penggunaan hash table untuk menyimpan dan mengakses data dengan efisien berdasarkan kunci unik. 
 
     
 ## Unguided 
 
-### 1. [Hash Table]
-Implementasikan hash table untuk menyimpan data mahasiswa. Setiap mahasiswa memiliki NIM dan nilai. Implementasikan fungsi untuk menambahkan data baru, menghapus data, mencari data berdasarkan NIM, dan mencari data berdasarkan nilai. Dengan ketentuan :
-1. Setiap mahasiswa memiliki NIM dan nilai.
-2. Program memiliki tampilan pilihan menu berisi poin C.
-3. Implementasikan fungsi untuk menambahkan data baru, menghapus data,
-mencari data berdasarkan NIM, dan mencari data berdasarkan rentang nilai
-(80 – 90).
+### 1. [STACK]
+Buatlah program untuk menentukan apakah kalimat tersebut yang diinputkan
+dalam program stack adalah palindrom/tidak. Palindrom kalimat yang dibaca dari
+depan dan belakang sama. Jelaskan bagaimana cara kerja programnya!
 
 ```C++
 #include <iostream>
-#include <iomanip>
-#include <list>
+#include <stack>
+#include <string>
+#include <cctype>
+#include <cstdlib> // Untuk menggunakan system("cls") dan system("pause")
 
 using namespace std;
 
-// Struktur data untuk mahasiswa
-struct Mahasiswa {
-    string nim_149;
-    string nama_149;
-    int nilai;
-};
+bool isPalindrome_149(const string& sentence) {
+    stack<char> charStack;
+    string processedSentence;
 
-// Ukuran tabel hash
-const int hash_size = 10;
-
-// Class Hash Table
-class HashTable {
-private:
-    list<Mahasiswa> table[hash_size];
-
-    // Fungsi hash
-    int hashFunction(const string& key) {
-        int sum = 0;
-        for (char c : key) {
-            sum += c;
-        }
-        return sum % hash_size;
-    }
-
-public:
-    // Fungsi untuk menambahkan data baru
-    void tambahData(const string& nama_149, const string& nim_149, int nilai) {
-        Mahasiswa mhs;
-        mhs.nim_149 = nim_149;
-        mhs.nama_149 = nama_149;
-        mhs.nilai = nilai;
-        int index = hashFunction(nim_149);
-        table[index].push_back(mhs);
-    }
-
-    // Fungsi untuk menghapus data
-    void hapusData(const string& nim_149) {
-        int index = hashFunction(nim_149);
-        for (auto it = table[index].begin(); it != table[index].end(); ++it) {
-            if (it->nim_149 == nim_149) {
-                table[index].erase(it);
-                break;
-            }
+    // Menghapus spasi dan mengubah huruf menjadi lowercase
+    for (char c_149 : sentence) {
+        if (!isspace(c_149)) {
+            charStack.push(tolower(c_149));
+            processedSentence.push_back(tolower(c_149));
         }
     }
 
-    // Fungsi untuk mencari data berdasarkan NIM
-    Mahasiswa* cariDataNIM(const string& nim_149) {
-        int index = hashFunction(nim_149);
-        for (auto it = table[index].begin(); it != table[index].end(); ++it) {
-            if (it->nim_149 == nim_149) {
-                return &(*it);
-            }
-        }
-        return nullptr;
+    string reversedSentence;
+    while (!charStack.empty()) {
+        reversedSentence.push_back(charStack.top());
+        charStack.pop();
     }
 
-    // Fungsi untuk mencari data berdasarkan rentang nilai
-    void cariDataNilai(int nilai_min, int nilai_max) {
-        for (int i = 0; i < hash_size; ++i) {
-            for (auto it = table[i].begin(); it != table[i].end(); ++it) {
-                if (it->nilai >= nilai_min && it->nilai <= nilai_max) {
-                    cout << "NIM: " << it->nim_149 << ", Nama: " << it->nama_149 << ", Nilai: " << it->nilai << endl;
-                }
-            }
-        }
-    }
-
-    // Fungsi untuk menampilkan semua data
-    void tampilkanData() {
-        cout << setw(10) << "NIM" << setw(20) << "Nama" << setw(10) << "Nilai" << endl;
-        for (int i = 0; i < hash_size; ++i) {
-            for (auto it = table[i].begin(); it != table[i].end(); ++it) {
-                cout << setw(10) << it->nim_149 << setw(20) << it->nama_149 << setw(10) << it->nilai << endl;
-            }
-        }
-    }
-};
+    return processedSentence == reversedSentence;
+}
 
 int main() {
-    HashTable hashTable;
-
-    // Menu
-    int choice;
+    char choice_149 = ' ';
+    string kalimat_149;
+    
     do {
-        cout << "\n========== Program Manajemen Data Mahasiswa ==========\n";
-        cout << "Menu:\n";
-        cout << "1. Tambah Data Mahasiswa\n";
-        cout << "2. Hapus Data Mahasiswa\n";
-        cout << "3. Cari Data Mahasiswa berdasarkan NIM\n";
-        cout << "4. Cari Data Mahasiswa berdasarkan Rentang Nilai\n";
-        cout << "5. Tampilkan Semua Data Mahasiswa\n";
-        cout << "6. Keluar\n";
-        cout << "Pilihan: ";
-        cin >> choice;
+        cout << "Masukkan kalimat: ";
+        getline(cin, kalimat_149);
 
-        switch (choice) {
-            case 1:
-                {
-                    cout << "\n========== Tambah Data Mahasiswa ==========\n";
-                    string nim_149, nama_149;
-                    int nilai;
-                    cout << "Masukkan nama mahasiswa: ";
-                    cin.ignore(); // clear newline character from buffer
-                    getline(cin, nama_149);
-                    cout << "Masukkan NIM mahasiswa: ";
-                    cin >> nim_149;
-                    cout << "Masukkan nilai mahasiswa: ";
-                    cin >> nilai;
-                    hashTable.tambahData(nama_149, nim_149, nilai); //memanggil fungsi tambahData pada case 1
-                }
-                break;
-            case 2:
-                {
-                    cout << "\n========== Hapus Data Mahasiswa ==========\n";
-                    string nim_149;
-                    cout << "Masukkan NIM data mahasiswa yang ingin dihapus: ";
-                    cin >> nim_149;
-                    hashTable.hapusData(nim_149); //memanggil fungsi hapusData pada case 2
-                }
-                break;
-            case 3:
-                {
-                    cout << "\n========== Cari Data Mahasiswa berdasarkan NIM ==========\n";
-                    string nim_149;
-                    cout << "Masukkan NIM data mahasiswa yang ingin dicari: ";
-                    cin >> nim_149;
-                    {
-                        Mahasiswa* mhs = hashTable.cariDataNIM(nim_149); //memanggil fungsi cariData pada case 3
-                        if (mhs != nullptr) {
-                            cout << "Data ditemukan: NIM=" << mhs->nim_149 << ", Nama=" << mhs->nama_149 << ", Nilai=" << mhs->nilai << endl;
-                        } else {
-                            cout << "Data tidak ditemukan.\n";
-                        }
-                    }
-                }
-                break;
-            case 4:
-                {
-                    cout << "\n========== Cari Data Mahasiswa berdasarkan Rentang Nilai ==========\n";
-                    int nilai_min, nilai_max;
-                    cout << "Masukkan nilai minimum: ";
-                    cin >> nilai_min;
-                    cout << "Masukkan nilai maksimum: ";
-                    cin >> nilai_max;
-                    hashTable.cariDataNilai(nilai_min, nilai_max); //memanggil fungsi cariDataNilai pada case 4
-                }
-                break;
-            case 5:
-                cout << "\n========== Tampilkan Semua Data Mahasiswa ==========\n";
-                hashTable.tampilkanData(); //memanggil fungsi tampilkanData pada case 5
-                break;
-            case 6:
-                cout << "Anda telah keluar dari program\n";
-                break;
-            default:
-                cout << "Pilihan tidak valid.\n";
-                break;
+        if (isPalindrome_149(kalimat_149)) {
+            cout << "Kalimat ini adalah palindrom." << endl;
+        } else {
+            cout << "Kalimat ini bukan palindrom." << endl;
         }
-    } while (choice != 6); //perulangan untuk mengulang menu jika choice bernilai tidak sama dengan 6
+
+        cout << "\nTekan Enter untuk melanjutkan atau ketik 'n' untuk keluar...";
+        choice_149 = cin.get();
+        cin.ignore(); // Membersihkan buffer
+
+        // Membersihkan layar dan mengulang program jika Enter ditekan
+        system("cls");
+    } while (choice_149 != 'n' && choice_149 != 'N');
+
+    cout << "Terima kasih telah menggunakan program!" << endl;
+
+    // Menunggu untuk menekan tombol sebelum menutup program
+    system("pause");
+    
+    return 0;
+}
+
+
+```
+#### Output :
+![output unguided1 1 modul 6](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/2c66e190-90d5-4a84-9c65-f989332d0068) <br/>
+![output unguided 1 2 modul 6](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/8ad03948-11ba-4256-afc0-3d08bdc2ae7f) <br/>
+
+Program tersebut merupakan aplikasi C++ yang bertujuan untuk menentukan apakah suatu kalimat merupakan palindrom atau tidak. Sebuah palindrom adalah istilah untuk sesuatu yang dapat dibaca sama baik dari depan maupun dari belakang. Program ini menggunakan konsep struktur data stack untuk melakukan pengecekan palindrom dengan langkah-langkah berikut: menghapus spasi, mengubah semua huruf menjadi huruf kecil, dan membandingkan kalimat asli dengan kalimat yang sudah dibalik.
+
+Adapun fungsi fungsi yang ada pada program, yaitu :
+
+- Library yang Diimpor: Program mengimpor beberapa library C++ yang diperlukan, seperti <iostream> untuk input-output, <stack> untuk menggunakan struktur data stack, <string> untuk manipulasi string, <cctype> untuk operasi pada karakter, dan <cstdlib> untuk menghapus layar dan menghentikan program.
+- Fungsi isPalindrome_149(const string& sentence): Fungsi ini menerima satu parameter, yaitu string sentence, dan mengembalikan nilai boolean yang menunjukkan apakah kalimat tersebut merupakan palindrom atau bukan. Di dalam fungsi ini, setiap karakter dari kalimat dimasukkan ke dalam stack setelah diubah menjadi huruf kecil dan setelah mengabaikan spasi. Kemudian, kalimat asli juga diolah untuk mendapatkan versi yang sudah dibalik. Setelah itu, dilakukan perbandingan antara kedua versi kalimat tersebut. Jika sama, maka kalimat tersebut adalah palindrom.
+- Fungsi main(): Di dalam fungsi main(), program meminta pengguna untuk memasukkan kalimat. Kalimat tersebut kemudian diperiksa apakah merupakan palindrom atau bukan menggunakan fungsi isPalindrome_149(). Hasilnya kemudian ditampilkan kepada pengguna. Pengguna diminta untuk menekan tombol Enter untuk melanjutkan atau mengetik 'n' untuk keluar. Setelah itu, layar dibersihkan dan program mengulang proses ini sampai pengguna memilih untuk keluar.
+
+### 2. [STACK]
+Buatlah program untuk melakukan pembalikan terhadap kalimat menggunakan
+stack dengan minimal 3 kata. Jelaskan output program dan source codenya
+beserta operasi/fungsi yang dibuat!
+
+```C++
+#include <iostream>
+#include <stack>
+#include <string>
+
+using namespace std;
+
+// Fungsi untuk membalikkan kalimat menggunakan stack
+string reverseSentence_149(string sentence_149) {
+    stack<char> charStack_149;
+    string reversedSentence_149 = "";
+
+    // Push setiap karakter ke dalam stack
+    for (char c_149 : sentence_149) {
+        if (c_149 != ' ') {
+            charStack_149.push(c_149);
+        } else {
+            // Ketika menemukan spasi, pop karakter dari stack dan tambahkan ke kalimat terbalik
+            while (!charStack_149.empty()) {
+                reversedSentence_149 += charStack_149.top();
+                charStack_149.pop();
+            }
+            // Tambahkan spasi
+            reversedSentence_149 += ' ';
+        }
+    }
+
+    // Push sisa karakter ke dalam stack (untuk kata terakhir)
+    while (!charStack_149.empty()) {
+        reversedSentence_149 += charStack_149.top();
+        charStack_149.pop();
+    }
+
+    return reversedSentence_149;
+}
+
+int main() {
+    string kalimat_149, hasil_149;
+
+    do {
+        cout << "Masukkan kalimat (minimal 3 kata): ";
+        getline(cin, kalimat_149);
+
+        // Periksa jika kalimat kurang dari 3 kata
+        if (kalimat_149.find(' ') == string::npos || kalimat_149.find(' ') == kalimat_149.rfind(' ')) {
+            cout << "Kalimat harus memiliki minimal 3 kata. Silakan coba lagi." << endl;
+        }
+    } while (kalimat_149.find(' ') == string::npos || kalimat_149.find(' ') == kalimat_149.rfind(' ')); // Ulangi input jika kalimat kurang dari 3 kata
+
+    hasil_149 = reverseSentence_149(kalimat_149);
+
+    cout << "Hasil pembalikan: " << hasil_149 << endl;
 
     return 0;
 }
 
 ```
-#### Output :
-#### 1. Tampilan Menu
-![m5 unguided-tampilan menu](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/b33b937a-42c9-44e6-8f22-3a19b6b52b61)<br/>
 
-#### 2. Input Data
-![m5 unguided-input data](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/300e4c62-fa06-4dc6-b3da-25658c392af8)<br/>
-
-#### 3. Tampil Data
-![m5 unguided tampil data 1](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/c9e350b7-57b3-4523-95ac-8a1ed5a38cd8) <br/>
-
-#### 4. Cari Data Berdasarkan NIM
-![m5 unguided-cari data dari nim](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/9fa4aa57-1a59-4128-bec1-df547a02db37)<br/>
-
-#### 5. Cari Data Berdasarkan Rentang Nilai
-![m5 unguided cari data rentang nilai](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/3fa6dcc9-d2c0-410c-bb6e-e4aa6d8e3f13)<br/>
-
-#### 6. Hapus Data
-![m5 unguided hapus data](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/445fa416-02d2-48af-9968-e838f768efff)<br/>
-
-#### 7. Keluar
-![m5 unguided keluar](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/4e70184c-4fb8-4562-a83f-a4a9801c7f22)
+### Output
+![output unguided 2 modul 6](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/9f89f534-eb27-4f1b-a2d6-7617eb233204)
 
 
-Program di atas adalah sebuah sistem manajemen data mahasiswa yang menggunakan struktur data Hash Table untuk penyimpanan data. Program ini mengizinkan user untuk menambah, menghapus, mencari, serta menampilkan data mahasiswa.
-
-Pada awalnya, program menyediakan sebuah struktur data Mahasiswa yang memiliki tiga atribut: nim_149 (NIM mahasiswa), nama_149 (nama mahasiswa), dan nilai (nilai mahasiswa). Selanjutnya, program menggunakan class HashTable untuk mengimplementasikan tabel hash dengan ukuran hash_size yang telah ditentukan sebelumnya.
-
-Kelas HashTable memiliki beberapa fungsi, antara lain:
-
-tambahData: Menambahkan data mahasiswa ke dalam tabel hash dengan menggunakan fungsi hash untuk menentukan indeks penyimpanan. <br/>
-hapusData: Menghapus data mahasiswa berdasarkan NIM dari tabel hash. <br/>
-cariDataNIM: Mencari data mahasiswa berdasarkan NIM yang diberikan. <br/>
-cariDataNilai: Mencari data mahasiswa berdasarkan rentang nilai yang diberikan. <br/>
-tampilkanData: Menampilkan semua data mahasiswa yang tersimpan dalam tabel hash. <br/>
-
-Kemudian, di dalam fungsi main, program menampilkan menu yang memungkinkan user untuk memilih operasi yang ingin dilakukan terhadap data mahasiswa, seperti menambah, menghapus, mencari, atau menampilkan data. User dapat memasukkan pilihan menu dan program akan menjalankan fungsi yang sesuai sesuai dengan pilihan yang dibuat. Perulangan akan terus berlangsung hingga User memilih untuk keluar dari program.
-
-Melalui program ini, pengguna dapat dengan mudah mengelola data mahasiswa dan melakukan operasi-operasi dasar seperti penambahan, penghapusan, pencarian berdasarkan NIM atau rentang nilai, serta penampilan keseluruhan data.
 
 ## Kesimpulan
 Hash Table merupakan struktur data yang efisien untuk menyimpan dan mengakses data dengan cepat menggunakan teknik hashing. Ini memungkinkan akses data dalam waktu yang hampir konstan dengan menggunakan kunci sebagai referensi untuk mengindeks nilai dalam struktur data.
