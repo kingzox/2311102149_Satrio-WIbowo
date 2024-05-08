@@ -1,39 +1,10 @@
-  # <h1 align="center">Laporan Praktikum Modul 5 - HASH TABLE</h1>
+  # <h1 align="center">Laporan Praktikum Modul 6 - STACK</h1>
 <p align="center">Satrio Wibowo - 2311102149</p>
 
 
 ## Dasar Teori
-## Pengertian
-HashTable adalah jenis struktur data yang mengatur data dalam bentuk pasangan kunci-nilai. Biasanya, HashTable terdiri dari dua elemen inti: array atau vektor, dan fungsi hash. Hashing adalah metode yang digunakan untuk mengonversi kunci data menjadi indeks array yang sesuai.
 
-HashTable sering digunakan dalam implementasi struktur data seperti kamus, set, cache, dan basis data untuk menyimpan dan mencari data dengan efisien. Keuntungan utama HashTable adalah kemampuannya untuk memberikan waktu akses yang cepat, terutama ketika jumlah data besar, karena waktu aksesnya hampir konstan.
 
-## Fungsi
-Fungsi utama dari HashTable adalah untuk mengatur data ke dalam struktur yang efisien dan memungkinkan akses yang cepat terhadap data berdasarkan kunci unik yang terkait dengannya.
-
-Fungsi-fungsi yang umumnya dimiliki oleh HashTable termasuk:
-
-- Penyisipan (Insertion) : Proses menambahkan pasangan kunci-nilai ke dalam HashTable<br/>
-- Penghapusan (Deletion) : Proses menghilangkan pasangan kunci-nilai dari HashTable berdasarkan kunci yang diberikan<br/>
-- Pencarian (Search) : Proses mencari nilai yang terkait dengan kunci tertentu dalam HashTable<br/>
-- Fungsi Hash (Hash Function) : Metode yang mengubah kunci menjadi indeks array di dalam HashTable<br/>
-- Penanganan Konflik (Collision Handling) : Strategi untuk mengatasi situasi di mana dua kunci menghasilkan nilai hash yang sama<br/>
-- Pembaruan (Update) : Proses memperbarui nilai yang terkait dengan kunci tertentu dalam HashTable<br/>
-
-## Langkah Membuat Hash Table
-- Tentukan ukuran tabel hash: Pertama, tentukan ukuran tabel hash yang akan digunakan. Ukuran ini harus dipilih dengan hati-hati, karena akan memengaruhi kinerja dan efisiensi Hash Table. Pilih ukuran yang memadai untuk menyimpan semua data yang diharapkan, namun tidak terlalu besar sehingga membuang-buang memori.
-
-- Buat struktur data: Buat struktur data yang akan digunakan untuk menyimpan pasangan kunci-nilai. Ini bisa berupa array, linked list, atau kombinasi dari keduanya, tergantung pada strategi penanganan konflik yang akan digunakan.
-
-- Tentukan fungsi hash: Implementasikan fungsi hash yang akan mengonversi kunci menjadi indeks array dalam tabel hash. Fungsi hash harus memberikan distribusi yang merata untuk menghindari kolisi dan memastikan kunci tersebar secara merata di seluruh tabel hash.
-
-- Penanganan konflik: Tentukan strategi untuk menangani konflik hash, yaitu situasi di mana dua kunci menghasilkan nilai hash yang sama. Strategi umum termasuk chaining (menggunakan linked list untuk menampung nilai yang berkonflik pada indeks yang sama) atau probing (mencari lokasi kosong terdekat dalam tabel hash).
-
-- Implementasikan operasi dasar: Implementasikan operasi dasar seperti penyisipan, penghapusan, pencarian, dan pembaruan. Pastikan untuk memperhatikan strategi penanganan konflik yang telah ditentukan saat mengimplementasikan operasi-operasi ini.
-
-- Uji dan evaluasi: Setelah mengimplementasikan Hash Table, uji kinerjanya dengan menggunakan berbagai kasus uji untuk memastikan bahwa fungsi hash dan strategi penanganan konflik berfungsi seperti yang diharapkan. Lakukan evaluasi untuk memastikan bahwa Hash Table memberikan kinerja yang baik dalam hal waktu akses dan penggunaan memori.
-
-- Optimasi jika diperlukan: Jika diperlukan, lakukan optimasi pada implementasi Hash Table untuk meningkatkan kinerjanya. Ini bisa melibatkan pengoptimalan fungsi hash, strategi penanganan konflik, atau penggunaan struktur data yang lebih efisien.
 
 
 ## Guided
@@ -42,166 +13,128 @@ Fungsi-fungsi yang umumnya dimiliki oleh HashTable termasuk:
 
 ```C++
 #include <iostream>
-
 using namespace std;
 
-const int MAX_SIZE = 10;
+string arrayBuku[5];
+int maksimal = 5, top = 0;
 
-// Fungsi Hash Sederhana
-int hash_func(int key)
-{
-    return key % MAX_SIZE;
+bool isFull() {
+    return (top == maksimal);
 }
 
-// Struktur Data Untuk Setiap Node
-struct Node
-{
-    int key;
-    int value;
-    Node *next;
-    Node(int key, int value) : key(key), value(value), next(nullptr) {}
-};
+bool isEmpty() {
+    return (top == 0);
+}
 
-// Class Hash Table
-class HashTable
-{
-private:
-    Node **table;
-
-public:
-    HashTable()
-    {
-        table = new Node *[MAX_SIZE]();
+void pushArrayBuku(string data) {
+    if (isFull()) {
+        cout << "Data telah penuh" << endl;
+    } else {
+        arrayBuku[top] = data;
+        top++;
     }
-    ~HashTable()
-    {
-        for (int i = 0; i < MAX_SIZE; i++)
-        {
-            Node *current = table[i];
-            while (current != nullptr)
-            {
-                Node *temp = current;
-                current = current->next;
-                delete temp;
-            }
+}
+
+void popArrayBuku() {
+    if (isEmpty()) {
+        cout << "Tidak ada data yang dihapus" << endl;
+    } else {
+        arrayBuku[top - 1] = "";
+        top--;
+    }
+}
+
+void peekArrayBuku(int posisi) {
+    if (isEmpty()) {
+        cout << "Tidak ada data yang bisa dilihat" << endl;
+    } else {
+        int index = top;
+        for (int i = 1; i <= posisi; i++) {
+            index--;
         }
-        delete[] table;
+        cout << "Posisi ke " << posisi << " adalah " << arrayBuku[index] << endl;
     }
+}
 
-    // Insertion
-    void insert(int key, int value)
-    {
-        int index = hash_func(key);
-        Node *current = table[index];
-        while (current != nullptr)
-        {
-            if (current->key == key)
-            {
-                current->value = value;
-                return;
-            }
-            current = current->next;
+int countStack() {
+    return top;
+}
+
+void changeArrayBuku(int posisi, string data) {
+    if (posisi > top) {
+        cout << "Posisi melebihi data yang ada" << endl;
+    } else {
+        int index = top;
+        for (int i = 1; i <= posisi; i++) {
+            index--;
         }
-        Node *node = new Node(key, value);
-        node->next = table[index];
-        table[index] = node;
+        arrayBuku[index] = data;
     }
+}
 
-    // Searching
-    int get(int key)
-    {
-        int index = hash_func(key);
-        Node *current = table[index];
-        while (current != nullptr)
-        {
-            if (current->key == key)
-            {
-                return current->value;
-            }
-            current = current->next;
-        }
-        return -1;
+void destroyArraybuku() {
+    for (int i = top; i >= 0; i--) {
+        arrayBuku[i] = "";
     }
+    top = 0;
+}
 
-    // Deletion
-    void remove(int key)
-    {
-        int index = hash_func(key);
-        Node *current = table[index];
-        Node *prev = nullptr;
-        while (current != nullptr)
-        {
-            if (current->key == key)
-            {
-                if (prev == nullptr)
-                {
-                    table[index] = current->next;
-                }
-                else
-                {
-                    prev->next = current->next;
-                }
-                delete current;
-                return;
-            }
-            prev = current;
-            current = current->next;
+void cetakArrayBuku() {
+    if (isEmpty()) {
+        cout << "Tidak ada data yang dicetak" << endl;
+    } else {
+        for (int i = top - 1; i >= 0; i--) {
+            cout << arrayBuku[i] << endl;
         }
     }
+}
 
-    // Traversal
-    void traverse()
-    {
-        for (int i = 0; i < MAX_SIZE; i++)
-        {
-            Node *current = table[i];
-            while (current != nullptr)
-            {
-                cout << current->key << " : " << current->value << endl;
-                current = current->next;
-            }
-        }
-    }
-};
+int main() {
+    pushArrayBuku("Kalkulus");
+    pushArrayBuku("Struktur Data");
+    pushArrayBuku("Matematika Diskrit");
+    pushArrayBuku("Dasar Multimedia");
+    pushArrayBuku("Inggris");
 
-int main()
-{
-    HashTable ht;
-    // Insertion
-    ht.insert(1, 10);
-    ht.insert(2, 20);
-    ht.insert(3, 30);
+    cetakArrayBuku();
+    cout << "\n";
 
-    // Searching
-    cout << "Get key 1: " << ht.get(1) << endl;
-    cout << "Get key 4: " << ht.get(4) << endl;
+    cout << "Apakah data stack penuh? " << isFull() << endl;
+    cout << "Apakah data stack kosong? " << isEmpty() << endl;
 
-    // Deletion
-    ht.remove(4);
+    peekArrayBuku(2);
+    popArrayBuku();
+    cout << "Banyaknya data = " << countStack() << endl;
 
-    // Traversal
-    ht.traverse();
+    changeArrayBuku(2, "Bahasa Jerman");
+    cetakArrayBuku();
+    cout << "\n";
+
+    destroyArraybuku();
+
+    cout << "Jumlah data setelah dihapus: " << top << endl;
+    cetakArrayBuku();
 
     return 0;
 }
+
 ```
 
-Program di atas adalah implementasi sebuah hash table dalam bahasa C++. Pertama-tama, sebuah ukuran tabel hash ditentukan, yaitu 10. Kemudian, sebuah fungsi hash, hash_func, dibuat untuk menghasilkan nilai kunci modulo dengan ukuran maksimum tabel hash (MAX_SIZE). Fungsi hash_func bertujuan untuk menghitung indeks dari kunci yang akan dimasukkan.
 
-Selanjutnya, sebuah struktur data Node didefinisikan, yang berisi kunci (key), nilai (value), dan pointer ke node berikutnya. Node ini berfungsi untuk menyimpan data yang akan dimasukkan ke dalam tabel hash.
+Program tersebut menggunakan struktur data stack dengan prinsip LIFO (Last In, First Out), di mana elemen terakhir yang dimasukkan akan menjadi yang pertama kali dikeluarkan. Array arrayBuku digunakan untuk menyimpan data buku, dengan maksimal menunjukkan batas maksimal elemen yang dapat disimpan. top adalah variabel yang menunjukkan posisi teratas dalam stack. Fungsi isFull() digunakan untuk memeriksa apakah stack sudah penuh, sementara isEmpty() untuk memeriksa apakah stack kosong. Fungsi cetakArrayBuku() bertugas mencetak atau menampilkan semua data buku yang ada dalam stack.
 
-Setelah itu, sebuah kelas HashTable dibuat yang berisi fungsi-fungsi untuk mengelola tabel hash, yaitu:
+Adapun beberapa fungsi dari setiap bagian program, yaitu:
 
-Fungsi insert untuk memasukkan data ke dalam tabel hash.
-Fungsi get untuk mencari data berdasarkan kunci yang diinputkan.
-Fungsi remove untuk menghapus data berdasarkan kunci yang diinputkan.
-Output dari program tersebut adalah sebagai berikut:
-
-Get key 1: 10 <br/>
-Get key 4: -1 <br/>
-3 : 30 <br/>
-2 : 20 <br/>
-1 : 10 <br/>
+- Deklarasi Variabel dan Array: Program mendeklarasikan sebuah array bernama arrayBuku yang memiliki kapasitas maksimal 5, serta variabel maksimal dan top. maksimal digunakan untuk menentukan batas maksimal elemen dalam stack, sedangkan top merupakan indeks dari elemen teratas dalam stack.
+- Fungsi isFull() dan isEmpty(): Fungsi ini digunakan untuk memeriksa apakah stack penuh atau kosong. Jika top sama dengan maksimal, maka stack dianggap penuh. Sebaliknya, jika top sama dengan 0, maka stack dianggap kosong.
+- Fungsi pushArrayBuku(): Fungsi ini digunakan untuk menambahkan elemen baru ke dalam stack. Jika stack belum penuh, elemen baru akan ditambahkan ke posisi top, kemudian nilai top akan ditambah 1.
+- Fungsi popArrayBuku(): Fungsi ini digunakan untuk menghapus elemen teratas dari stack. Jika stack tidak kosong, elemen teratas (di posisi top - 1) akan dihapus dan nilai top akan dikurangi 1.
+- Fungsi peekArrayBuku(): Fungsi ini digunakan untuk melihat nilai elemen pada posisi tertentu dalam stack tanpa menghapusnya. Fungsi ini melakukan iterasi mundur dari posisi top ke posisi yang ditentukan, kemudian menampilkan nilai elemen pada posisi tersebut.
+- Fungsi countStack(): Fungsi ini mengembalikan jumlah elemen dalam stack, yaitu nilai dari variabel top.
+- Fungsi changeArrayBuku(): Fungsi ini digunakan untuk mengubah nilai elemen pada posisi tertentu dalam stack. Jika posisi yang ditentukan valid (tidak melebihi jumlah elemen dalam stack), nilai elemen pada posisi tersebut akan diubah sesuai dengan input.
+- Fungsi destroyArraybuku(): Fungsi ini menghapus semua elemen dalam stack dengan mengosongkan array dan mengatur top menjadi 0.
+- Fungsi cetakArrayBuku(): Fungsi ini digunakan untuk mencetak semua elemen dalam stack, dimulai dari elemen teratas hingga elemen terbawah.
+- Fungsi main(): Di dalam fungsi main(), dilakukan serangkaian operasi untuk menguji fungsi-fungsi yang telah didefinisikan sebelumnya. Elemen-elemen buku ditambahkan ke stack menggunakan pushArrayBuku(), kemudian beberapa operasi lainnya seperti mencetak, menghapus, dan mengubah elemen dilakukan untuk mengilustrasikan cara kerja dari masing-masing fungsi stack.
 
 ### 2. [Latihan Hash Table Menggunakan Node]
 
@@ -563,7 +496,7 @@ Secara keseluruhan, Hash Table adalah alat yang sangat berguna dalam pengelolaan
 
 ## Referensi
 [1] Santiago Tapia-Fernández, Daniel García-García, dan Pablo García-Hernandez. Key Concepts, Weakness and Benchmark on Hash Table Data Structures. 15(3). 100. Maret 2022. <br/>
-[2] Asisten Praktikum. Modul 5 Hash Table. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
+[2] Asisten Praktikum. Modul 6 Stack. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
 [3] Rahardja, U., Hidayanto, A. N., Lutfiani, N., Febiani, D. A., dan Aini, Q. Immutability of Distributed Hash Model on Blockchain Node Storage. Sci. J. Informatics, 8(1), 137-143. 2021.<br/>
 
 
