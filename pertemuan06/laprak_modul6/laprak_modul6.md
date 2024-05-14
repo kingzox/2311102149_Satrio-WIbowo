@@ -3,7 +3,28 @@
 
 
 ## Dasar Teori
+Stack adalah sebuah kumpulan data di mana data diletakkan di atas data lain. Oleh karena itu, stack menggunakan konsep LIFO (Last In First Out) sebagai struktur data, sehingga elemen terakhir yang disimpan dalam stack menjadi elemen pertama yang diambil. Dalam proses komputasi, operasi push digunakan untuk meletakkan elemen di bagian atas stack, dan operasi pop digunakan untuk memindahkan elemen dari tempat tersebut.  
 
+![ilustrasi  stack](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/1d1d3c67-835a-4104-a459-f85a9fc81872) <br/>
+
+
+Operasi stack melakukan banyak fungsi dasar yang dapat dilakukan pada struktur data ini. Berikut adalah beberapa operasi stack yang biasa dilakukan:
+
+- Push (Masukkan): Menempatkan elemen ke dalam tumpukan pada posisi paling atas atau ujung. 
+- Pop (Keluarkan): Menghapus elemen dari posisi paling atas atau ujung tumpukan.
+- Top (Atas): Memperoleh nilai atau melihat elemen tertinggi dalam tumpukan tanpa menghapusnya.
+- IsEmpty (Kosong) menunjukkan apakah tumpukan kosong atau tidak. 
+- IsFull (Penuh) menunjukkan apakah tumpukan penuh, terutama ketika tumpukan memiliki kapasitas terbatas.
+- Size—atau ukuran—adalah cara untuk menghitung jumlah elemen yang ada dalam tumpukan.
+- Peek (Lihat): Melihat elemen atau nilai di tempat tertentu dalam tumpukan tanpa menghapusnya.
+- Clear (Hapus Semua): Menghapus semua elemen yang ada dalam tumpukan.
+- Cari (Cari): Menemukan keberadaan elemen tertentu dalam tumpukan.
+
+Stack dapat diimplementasikan menggunakan array dan linked list. Implementasi menggunakan array adalah salah satu pendekatan yang sederhana dan memberikan akses acak kepada pengguna berdasarkan indeks. Kelebihan dari implementasi ini adalah kemudahannya dalam proses implementasi. Namun, array memiliki keterbatasan karena ukurannya tidak dapat diubah secara dinamis selama proses berlangsung.
+
+Sementara itu, implementasi menggunakan linked list juga memungkinkan untuk digunakan dalam stack. Seperti implementasi menggunakan array, linked list juga dapat menggunakan operasi seperti addEnd Front untuk menggantikan operasi push dan fungsi untuk menghapus node depan dari linked list sebagai pengganti operasi pop. Kelebihan utama dari implementasi stack menggunakan linked list adalah kemampuannya untuk dinamis bertambah dan berkurang sesuai dengan kebutuhan saat runtime. Namun, kekurangan dari penggunaan linked list adalah bahwa prosesnya membutuhkan lebih banyak memori karena penggunaan pointer dalam linked list.
+
+Agar dapat menghindari kesalahan saat menggunakan stack, penting untuk selalu memeriksa batasan stack, seperti kondisi stack penuh atau stack kosong, terutama dalam implementasi yang menggunakan array.
 
 
 
@@ -285,21 +306,26 @@ int main() {
 ### Output
 ![output unguided 2 modul 6](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/9f89f534-eb27-4f1b-a2d6-7617eb233204)
 
+Program di atas adalah sebuah program C++ yang bertujuan untuk membalikkan setiap kata dalam sebuah kalimat, tetapi mempertahankan urutan kata tersebut. Program ini menggunakan struktur data stack untuk melakukan pembalikan.
 
+Adapun fungsi dan libraru pada program di atas, yaitu :
+
+- Library yang Diimpor: Program mengimpor beberapa library C++, yaitu <iostream>, <stack>, dan <string>, yang diperlukan untuk operasi input-output, penggunaan struktur data stack, dan manipulasi string.
+- Fungsi reverseSentence_149(string sentence_149): Fungsi ini menerima sebuah string sentence_149 (kalimat) dan mengembalikan string yang merupakan hasil pembalikan setiap kata dalam kalimat tersebut. Dalam fungsi ini, setiap karakter dari kalimat dimasukkan ke dalam stack hingga ditemukan spasi. Ketika spasi ditemukan, karakter-karakter dari stack dikeluarkan satu per satu sehingga kata tersebut dibalik. Proses ini diulangi untuk setiap kata dalam kalimat. Hasilnya adalah kalimat yang sudah dibalik namun urutan kata tetap sama.
+- Fungsi main(): Di dalam fungsi main(), program meminta pengguna untuk memasukkan sebuah kalimat yang memiliki minimal tiga kata. Pengguna diminta untuk memasukkan kalimat tersebut hingga syarat minimal terpenuhi. Setelah itu, program memanggil fungsi reverseSentence_149() untuk membalikkan kalimat yang telah dimasukkan oleh pengguna. Hasil pembalikan kemudian ditampilkan kepada pengguna.
 
 ## Kesimpulan
-Hash Table merupakan struktur data yang efisien untuk menyimpan dan mengakses data dengan cepat menggunakan teknik hashing. Ini memungkinkan akses data dalam waktu yang hampir konstan dengan menggunakan kunci sebagai referensi untuk mengindeks nilai dalam struktur data.
 
-Keuntungan Hash Table meliputi kemampuannya untuk memberikan waktu akses yang cepat, terutama saat jumlah data besar, karena waktu aksesnya hampir konstan. Selain itu, Hash Table dapat digunakan dalam berbagai aplikasi seperti basis data, kamus, cache, dan pengindeksan karena kemampuannya untuk menyimpan dan mencari data dengan efisien. Namun, untuk mencapai efisiensi yang optimal, penting untuk memilih fungsi hash yang baik dan memiliki strategi penanganan konflik yang tepat. Konflik hash terjadi ketika dua kunci menghasilkan nilai hash yang sama, dan strategi seperti chaining atau probing digunakan untuk mengatasi situasi ini.
+Dalam konteks bahasa pemrograman C++, penggunaan struktur data stack merupakan pendekatan yang penting dan sering digunakan dalam pengembangan aplikasi. Stack menawarkan cara efisien untuk menyimpan dan mengelola data dengan prinsip Last In First Out (LIFO), di mana elemen terakhir yang dimasukkan akan menjadi yang pertama kali dikeluarkan. Implementasi stack dapat dilakukan menggunakan array atau linked list, masing-masing dengan kelebihan dan kekurangannya. 
 
-Secara keseluruhan, Hash Table adalah alat yang sangat berguna dalam pengelolaan data yang memungkinkan akses data cepat dan efisien berdasarkan kunci unik.
+Implementasi dengan array menawarkan kemudahan implementasi dan akses acak terhadap elemen, namun memiliki keterbatasan dalam ukuran yang tetap. Sementara itu, implementasi dengan linked list memberikan fleksibilitas dalam ukuran dan operasi dinamis, namun memerlukan lebih banyak memori karena penggunaan pointer. Kesimpulannya, pengembang harus memilih implementasi stack yang paling sesuai dengan kebutuhan spesifik aplikasi mereka, dengan mempertimbangkan faktor seperti kecepatan, efisiensi memori, dan fleksibilitas dalam pengelolaan data. 
 
+Dengan pemahaman yang baik tentang karakteristik dan keunggulan kedua pendekatan ini, penggunaan stack dapat meningkatkan efisiensi dan efektivitas dalam pengembangan aplikasi C++.
 
 
 ## Referensi
-[1] Santiago Tapia-Fernández, Daniel García-García, dan Pablo García-Hernandez. Key Concepts, Weakness and Benchmark on Hash Table Data Structures. 15(3). 100. Maret 2022. <br/>
+[1] Muhammad Nugraha. Dasar Pemrograman Dengan C++, Materi Paling Dasar untuk Menjadi Programmer Berbagai Platform. Yogyakarta: Deepublish. 2021. <br/>
 [2] Asisten Praktikum. Modul 6 Stack. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
-[3] Rahardja, U., Hidayanto, A. N., Lutfiani, N., Febiani, D. A., dan Aini, Q. Immutability of Distributed Hash Model on Blockchain Node Storage. Sci. J. Informatics, 8(1), 137-143. 2021.<br/>
 
 
 
