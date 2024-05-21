@@ -3,8 +3,65 @@
 
 
 ## Dasar Teori
+Algoritma Searching (pencarian) adalah urutan langkah-langkah logis yang dirancang untuk menemukan data tertentu dalam kumpulan data. Kumpulan data ini bisa berupa apa saja, seperti daftar kata, array bilangan, atau database besar. Algoritma ini bekerja dengan cara membandingkan data yang dicari dengan elemen-elemen dalam kumpulan data, hingga data yang dicari ditemukan atau dipastikan tidak ada.
+
+Algoritma pencarian memiliki berbagai macam jenis dan kegunaannya, masing-masing dengan kelebihan dan kekurangannya. Beberapa jenis algoritma pencarian yang umum digunakan adalah:
+## 1. Sequential Search
+
+![sequential searching - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/de7105a6-5881-485d-8b7b-45e77e4822bd) <br/>
+
+Konsep Sequential Search, juga dikenal sebagai Linear Search, adalah salah satu metode pencarian sederhana yang digunakan untuk menemukan keberadaan suatu nilai tertentu dalam sebuah kumpulan data yang tidak terurut.Cara kerja pencarian sekuensial:
+
+- Mulai dari elemen pertama dalam kumpulan data.
+- Bandingkan elemen tersebut dengan data yang sedang dicari.
+- Jika elemen tersebut cocok dengan data yang dicari, pencarian selesai dan elemen tersebut dikembalikan.
+- Jika elemen tersebut tidak cocok, lanjutkan ke elemen berikutnya dalam kumpulan data.
+- Ulangi langkah 2 dan 3 hingga seluruh elemen dalam kumpulan data telah diperiksa.
+- Jika tidak ada elemen yang cocok ditemukan, pencarian dinyatakan gagal.
+
+Kelebihan pencarian sekuensial:
+
+- Sederhana dan mudah diimplementasikan.
+- Tidak memerlukan data yang diurutkan sebelumnya.
+
+Kekurangan pencarian sekuensial:
+
+- Inefisien untuk kumpulan data yang besar.
+- Semakin besar kumpulan data, semakin banyak perbandingan yang perlu dilakukan, sehingga waktu pencarian menjadi semakin lama.
+- Tidak cocok untuk aplikasi real-time yang membutuhkan pencarian cepat.
+
+Penggunaan pencarian sekuensial:
+
+- Biasanya digunakan untuk kumpulan data yang kecil.
+- Digunakan sebagai dasar untuk memahami algoritma pencarian yang lebih kompleks.
+
+## 2.  Binary Search
+![binary search - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/47f14912-cff9-4e2b-92c3-14cc66df9a0e) <br/>
 
 
+Binary search adalah algoritma pencarian yang digunakan untuk menemukan lokasi (indeks) suatu elemen tertentu dalam kumpulan data yang telah diurutkan secara terurut. 
+Cara kerja pencarian biner:
+
+- Hitung indeks tengah dari kumpulan data.
+- Bandingkan data yang dicari dengan elemen pada indeks tengah tersebut.
+- Jika data yang dicari cocok dengan elemen pada indeks tengah, pencarian selesai dan elemen tersebut dikembalikan.
+- Jika data yang dicari lebih kecil dari elemen pada indeks tengah, maka data yang dicari pasti berada di bagian kiri dari kumpulan data yang tersisa. Ulangi langkah 1-3 untuk bagian kiri tersebut.
+- Jika data yang dicari lebih besar dari elemen pada indeks tengah, maka data yang dicari pasti berada di bagian kanan dari kumpulan data yang tersisa. Ulangi langkah 1-3 untuk bagian kanan tersebut
+
+Kelebihan pencarian biner:
+
+- Sangat efisien untuk kumpulan data yang besar.
+- Waktu pencarian rata-rata berbanding lurus dengan logaritma dari ukuran kumpulan data (記号 (kì hào) bìng hào, notation). Dengan kata lain, waktu pencarian meningkat jauh lebih lambat dibandingkan pencarian sekuensial - seiring dengan bertambahnya ukuran data.
+
+Kekurangan pencarian biner:
+
+- Memerlukan data yang sudah diurutkan sebelumnya.
+- Kurang efisien untuk kumpulan data yang kecil (karena proses pengulangan untuk mencari indeks tengah bisa jadi lebih memakan waktu dibandingkan pencarian sekuensial).
+
+Penggunaan pencarian biner:
+
+- Digunakan untuk mencari data dalam array atau daftar yang sudah diurutkan.
+- Digunakan dalam berbagai aplikasi, seperti mesin pencari, sistem basis data, dan algoritma sorting lainnya.
 
 ## Guided
 
@@ -374,10 +431,10 @@ Secara keseluruhan, program ini menggabungkan penggunaan vector dan loop untuk m
    
 ## Kesimpulan
 
-Queue merupakan struktur data penting dalam pemrograman komputer yang mengikuti aturan FIFO (First In First Out), yang berarti elemen yang pertama dimasukkan ke dalam queue akan menjadi yang pertama dikeluarkan. Konsepnya mirip dengan antrian di kehidupan sehari-hari, di mana orang yang datang pertama kali akan dilayani terlebih dahulu. Queue umumnya diimplementasikan dengan dua operasi dasar: enqueue untuk menambahkan elemen baru ke dalam queue, biasanya dilakukan di bagian belakang (rear), dan dequeue untuk menghapus elemen dari queue, yang dilakukan di bagian depan (front). Selain itu, terdapat juga operasi peek yang memungkinkan untuk melihat elemen yang berada di depan queue tanpa menghapusnya. Queue digunakan dalam berbagai aplikasi seperti sistem antrian, penjadwalan tugas dalam sistem operasi, dan pemrosesan data pada algoritma pencarian dan pemrosesan grafik. Dengan prinsip FIFO-nya, queue menjadi alat yang efektif dalam mengelola data secara terurut dan efisien.
+Dari praktikum yang telah dilakukan, dapat ditarik kesimpulan bahwa algoritma searching merupakan alat penting dalam ilmu komputer untuk menemukan data dalam kumpulan data. Sequential Search dan Binary Search adalah dua contoh populer dengan kelebihan dan kekurangannya masing-masing. Memahami karakteristik dan kegunaannya memungkinkan pengembang untuk memilih algoritma yang tepat untuk menyelesaikan masalah mereka secara efisien.
 
 ## Referensi
-[1] Anita Sindar RMS, ST., M.TI., STRUKTUR DATA DAN ALGORITMA DENGAN C++. Serang: CV. AA. RIZKY, 2020. <br/>
+[1] Bart J. Van Zeghbroeck, et al., Josephson Sampler Response Using a Binary Search Algorithm, Colorado: IEEE, 2024. <br/>
 [2] Asisten Praktikum. Modul 8 Algoritma Searching. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
 [3] Malik, D.S., C++ Programming. Boston: Course Technology, 2023.
 
