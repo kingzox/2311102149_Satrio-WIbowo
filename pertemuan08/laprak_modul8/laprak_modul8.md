@@ -124,8 +124,8 @@ Fungsi main() menampilkan data awal, meminta input pengguna, mengurutkan data, m
     
 ## Unguided 
 
-### 1. [SEARCHING]
-Buatlah sebuah program untuk mencari sebuah huruf pada sebuah kalimat yang sudah di input dengan menggunakan Binary Search!
+### 1. [SEARCHING : Buatlah sebuah program untuk mencari sebuah huruf pada sebuah kalimat yang sudah di input dengan menggunakan Binary Search!]
+
 
 ```C++
 
@@ -234,129 +234,81 @@ int main() {
 ![output unguided1 modul 8 - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/4caf8ba6-3866-4ff8-8d93-0a5c67274c50) <br/>
 
 
+Kode di atas adalah program C++ yang mencari sebuah huruf dalam sebuah kalimat yang diinput oleh user menggunakan algoritma binary search setelah mengurutkan kalimat tersebut. Program ini dimulai dengan mendeklarasikan beberapa fungsi dan variabel yang diperlukan untuk pencarian.
+
+Fungsi binarySearch_149 digunakan untuk mencari sebuah karakter dalam string yang sudah diurutkan. Fungsi ini melakukan pencarian biner dengan inisialisasi variabel left_149 dan right_149 untuk menentukan batas pencarian. Dalam loop while, posisi tengah (mid_149) dihitung dan dibandingkan dengan target. Jika karakter ditemukan, fungsi mengembalikan nilai true; jika tidak, batas pencarian diperbarui hingga karakter ditemukan atau batas habis.
+
+Fungsi findIndices_149 mencari semua indeks dari karakter target dalam kalimat asli. Fungsi ini menggunakan loop for untuk memeriksa setiap karakter dalam string asli dan menyimpan indeks yang sesuai dalam vector indices_149.
+
+Fungsi main mengelola interaksi dengan user dan menggabungkan kedua fungsi sebelumnya. Program dimulai dengan mencetak header dan kemudian meminta user untuk memasukkan sebuah kalimat dan karakter yang ingin dicari. Setelah itu, kalimat diurutkan menggunakan sort dari STL. Kalimat yang sudah diurutkan dicetak untuk verifikasi.
+
+Selanjutnya, fungsi binarySearch_149 dipanggil untuk mencari karakter dalam kalimat yang sudah diurutkan. Jika karakter ditemukan, program mencetak pesan bahwa karakter tersebut ditemukan dan memanggil findIndices_149 untuk mendapatkan semua indeks dari karakter tersebut dalam kalimat asli. Indeks-indeks ini kemudian dicetak. Jika karakter tidak ditemukan, program mencetak pesan yang sesuai.
+
+Terakhir, user ditanya apakah ingin mencoba kalimat lain. Jika user memilih 'y' atau 'Y', program akan mengulangi proses. Jika tidak, program akan berhenti. Program ini menggabungkan input/output user dengan algoritma sorting dan searching untuk menyediakan fungsionalitas pencarian karakter yang efisien dalam kalimat.
 
 
-
-### 2. [QUEUE]
-Dari nomor 1 buatlah konsep antri dengan atribut Nama mahasiswa dan NIM
-Mahasiswa
+### 2. [SEARCHING : Buatlah sebuah program yang dapat menghitung banyaknya huruf vocal dalam sebuah kalimat!]
 
 ```C++
+
+ 
 #include <iostream>
+#include <string>
+#include <algorithm>
+
 using namespace std;
 
-// Structure to represent a student
-struct Mahasiswa_149 {
-    string nama_149;
-    string NIM_149;
-};
+// Fungsi untuk menghitung jumlah huruf vokal dalam sebuah kalimat
+int hitungHurufVokal_149(const string& kalimat_149, string& hurufVokalDitemukan_149) {
+    int jumlah_149 = 0;
+    string vokal_149 = "aiueoAIUEO"; // Huruf vokal
 
-// Node structure for the linked list
-struct Node_149 {
-    Mahasiswa_149 data_149;
-    Node_149* next_149;
-};
-
-// Class for the linked list-based queue
-class Queue_149 {
-private:
-    Node_149* front_149;
-    Node_149* back_149;
-
-public:
-    Queue_149() {
-        front_149 = nullptr;
-        back_149 = nullptr;
-    }
-
-    // Check if the queue is empty
-    bool isEmpty_149() {
-        return front_149 == nullptr;
-    }
-
-    // Add a new student to the queue
-    void tambahData_149(string nama_149, string NIM_149) {
-        Node_149* newNode_149 = new Node_149();
-        newNode_149->data_149.nama_149 = nama_149;
-        newNode_149->data_149.NIM_149 = NIM_149;
-        newNode_149->next_149 = nullptr;
-        
-        if (isEmpty_149()) {
-            front_149 = back_149 = newNode_149;
-        } else {
-            back_149->next_149 = newNode_149;
-            back_149 = newNode_149;
-        }
-    }
-
-    // Remove a student from the queue
-    void kurangAntrian_149() {
-        if (isEmpty_149()) {
-            cout << "Antrian kosong\n";
-        } else {
-            Node_149* temp_149 = front_149;
-            front_149 = front_149->next_149;
-            delete temp_149;
-            if (front_149 == nullptr) {
-                back_149 = nullptr;
+    // Menggunakan fungsi count_if dari <algorithm> untuk menghitung jumlah huruf vokal dalam kalimat
+    jumlah_149 = count_if(kalimat_149.begin(), kalimat_149.end(), [&](char c_149) {
+        if (vokal_149.find(c_149) != string::npos) {
+            if (!hurufVokalDitemukan_149.empty()) {
+                hurufVokalDitemukan_149 += ", "; // Menambahkan tanda koma jika sudah ada huruf vokal sebelumnya
             }
+            hurufVokalDitemukan_149 += c_149; // Menambahkan huruf vokal yang ditemukan ke dalam string hurufVokalDitemukan
+            return true;
         }
-    }
+        return false;
+    });
 
-    // Count the number of students in the queue
-    int count_149() {
-        int count_149 = 0;
-        Node_149* temp_149 = front_149;
-        while (temp_149 != nullptr) {
-            count_149++;
-            temp_149 = temp_149->next_149;
-        }
-        return count_149;
-    }
-
-    // Clear the entire queue
-    void clearQueue_149() {
-        while (!isEmpty_149()) {
-            kurangAntrian_149();
-        }
-    }
-
-    // View the students in the queue
-    void viewQueue_149() {
-        cout << "Data antrian: \n";
-        Node_149* temp_149 = front_149;
-        int index_149 = 1;
-        while (temp_149 != nullptr) {
-            cout << index_149 << ". Nama: " << temp_149->data_149.nama_149 << ", NIM: " << temp_149->data_149.NIM_149 << endl;
-            temp_149 = temp_149->next_149;
-            index_149++;
-        }
-        if (isEmpty_149()) {
-            cout << "(kosong)\n";
-        }
-    }
-
-    ~Queue_149() {
-        clearQueue_149();
-    }
-};
+    return jumlah_149;
+}
 
 int main() {
-    Queue_149 queue_149;
+    string kalimat_149;
+    string hurufVokalDitemukan_149;
+    char lanjut_149;
 
-    queue_149.tambahData_149("Alya", "123456789");
-    queue_149.tambahData_149("Kiki", "987654321");
-    queue_149.tambahData_149("Artika", "112233445");
+    cout << "=========================================\n";
+    cout << "  FIND THE VOCAL LETTERS IN A SENTENCE\n";
+    cout << "=========================================\n";
 
-    queue_149.viewQueue_149();
+    do {
+        // Meminta user memasukkan kalimat
+        cout << "Masukkan sebuah kalimat: ";
+        getline(cin, kalimat_149);
 
-    // Mengurangi antrian
-    queue_149.kurangAntrian_149();
-    queue_149.viewQueue_149();
+        // Reset string hurufVokalDitemukan_149 sebelum menghitung huruf vokal baru
+        hurufVokalDitemukan_149.clear();
 
-    // Menghapus seluruh antrian
-    queue_149.clearQueue_149();
-    queue_149.viewQueue_149();
+        // Menghitung jumlah huruf vokal dalam kalimat dan menambahkan huruf vokal yang ditemukan ke dalam hurufVokalDitemukan
+        int jumlahHurufVokal_149 = hitungHurufVokal_149(kalimat_149, hurufVokalDitemukan_149);
+
+        // Menampilkan hasil
+        cout << "Jumlah huruf vokal dalam kalimat adalah: " << jumlahHurufVokal_149 << endl;
+        if (jumlahHurufVokal_149 > 0) {
+            cout << "Huruf vokal yang ditemukan dalam kalimat: " << hurufVokalDitemukan_149 << endl;
+        }
+
+        // Meminta user apakah ingin melanjutkan atau tidak
+        cout << "Apakah Anda ingin mencoba pada kalimat lainnya? (y/n): ";
+        cin >> lanjut_149;
+        cin.ignore(); // Mengabaikan newline character yang tersisa di input stream
+    } while (lanjut_149 == 'y' || lanjut_149 == 'Y');
 
     return 0;
 }
@@ -365,52 +317,59 @@ int main() {
 ```
 
 ### Output
-![output unguided 2 modul 7 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/396291f1-e7f3-4a98-b064-b15dda47c25d)
+![output unguided2 modul 8 - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/6d61f3da-a67f-41eb-87e8-db4a9917100d) <br/>
 
+Program di atas adalah implementasi dalam C++ untuk menghitung jumlah huruf vokal dalam sebuah kalimat yang diinput oleh user. Program ini dimulai dengan mendeklarasikan fungsi hitungHurufVokal_149, yang menghitung jumlah huruf vokal dalam kalimat dan menyimpan huruf-huruf vokal yang ditemukan dalam sebuah string. Fungsi ini menggunakan lambda function dalam count_if dari header <algorithm> untuk memeriksa setiap karakter dalam kalimat, memeriksa apakah karakter tersebut adalah huruf vokal (dari string "aiueoAIUEO"). Jika ditemukan, karakter tersebut ditambahkan ke string hurufVokalDitemukan_149, dan jumlah vokal dihitung.
 
-Melanjutkan dari unguided 1, yaitu menambahkan elemen nama mahasiswa dan nimnya. Secara keseluruhan, program ini menunjukkan bagaimana mengelola antrian mahasiswa menggunakan linked list dan melakukan operasi dasar seperti menambah, menghapus, menghitung, mengosongkan, dan menampilkan elemen-elemen antrian. Setiap mahasiswa memiliki atribut nama dan NIM (Nomor Induk Mahasiswa). Berikut adalah penjelasan mendetail dari program tersebut:
+Fungsi main mengelola interaksi dengan user. Program mencetak header dan meminta user untuk memasukkan sebuah kalimat. Setelah itu, program memanggil fungsi hitungHurufVokal_149 untuk menghitung jumlah huruf vokal dalam kalimat tersebut. Hasilnya kemudian ditampilkan, termasuk jumlah huruf vokal dan huruf-huruf vokal yang ditemukan. Setelah itu, user ditanya apakah ingin mencoba kalimat lain. Jika user memilih 'y' atau 'Y', proses akan diulangi. Jika tidak, program akan berhenti.
 
--Struktur Mahasiswa_149:
-Struktur Mahasiswa_149 mendefinisikan data mahasiswa dengan dua atribut: nama_149 untuk nama mahasiswa dan NIM_149 untuk Nomor Induk Mahasiswa.
+Secara keseluruhan, program ini menggabungkan input/output user dengan pemrosesan string menggunakan algoritma untuk menyediakan fungsionalitas menghitung dan menampilkan huruf vokal dalam kalimat secara efisien.
 
-- Struktur Node_149:
-Struktur Node_149 mendefinisikan elemen dalam antrian. Setiap Node_149 berisi objek Mahasiswa_149 sebagai datanya dan pointer next_149 yang menunjuk ke node berikutnya dalam antrian.
-Kelas Queue_149:
+### 3. [SEARCHING : Diketahui data = 9, 4, 1, 4, 7, 10, 5, 4, 12, 4. Hitunglah berapa banyak angka 4 dengan menggunakan algoritma Sequential Search!]
 
-- Kelas Queue_149 mengelola antrian dengan menggunakan dua pointer, front_149 dan back_149, yang menunjuk ke elemen pertama dan terakhir dalam antrian.
-Metode dan Fungsi dalam Queue_149:
+```C++
+#include <iostream>
+#include <vector>
 
-- Konstruktor:
-Menginisialisasi antrian kosong dengan mengatur front_149 dan back_149 ke nullptr.
+using namespace std;
 
-- isEmpty_149:
-Memeriksa apakah antrian kosong dengan mengecek apakah front_149 adalah nullptr.
+// Fungsi untuk menghitung berapa banyak angka 4 dalam data menggunakan Sequential Search
+int hitungAngkaEmpat_149(const vector<int>& data_149) {
+    int count_149 = 0;
+    int angka_149 = 4; // Angka yang ingin dicari
 
-- tambahData_149:
-Menambahkan mahasiswa baru ke antrian. Metode ini membuat node baru, mengisi data mahasiswa ke node tersebut, dan menambahkannya ke belakang antrian. Jika antrian kosong, node baru tersebut menjadi node pertama (front) dan terakhir (back) dalam antrian.
+    for (int i_149 = 0; i_149 < data_149.size(); ++i_149) {
+        if (data_149[i_149] == angka_149) {
+            count_149++;
+        }
+    }
 
-- kurangAntrian_149:
-Menghapus mahasiswa dari antrian (dari depan). Jika antrian kosong, metode ini mencetak pesan bahwa antrian kosong. Jika tidak, metode ini menghapus node depan dan memperbarui pointer front_149.
+    return count_149;
+}
 
-- count_149:
-Menghitung jumlah mahasiswa dalam antrian dengan mengiterasi melalui semua node dari depan ke belakang.
+int main() {
+    // Data yang diberikan
+    vector<int> data_149 = {9, 4, 1, 4, 7, 10, 5, 4, 12, 4};
 
-- clearQueue_149:
-Menghapus seluruh elemen dalam antrian dengan memanggil metode kurangAntrian_149 berulang kali sampai antrian kosong.
+    // Menghitung berapa banyak angka 4 dalam data menggunakan Sequential Search
+    int jumlahAngkaEmpat_149 = hitungAngkaEmpat_149(data_149);
 
-- viewQueue_149:
-Menampilkan semua mahasiswa dalam antrian. Metode ini mengiterasi melalui semua node dan mencetak nama dan NIM dari setiap mahasiswa dalam antrian.
+    // Menampilkan hasil
+    cout << "Jumlah angka 4 dalam data adalah: " << jumlahAngkaEmpat_149 << endl;
 
-- Destruktor:
-Destruktor untuk kelas Queue_149 memastikan bahwa semua memori yang dialokasikan untuk node dalam antrian dibebaskan ketika objek antrian dihancurkan.
+    return 0;
+}
 
-- Fungsi Main:
-Fungsi main mendemonstrasikan penggunaan kelas Queue_149 dengan melakukan operasi dasar antrian:
-1. Membuat objek Queue_149 bernama queue_149.
-2. Menambahkan tiga mahasiswa ke antrian menggunakan metode tambahData_149.
-3. Menampilkan antrian dengan metode viewQueue_149.
-4. Mengurangi satu elemen dari antrian dengan metode kurangAntrian_149 dan menampilkan antrian kembali.
-5. Menghapus seluruh elemen dalam antrian dengan metode clearQueue_149 dan menampilkan antrian yang sekarang kosong.
+```
+
+### Output
+![output unguided3 modul8 - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/f95ad5fc-5b14-4f10-9228-f8ad24662801) <br/>
+
+Program di atas adalah implementasi dalam C++ untuk menghitung berapa kali angka 4 muncul dalam sebuah vector menggunakan metode Sequential Search. Program ini dimulai dengan mendeklarasikan fungsi hitungAngkaEmpat_149, yang menerima sebuah vector integer sebagai parameter. Fungsi ini menggunakan loop for untuk memeriksa setiap elemen dalam vector. Jika elemen tersebut sama dengan angka 4, maka sebuah variabel penghitung count_149 akan bertambah satu. Setelah loop selesai, fungsi mengembalikan nilai count_149, yang merupakan jumlah angka 4 dalam vector.
+
+Fungsi main menginisialisasi sebuah vector data_149 dengan sepuluh elemen integer yang berisi beberapa angka 4. Selanjutnya, fungsi hitungAngkaEmpat_149 dipanggil dengan vector ini sebagai argumen, dan hasilnya disimpan dalam variabel jumlahAngkaEmpat_149. Program kemudian menampilkan hasil jumlah kemunculan angka 4 dalam vector tersebut ke layar dengan menggunakan cout.
+
+Secara keseluruhan, program ini menggabungkan penggunaan vector dan loop untuk menyediakan fungsionalitas menghitung kemunculan angka tertentu dalam data dengan cara yang sederhana dan langsung.
 
    
 ## Kesimpulan
@@ -419,7 +378,7 @@ Queue merupakan struktur data penting dalam pemrograman komputer yang mengikuti 
 
 ## Referensi
 [1] Anita Sindar RMS, ST., M.TI., STRUKTUR DATA DAN ALGORITMA DENGAN C++. Serang: CV. AA. RIZKY, 2020. <br/>
-[2] Asisten Praktikum. Modul 7 Queue. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
+[2] Asisten Praktikum. Modul 8 Algoritma Searching. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
 [3] Malik, D.S., C++ Programming. Boston: Course Technology, 2023.
 
 
