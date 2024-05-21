@@ -1,6 +1,6 @@
-#include <iostream> 
-#include <string> 
-#include <algorithm> 
+#include <iostream>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -29,14 +29,17 @@ int main() {
     string hurufVokalDitemukan_149;
     char lanjut_149;
 
-    cout<<"=========================================\n";
-    cout<<"  FIND THE VOCAL LETTERS IN A SENTENCE\n";
-    cout<<"=========================================\n";
+    cout << "=========================================\n";
+    cout << "  FIND THE VOCAL LETTERS IN A SENTENCE\n";
+    cout << "=========================================\n";
 
     do {
         // Meminta user memasukkan kalimat
         cout << "Masukkan sebuah kalimat: ";
         getline(cin, kalimat_149);
+
+        // Reset string hurufVokalDitemukan_149 sebelum menghitung huruf vokal baru
+        hurufVokalDitemukan_149.clear();
 
         // Menghitung jumlah huruf vokal dalam kalimat dan menambahkan huruf vokal yang ditemukan ke dalam hurufVokalDitemukan
         int jumlahHurufVokal_149 = hitungHurufVokal_149(kalimat_149, hurufVokalDitemukan_149);
