@@ -1,309 +1,241 @@
-  # <h1 align="center">Laporan Praktikum Modul 7 - QUEUE</h1>
+  # <h1 align="center">Laporan Praktikum Modul 8 - ALGORITMA SEARCHING</h1>
 <p align="center">Satrio Wibowo - 2311102149</p>
 
 
 ## Dasar Teori
-Queue adalah struktur data yang mengatur elemen-elemen dalam urutan linier dan berfungsi berdasarkan prinsip "First In, First Out" (FIFO). Artinya, elemen yang pertama kali dimasukkan ke dalam antrian akan menjadi yang pertama dikeluarkan. Prinsip ini mirip dengan konsep antrean dalam kehidupan sehari-hari, di mana orang yang datang lebih dulu akan dilayani lebih dulu. Dalam antrian, elemen yang berada di posisi pertama disebut Front atau Head, sedangkan elemen yang baru ditambahkan berada di posisi terakhir dan disebut Back, Rear, atau Tail.
-
-Queue memiliki dua ujung utama:
-- Front (Head): Ujung depan antrian, tempat elemen data dikeluarkan.
-- Rear (Tail): Ujung belakang antrian, tempat elemen data dimasukkan.
-
-
-Ada dua operasi utama pada queue:
-- Enqueue: Operasi untuk menambahkan elemen data baru ke bagian belakang antrian (rear).
-- Dequeue: Operasi untuk menghapus elemen data terdepan dari antrian (front).
-
-Konsep penting lainnya:
-- Kosong vs penuh: Queue dapat dalam keadaan kosong (tidak ada elemen) atau penuh (sudah mencapai kapasitas maksimum).
-- FIFO (First In, First Out): Elemen yang pertama masuk antrian akan menjadi elemen pertama yang keluar.
-
-Implementasi: </br>
-Queue dapat diimplementasikan menggunakan berbagai struktur data seperti array atau linked list. Pemilihan implementasi tergantung pada kebutuhan program dan performa yang diinginkan.</br>
-
-![images](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/fccc4b98-a4a3-4bde-a290-f41679142d55) </br>
-
-Operasi umum pada Queue
-- Enqueue: Operasi ini menambahkan elemen baru ke akhir antrian selama antrian tidak penuh. Setiap kali elemen ditambahkan (enqueue), variabel atau penunjuk posisi belakang (rear) akan bertambah satu.
-
-- Dequeue: Operasi ini menghapus elemen pertama dari antrian selama antrian tidak kosong. Jika antrian kosong, akan terjadi underflow. Karena penghapusan dilakukan pada elemen pertama, setelah penghapusan perlu dilakukan pergeseran elemen-elemen yang tersisa untuk menyesuaikan posisinya.
-
-- Display atau View: Operasi ini menampilkan semua data yang ada dalam antrian.
-
-- IsEmpty: Operasi ini memeriksa apakah antrian kosong atau tidak. Untuk mencegah underflow saat dequeue, perlu dipastikan antrian tidak kosong. Antrian dianggap kosong jika penunjuk posisi belakang bernilai 0. Operasi ini biasanya diimplementasikan sebagai fungsi yang mengembalikan nilai true jika antrian kosong, dan false jika tidak.
-
-- IsFull: Operasi ini memeriksa apakah antrian sudah penuh atau belum. Saat melakukan enqueue, penting untuk memastikan antrian tidak penuh untuk menghindari overflow. Antrian dianggap penuh jika penunjuk posisi belakang sama dengan nilai maksimal antrian. Operasi ini juga biasanya diimplementasikan sebagai fungsi yang mengembalikan nilai true jika antrian penuh, dan false jika tidak.
-
-- Destroy atau Clear: Operasi ini menghapus semua data dalam antrian. Biasanya, fungsi IsEmpty dipanggil terlebih dahulu untuk memastikan antrian tidak kosong sebelum melakukan penghapusan. Jika antrian kosong, akan ditampilkan pesan bahwa antrian sudah kosong.
-
-- Peek: Operasi ini mendapatkan nilai elemen pertama dalam antrian tanpa menghapusnya.
-
 
 
 
 ## Guided
 
-### 1. [Latihan Stack]
+### 1. Buatlah sebuah project dengan menggunakan sequential search sederhana untuk melakukan pencarian data.
 
 ```C++
-
-//guided
-
 #include <iostream>
+
 using namespace std;
 
-const int maksimalAntrian = 5;
-int front = 0;
-int back = 0;
-string queueTeller[5];
-
-//mengecek antrian apakah sudah penuh
-bool isFull(){
-    if(back == maksimalAntrian){
-        return true;
-    } else {
-        return false;
+int main() {
+  int n = 10;
+  int data[n] = {9, 4, 1, 7, 5, 12, 4, 13, 4, 10};
+  int cari = 10;
+  bool ketemu = false;
+  int i;
+  // Algoritma Sequential Search
+  for (i = 0; i < n; i++) {
+    if (data[i] == cari) {
+      ketemu = true;
+      break;
     }
+  }
+  cout << "\tProgram Sequential Search Sederhana\n" << endl;
+  cout << "data: {9, 4, 1, 7, 5, 12, 4, 13, 4, 10}" << endl;
+  if (ketemu) {
+    cout << "\nAngka " << cari << " ditemukan pada indeks ke-" << i << endl;
+  } else {
+    cout << cari << " tidak dapat ditemukan pada data." << endl;
+  }
+  return 0;
 }
-
-//mengecek antrian apakah masih kosong
-bool isEmpty(){
-    if (back == 0){
-        return true;
-    } else {
-        return false;
-    }
-}
-
-//menambah antrian
-void tambahDAta(string nama){
-    if (isFull()){
-        cout<<"Antrian sudah penuh\n";
-     } else {
-        if (isEmpty()){
-            queueTeller[0] = nama;
-            front++;
-            back++;
-        } else {
-            queueTeller[back] = nama;
-            back++;
-        }
-     }
-}
-
-//mengurangi antrian
-void kurangAntrian(){
-    if (isEmpty()){
-        cout<<"Antrian kosong\n";
-    } else {
-        for ( int i = 0; i < back; i++){
-            queueTeller[i] = queueTeller[i+1];
-        }
-        back --;
-    }
-}
-
-//memnghitung banyak data antrian
-int count(){
-    return back;
-}
-
-//menghapus seluruh antrian
-void clearQueue(){
-    if (isEmpty()){
-        cout<<"Antrian kosong\n";
-    } else {
-        for (int i = 0; i < back; i++){
-            queueTeller[i] = " ";
-        }
-        back = 0;
-        front = 0;
-    }
-}
-
-//melihat antrian
-void viewQueue(){
-    cout<<"Data antrian : \n";
-    
-    for (int i = 0; i < maksimalAntrian; i++){
-
-        if (queueTeller[i]!= ""){
-            cout << i+1 << ". "<<queueTeller[i]<<endl;
-        } else {
-            cout << i+1 <<". "<<"(kosong)"<<endl;
-        }
-        
-    }
-    }
-
-    int main(){
-        tambahDAta("Alya");
-        tambahDAta("Kiki");
-        tambahDAta("Artika");
-
-        viewQueue();
-
-        //memngurangi antrian
-        kurangAntrian();
-        viewQueue();
-
-        //menghapus seluruh antrian
-        clearQueue();
-        viewQueue();
-
-        return 0;
-    }
-
 
 ```
 
-Program tersebut adalah implementasi sederhana dari struktur data antrian (queue) menggunakan array dalam bahasa C++. Queue memiliki ukuran maksimum yang ditentukan oleh konstanta maksimalAntrian dengan nilai 5. Variabel front dan back digunakan untuk melacak posisi depan dan belakang antrian. Program ini memiliki beberapa fungsi untuk mengelola antrian, termasuk isFull() untuk memeriksa apakah antrian penuh, isEmpty() untuk memeriksa apakah antrian kosong, tambahDAta() untuk menambahkan elemen ke akhir antrian, kurangAntrian() untuk menghapus elemen dari depan antrian, count() untuk menghitung jumlah elemen dalam antrian, clearQueue() untuk menghapus semua elemen dalam antrian, dan viewQueue() untuk menampilkan semua elemen dalam antrian. Fungsi tambahDAta() menambahkan elemen baru ke antrian jika belum penuh, sedangkan kurangAntrian() menghapus elemen pertama dan menggeser elemen lainnya ke depan untuk menjaga urutan. Fungsi viewQueue() menampilkan semua elemen dalam antrian, menunjukkan posisi yang kosong jika tidak ada elemen di posisi tersebut. Program ini kemudian mengilustrasikan penggunaan fungsi-fungsi ini dengan menambahkan, menghapus, dan menampilkan elemen-elemen antrian, serta menghapus semua elemen dari antrian.
+Program di atas adalah program pencarian data menggunakan metode Sequential Search. Program ini mencari data yang diminta dalam sebuah array. Jika data tersebut ditemukan, program akan menampilkan indeks dari data tersebut. Jika data tidak ditemukan, program akan memberikan pesan bahwa data tersebut tidak ditemukan. Dalam program ini, data yang dicari adalah angka 10. Sequential Search akan mencari angka 10 dalam array dengan menggunakan perulangan for. Setelah data ditemukan, program akan menampilkan pesan bahwa angka 10 ditemukan pada indeks ke-9. Kesimpulannya, program tersebut berhasil menemukan data yang dicari dalam array. 
 
+### 2. Buatlah sebuah project untuk melakukan pencarian data dengan menggunakan Binary Search.
 
+```C++
+
+#include <conio.h>
+#include <iomanip>
+#include <iostream>
+
+using namespace std;
+
+int dataArray[7] = {1, 8, 2, 5, 4, 9, 7};
+int cari;
+void selection_sort() {
+  int temp, min, i, j;
+  for (i = 0; i < 7; i++) {
+    min = i;
+    for (j = i + 1; j < 7; j++) {
+      if (dataArray[j] < dataArray[min]) {
+        min = j;
+      }
+    }
+    temp = dataArray[i];
+    dataArray[i] = dataArray[min];
+    dataArray[min] = temp;
+  }
+}
+
+void binarysearch() {
+  int awal, akhir, tengah;
+  bool b_flag = false;
+  awal = 0;
+  akhir = 6;  // Corrected to 6 to match array bounds
+  while (!b_flag && awal <= akhir) {
+    tengah = (awal + akhir) / 2;
+    if (dataArray[tengah] == cari) {
+      b_flag = true;
+    } else if (dataArray[tengah] < cari) {
+      awal = tengah + 1;
+    } else {
+      akhir = tengah - 1;
+    }
+  }
+  if (b_flag) {
+    cout << "\nData ditemukan pada index ke- " << tengah << endl;
+  } else {
+    cout << "\nData tidak ditemukan\n";
+  }
+}
+
+int main() {
+  cout << "\tBINARY SEARCH" << endl;
+  cout << "\nData: ";
+  // Tampilkan data awal
+  for (int x = 0; x < 7; x++) {
+    cout << setw(3) << dataArray[x];
+  }
+  cout << endl;
+  cout << "\nMasukkan data yang ingin Anda cari: ";
+  cin >> cari;
+  cout << "\nData diurutkan: ";
+  // Urutkan data dengan selection sort
+  selection_sort();
+  // Tampilkan data setelah diurutkan
+  for (int x = 0; x < 7; x++) {
+    cout << setw(3) << dataArray[x];
+  }
+  cout << endl;
+  binarysearch();
+  _getche();
+  return 0;
+}
+
+```
+
+Program ini mencari data dalam array menggunakan algoritma binary search setelah mengurutkan data dengan selection sort. Dimulai dengan array dataArray berisi tujuh elemen integer, program meminta pengguna memasukkan angka yang ingin dicari.
+
+Fungsi selection_sort() mengurutkan array dengan menemukan elemen terkecil dalam bagian yang belum diurutkan dan menukarnya ke depan, diulang untuk setiap elemen sampai seluruh array terurut. Fungsi binarysearch() mencari data dalam array terurut dengan menentukan posisi tengah, membandingkannya dengan data yang dicari, dan mempersempit pencarian ke separuh array yang relevan, berulang hingga data ditemukan atau tidak.
+
+Fungsi main() menampilkan data awal, meminta input pengguna, mengurutkan data, menampilkan data terurut, dan memanggil binarysearch() untuk mencari data. Hasil pencarian ditampilkan di layar, menunjukkan apakah data ditemukan beserta indeksnya jika ditemukan. Program menunggu input karakter sebelum keluar. Secara keseluruhan, program ini menggabungkan selection sort dan binary search untuk mencari data secara efisien dalam array.
     
 ## Unguided 
 
-### 1. [QUEUE]
-Ubahlah penerapan konsep queue pada bagian guided dari array menjadi
-linked list!
+### 1. [SEARCHING]
+Buatlah sebuah program untuk mencari sebuah huruf pada sebuah kalimat yang sudah di input dengan menggunakan Binary Search!
 
 ```C++
+
 #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
 
-// Node structure for the linked list
-struct Node_149 {
-    string data_149;
-    Node_149* next_149;
-};
+// Fungsi untuk melakukan binary search pada string yang sudah diurutkan
+bool binarySearch_149(const string &sorted_str_149, char target_149) {
+    int left_149 = 0;
+    int right_149 = sorted_str_149.length() - 1;
 
-// Class for the linked list-based queue
-class Queue_149 {
-private:
-    Node_149* front_149;
-    Node_149* back_149;
+    while (left_149 <= right_149) {
+        int mid_149 = left_149 + (right_149 - left_149) / 2;
 
-public:
-    Queue_149() {
-        front_149 = nullptr;
-        back_149 = nullptr;
-    }
-
-    // Check if the queue is empty
-    bool isEmpty_149() {
-        return front_149 == nullptr;
-    }
-
-    // Add a new element to the queue
-    void tambahData_149(string nama_149) {
-        Node_149* newNode_149 = new Node_149();
-        newNode_149->data_149 = nama_149;
-        newNode_149->next_149 = nullptr;
-        
-        if (isEmpty_149()) {
-            front_149 = back_149 = newNode_149;
+        if (sorted_str_149[mid_149] == target_149) {
+            return true;  // Huruf ditemukan
+        }
+        if (sorted_str_149[mid_149] < target_149) {
+            left_149 = mid_149 + 1;
         } else {
-            back_149->next_149 = newNode_149;
-            back_149 = newNode_149;
+            right_149 = mid_149 - 1;
         }
     }
 
-    // Remove an element from the queue
-    void kurangAntrian_149() {
-        if (isEmpty_149()) {
-            cout << "Antrian kosong\n";
-        } else {
-            Node_149* temp_149 = front_149;
-            front_149 = front_149->next_149;
-            delete temp_149;
-            if (front_149 == nullptr) {
-                back_149 = nullptr;
-            }
-        }
-    }
+    return false;  // Huruf tidak ditemukan
+}
 
-    // Count the number of elements in the queue
-    int count_149() {
-        int count_149 = 0;
-        Node_149* temp_149 = front_149;
-        while (temp_149 != nullptr) {
-            count_149++;
-            temp_149 = temp_149->next_149;
-        }
-        return count_149;
-    }
-
-    // Clear the entire queue
-    void clearQueue_149() {
-        while (!isEmpty_149()) {
-            kurangAntrian_149();
+// Fungsi untuk mencari semua indeks dari huruf yang ditemukan dalam kalimat asli
+vector<int> findIndices_149(const string &original_str_149, char target_149) {
+    vector<int> indices_149;
+    for (size_t i = 0; i < original_str_149.length(); ++i) {
+        if (original_str_149[i] == target_149) {
+            indices_149.push_back(i);
         }
     }
-
-    // View the elements in the queue
-    void viewQueue_149() {
-        cout << "Data antrian: \n";
-        Node_149* temp_149 = front_149;
-        int index_149 = 1;
-        while (temp_149 != nullptr) {
-            cout << index_149 << ". " << temp_149->data_149 << endl;
-            temp_149 = temp_149->next_149;
-            index_149++;
-        }
-        if (isEmpty_149()) {
-            cout << "(kosong)\n";
-        }
-    }
-
-    ~Queue_149() {
-        clearQueue_149();
-    }
-};
+    return indices_149;
+}
 
 int main() {
-    Queue_149 queue_149;
+    string input_149;
+    char target_149;
+    char choice_149;
 
-    queue_149.tambahData_149("Alya");
-    queue_149.tambahData_149("Kiki");
-    queue_149.tambahData_149("Artika");
+    cout << "======================================================\n";
+    cout << "                     BINARY SEARCH                    \n";
+    cout << "      Mencari Huruf dari Inputan Sebuah Kalimat       \n";
+    cout << "======================================================\n";
 
-    queue_149.viewQueue_149();
+    do {
+        // Meminta pengguna memasukkan kalimat
+        cout << "Masukkan sebuah kalimat: ";
+        getline(cin, input_149);
 
-    // Mengurangi antrian
-    queue_149.kurangAntrian_149();
-    queue_149.viewQueue_149();
+        // Meminta pengguna memasukkan huruf yang ingin dicari
+        cout << "Masukkan huruf yang ingin dicari: ";
+        cin >> target_149;
+        cin.ignore(); // Membersihkan buffer setelah input karakter
 
-    // Menghapus seluruh antrian
-    queue_149.clearQueue_149();
-    queue_149.viewQueue_149();
+        // Membuat salinan kalimat asli untuk pencarian indeks
+        string original_input_149 = input_149;
+
+        // Mengurutkan string
+        sort(input_149.begin(), input_149.end());
+
+        // Mencetak kalimat yang sudah diurutkan (untuk tujuan debugging atau verifikasi)
+        cout << "Kalimat yang sudah diurutkan: " << input_149 << endl;
+
+        // Melakukan binary search
+        bool found_149 = binarySearch_149(input_149, target_149);
+
+        // Menampilkan hasil pencarian
+        if (found_149) {
+            cout << "Huruf '" << target_149 << "' ditemukan dalam kalimat." << endl;
+
+            // Mencari dan menampilkan semua indeks dari huruf yang ditemukan
+            vector<int> indices_149 = findIndices_149(original_input_149, target_149);
+            cout << "Huruf '" << target_149 << "' terdapat pada index : ";
+            for (size_t i = 0; i < indices_149.size(); ++i) {
+                cout << indices_149[i];
+                if (i < indices_149.size() - 1) {
+                    cout << ", ";  // Menambahkan koma jika bukan indeks terakhir
+                }
+            }
+            cout << endl;
+        } else {
+            cout << "Huruf '" << target_149 << "' tidak ditemukan dalam kalimat." << endl;
+        }
+
+        // Menanyakan pengguna apakah ingin mencoba kalimat lain
+        cout << "Apakah Anda ingin mencoba kalimat lain? (y/n): ";
+        cin >> choice_149;
+        cin.ignore(); // Membersihkan buffer setelah input karakter
+
+    } while (choice_149 == 'y' || choice_149 == 'Y');
 
     return 0;
 }
 
+
 ```
 #### Output :
-![output modul 7  unguided 1 -satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/1f0b91a6-f4df-48ae-a636-3cd0f904ba71) </br>
+![output unguided1 modul 8 - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/4caf8ba6-3866-4ff8-8d93-0a5c67274c50) <br/>
 
 
-Kode di atas adalah implementasi antrian berbasis linked list dalam bahasa C++. Antrian ini menggunakan struktur Node_149 untuk merepresentasikan setiap elemen dalam antrian dan kelas Queue_149 untuk mengelola operasi antrian. Berikut adalah penjelasan setiap bagian dari kode:
 
-- Struktur Node_149:
-Struktur Node_149 mendefinisikan elemen dalam antrian. Setiap Node_149 memiliki dua atribut: data_149 yang merupakan data yang disimpan (dalam bentuk string) dan next_149 yang merupakan pointer ke node berikutnya dalam antrian.
 
-- Kelas Queue_149:
-Kelas Queue_149 mengelola antrian menggunakan dua pointer, front_149 dan back_149, yang mengarah ke elemen pertama dan terakhir dalam antrian, masing-masing. Kelas ini menyediakan berbagai metode untuk operasi antrian:
-
-- isEmpty_149: Memeriksa apakah antrian kosong dengan memeriksa apakah front_149 adalah nullptr.
-- tambahData_149: Menambahkan elemen baru ke antrian. Metode ini membuat node baru dan menambahkannya ke belakang antrian. Jika antrian kosong, node baru tersebut menjadi node pertama (front) dan terakhir (back) dalam antrian.
-- kurangAntrian_149: Menghapus elemen dari antrian (dari depan). Jika antrian kosong, metode ini mencetak pesan bahwa antrian kosong. Jika tidak, metode ini menghapus node depan dan memperbarui pointer front_149.
-- count_149: Menghitung jumlah elemen dalam antrian dengan mengiterasi melalui semua node dari depan ke belakang.
-- clearQueue_149: Menghapus seluruh elemen dalam antrian dengan memanggil metode kurangAntrian_149 berulang kali sampai antrian kosong.
-- viewQueue_149: Menampilkan semua elemen dalam antrian. Metode ini mengiterasi melalui semua node dan mencetak data yang disimpan dalam setiap node.
-- Destruktor Queue_149:
-Destruktor untuk kelas Queue_149 memastikan bahwa semua memori yang dialokasikan untuk node dalam antrian dibebaskan ketika objek antrian dihancurkan.
-
-- Main Function:
-Main Function mendemonstrasikan penggunaan kelas Queue_149. Ini dimulai dengan membuat objek Queue_149 bernama queue_149. Kemudian, tiga elemen ("Alya", "Kiki", "Artika") ditambahkan ke antrian menggunakan metode tambahData_149. Antrian kemudian ditampilkan dengan metode viewQueue_149. Satu elemen dihapus dari antrian menggunakan metode kurangAntrian_149 dan antrian ditampilkan kembali. Terakhir, seluruh elemen dalam antrian dihapus menggunakan metode clearQueue_149 dan antrian ditampilkan sekali lagi.
 
 ### 2. [QUEUE]
 Dari nomor 1 buatlah konsep antri dengan atribut Nama mahasiswa dan NIM
