@@ -4,6 +4,68 @@
 
 ## Dasar Teori
 
+### GRAPH
+ #### A. Pengertian dan Fungsi Graph
+Graf, dalam konteks struktur data, adalah representasi visual yang menunjukkan hubungan antara objek-objek tertentu. Secara formal, graf dinyatakan sebagai pasangan terurut \( G = (V, E) \), di mana \( G \) adalah graf, \( V \) adalah himpunan simpul (vertex), dan \( E \) adalah himpunan sisi (edge) yang menghubungkan simpul-simpul tersebut. Dalam graf, simpul-simpul merepresentasikan objek atau entitas, sedangkan sisi-sisi menggambarkan hubungan antara simpul-simpul tersebut. Graf digunakan untuk memodelkan berbagai situasi di berbagai bidang seperti jaringan komputer, rute transportasi, relasi sosial, dan lain-lain.
+
+Dalam representasi graf, simpul-simpul sering digambarkan sebagai titik atau lingkaran, sementara sisi-sisi diwakili oleh garis atau panah yang menghubungkan simpul-simpul tersebut. Sisi-sisi ini bisa memiliki arah (disebut graf berarah) atau tidak (disebut graf tidak berarah), dan mungkin juga memiliki bobot atau atribut tambahan yang memberikan informasi lebih lanjut tentang hubungan antara simpul-simpul. Graf dapat bersifat acyclic (tanpa siklus) atau cyclic (dengan siklus). Graf acyclic tidak memiliki siklus atau jalur tertutup di mana simpul yang sama dilewati lebih dari sekali, sedangkan graf cyclic memiliki setidaknya satu siklus. Dalam praktiknya, graf digunakan untuk menganalisis dan memodelkan berbagai masalah. Berbagai algoritma telah dikembangkan untuk mengelola dan memanipulasi graf, seperti algoritma pencarian jalan terpendek, algoritma alur maksimal, dan banyak lagi.
+
+![grpah](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/33abd700-e9d3-4ec7-9a5e-794c1e399481) </br>
+
+#### Jenis jenis Graph
+- Graf Berarah (Directed Graph) adalah jenis graf di mana setiap sisi memiliki arah tertentu, menunjukkan orientasi dari satu simpul ke simpul lainnya. Dalam graf ini, pergerakan atau perjalanan hanya bisa dilakukan dalam arah yang telah ditentukan.
+- Graf Tidak Berarah (Undirected Graph) adalah graf di mana setiap sisi tidak memiliki arah spesifik, sehingga pergerakan dapat dilakukan bolak-balik antara dua simpul. Misalnya, jaringan jalan raya memungkinkan perjalanan dua arah antara dua kota.
+- Graf Berbobot (Weighted Graph) adalah graf di mana setiap sisi memiliki nilai numerik yang disebut bobot atau weight, yang menunjukkan biaya, jarak, atau atribut lain dari hubungan antara dua simpul yang terhubung oleh sisi tersebut. Graf ini berguna untuk memodelkan situasi di mana hubungan antara simpul memiliki nilai yang berbeda-beda, seperti biaya perjalanan antara kota-kota dalam jaringan transportasi.
+
+#### Representasi Graph
+Representasi graf adalah cara untuk menggambarkan struktur dan hubungan antara simpul-simpul (vertex) dan sisi-sisi (edge) dalam sebuah graf. Ada beberapa metode umum untuk merepresentasikan graf dalam struktur data, di antaranya:
+
+1. **Matriks Ketetanggaan (Adjacency Matrix):**
+   Matriks ketetanggaan adalah matriks 2D yang digunakan untuk merepresentasikan graf. Jika terdapat \( n \) simpul, maka matriks ini berukuran \( n \times n \). Elemen matriks \( A[i][j] \) adalah 1 (atau bobotnya jika graf berbobot) jika terdapat sisi dari simpul \( i \) ke simpul \( j \), dan 0 jika tidak ada sisi.
+
+   Contoh untuk graf tidak berarah:
+   ```
+     A B C
+   A 0 1 0
+   B 1 0 1
+   C 0 1 0
+   ```
+
+2. **Daftar Ketetanggaan (Adjacency List):**
+   Daftar ketetanggaan adalah array dari daftar yang digunakan untuk merepresentasikan graf. Setiap simpul memiliki daftar terhubung yang berisi semua simpul tetangga yang terhubung dengannya. Ini lebih efisien dalam penggunaan memori untuk graf yang jarang (sparse graph).
+
+   Contoh:
+   ```
+   A: B
+   B: A, C
+   C: B
+   ```
+
+3. **Matriks Insiden (Incidence Matrix):**
+   Matriks insiden adalah matriks 2D yang digunakan untuk merepresentasikan graf. Jika terdapat \( n \) simpul dan \( m \) sisi, maka matriks ini berukuran \( n \times m \). Elemen matriks \( I[i][j] \) adalah 1 jika simpul \( i \) terhubung dengan sisi \( j \), dan 0 jika tidak.
+
+   Contoh untuk graf tidak berarah dengan sisi \{e1, e2, e3\}:
+   ```
+     e1 e2 e3
+   A  1  0  1
+   B  1  1  0
+   C  0  1  1
+   ```
+
+4. **Representasi Tepi (Edge List):**
+   Representasi tepi adalah daftar yang digunakan untuk menyimpan semua sisi dari sebuah graf. Setiap elemen dalam daftar adalah pasangan (atau tripel untuk graf berbobot) yang menunjukkan simpul yang terhubung oleh sisi tersebut.
+
+   Contoh:
+   ```
+   (A, B)
+   (B, C)
+   (A, C)
+   ```
+
+### TREE
+Pohon adalah struktur data hierarkis yang terdiri dari simpul-simpul yang terhubung dalam pola terbatas dan tidak membentuk siklus. Pohon terdiri dari simpul-simpul yang memiliki dua bagian utama: simpul akar (root node) dan simpul-simpul anak (child nodes). Simpul akar adalah simpul paling atas yang tidak memiliki simpul induk (parent node), sementara simpul-simpul anak adalah simpul-simpul di bawah simpul akar yang terhubung langsung dengannya. Karakteristik lain dari pohon adalah setiap simpul anak hanya memiliki satu simpul induk, berbeda dengan graf biasa di mana simpul dapat memiliki beberapa simpul induk. Oleh karena itu, setiap simpul dalam pohon memiliki hubungan induk-anak yang jelas.
+
+Pohon sering digunakan untuk merepresentasikan data hierarkis, seperti struktur file dalam sistem operasi, struktur direktori di komputer, struktur organisasi dalam bisnis, dan struktur hierarki dalam bahasa pemrograman seperti pohon ekspresi dalam pemrosesan bahasa aljabar. Selain itu, pohon juga banyak digunakan dalam algoritma dan struktur data, seperti pohon pencarian biner (binary search tree), pohon merah-hitam (red-black tree), dan pohon B (B-tree), yang digunakan dalam berbagai aplikasi seperti pengurutan dan pencarian data, manajemen basis data, dan lainnya. Pemahaman tentang konsep pohon sangat penting dalam pemrograman dan pengembangan perangkat lunak karena memungkinkan pengorganisasian data secara hierarkis dan efisien serta menyediakan dasar untuk berbagai algoritma dan struktur data yang kompleks.
 
 
 
@@ -493,6 +555,9 @@ int main() {
 ```
 #### Output :
 
+![unguided1 modul9 - satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/5589a9c9-a9ca-46ca-b0d3-1f3da319b366)
+
+Program di atas adalah program dalam bahasa C++ yang digunakan untuk menginput dan menampilkan matriks bobot dari sebuah graf yang tidak berarah. Program ini dimulai dengan meminta user untuk memasukkan jumlah simpul (nodes) yang ingin dimasukkan ke dalam graf, saya memasukkan 2 jumlah simpul untuk masing masing dari run code- nya. Setelah itu, user diminta untuk memasukkan nama-nama setiap simpul, saya memberi nama BALI - PALU dan PURWOKERTO - SEMARANG. Selanjutnya, program meminta user untuk menginput bobot antara setiap pasangan simpul, termasuk bobot dari simpul ke dirinya sendiri. Untuk BALI - PALU memiliki bobot 3 dan PALU - BALI 4, untuk SEMARANG - PURWOKERTO memiliki bobot 5 dan PURWOKERTO - SEMARANG 4. Untuk bobot dari simpul ke simpul itu sendiri yaitu 0. Matriks bobot yang dihasilkan kemudian ditampilkan dalam bentuk tabel, dengan baris dan kolom yang diberi label menggunakan nama-nama simpul yang telah diinput. Program menggunakan beberapa fitur dasar dari bahasa C++, seperti iostream untuk input dan output, serta vector dari STL untuk menyimpan nama-nama simpul dan matriks bobotnya. 
 
 
 ### 2. Modifikasi guided tree diatas dengan program menu menggunakan input data tree dari user dan berikan fungsi tambahan untuk menampilkan node child dan descendant dari node yang diinput kan!
@@ -933,16 +998,66 @@ Pohon* findNode(Pohon *node_2311102149, char data) {
 ### Output
 
 
+![unguided2 1 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/a1d4325f-bd1f-40d6-acd1-6088d5a6c1d6) </br>
+
+![unguided2 2 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/a3a48629-7cd0-4950-aa55-46579cf3e9ad) </br>
+
+![unguided2 3 modul9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/46e94d8b-526d-4d47-ab1f-134cb36b3da3) </br>
+
+![unguided2 4 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/ebb323a5-8c0b-4936-8aa1-6dcf0004b97f) </br>
+
+![unguided2 5 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/672042ee-7b3d-4124-bc7e-e2c0c414f400) </br>
+
+![unguided2 6 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/7594584a-79aa-40bc-b76c-9f336dbb1b50) <br>
+
+![unguided2 7 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/e1804129-2b21-4fe5-a030-c0ed206acc05) </br>
+
+![unguided2 8 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/480b3eff-3849-4d29-9236-0441a2a0ded1) </br>
+
+![unguided2 9 modul 9 -Satrio](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/83d132f5-0bf0-430e-8c60-05a4dc23071e) </br>
 
 
-   
+
+Program di atas adalah implementasi sederhana dari sebuah pohon biner (binary tree) menggunakan bahasa C++. Pohon biner tersebut diimplementasikan menggunakan struct bernama Pohon yang memiliki atribut untuk menyimpan data, serta pointer ke anak kiri, anak kanan, dan orang tua (parent). Program ini juga memiliki beberapa fungsi untuk menginisialisasi pohon, memeriksa apakah pohon kosong, membuat node, menambah node di kiri atau kanan, mengubah data node, menampilkan data node, mencari node, menghapus pohon, menghitung ukuran dan tinggi pohon, serta menampilkan karakteristik pohon seperti ukuran dan tinggi.
+
+Dalam main(), program menampilkan menu untuk pengguna dengan berbagai opsi seperti membuat root, menambah node kiri atau kanan, mengubah data node, melihat data node, mencari node, menghapus pohon, melihat karakteristik pohon, menampilkan anak-anak node, menampilkan keturunan node, dan melakukan traversal pohon (preorder, inorder, dan postorder). Pengguna dapat memilih opsi dengan memasukkan pilihan yang sesuai dan mengikuti instruksi yang diberikan.
+
+Fungsi-fungsi utama meliputi:
+
+- init(): Menginisialisasi pohon dengan mengatur root menjadi NULL.
+- isEmpty(): Memeriksa apakah pohon kosong.
+- buatNode(char data): Membuat node root jika pohon belum dibuat.
+- insertLeft(char data, Pohon *node): Menambah node di anak kiri dari node yang ditentukan.
+- insertRight(char data, Pohon *node): Menambah node di anak kanan dari node yang ditentukan.
+- update(char data, Pohon *node): Mengubah data dari node yang ditentukan.
+- retrieve(Pohon *node): Menampilkan data dari node yang ditentukan.
+- find(Pohon *node): Mencari node berdasarkan data dan menampilkan informasi tentang node tersebut.
+- preOrder(Pohon *node), inOrder(Pohon *node), postOrder(Pohon *node): Melakukan traversal preorder, inorder, dan postorder.
+- deleteTree(Pohon *node): Menghapus seluruh pohon atau sub-pohon dari node yang ditentukan.
+- clear(): Menghapus seluruh pohon.
+- size(Pohon *node): Menghitung jumlah node dalam pohon.
+- height(Pohon *node): Menghitung tinggi pohon.
+- characteristic(): Menampilkan karakteristik pohon.
+- showChildren(Pohon *node): Menampilkan anak-anak dari node yang ditentukan.
+- showDescendants(Pohon *node): Menampilkan keturunan dari node yang ditentukan.
+- findNode(Pohon *node, char data): Mencari node berdasarkan data dan mengembalikan pointer ke node tersebut.
+
+
+
+
+
+
 ## Kesimpulan
 
-Dari praktikum yang telah dilakukan, dapat ditarik kesimpulan bahwa algoritma searching merupakan alat penting dalam ilmu komputer untuk menemukan data dalam kumpulan data. Sequential Search dan Binary Search adalah dua contoh populer dengan kelebihan dan kekurangannya masing-masing. Memahami karakteristik dan kegunaannya memungkinkan pengembang untuk memilih algoritma yang tepat untuk menyelesaikan masalah mereka secara efisien.
+Dari praktikum yang telah dilakukan, dapat ditarik kesimpulan bahwa Tree dan graph merupakan struktur data penting yang mendalam dalam pengembangan perangkat lunak dan pemrosesan informasi. Tree menyediakan kerangka kerja hierarkis untuk mengorganisir data secara efisien, memungkinkan representasi hubungan induk-anak yang jelas antara elemen-elemen data. Graph, di sisi lain, menawarkan representasi umum dari hubungan antar objek melalui node dan edge, menggambarkan berbagai situasi seperti jaringan komputer, rute transportasi, dan relasi sosial.
+
+Pemahaman tentang operasi dasar seperti penyisipan, penghapusan, dan penelusuran, serta jenis penelusuran seperti inorder, postorder, dan preorder, memungkinkan pengembang untuk mengimplementasikan dan memanipulasi tree dan graph dengan efektif. Dalam pengembangan perangkat lunak, pengetahuan ini kunci untuk merancang algoritma efisien dan mengatasi tantangan pemrosesan data. Representasi graf dengan matriks dan linked list, serta operasi dasar pada tree, membantu pengembang menyelesaikan masalah kompleks dan membangun solusi efisien.
+
+Dengan pemahaman mendalam tentang tree dan graph, pengembang dapat menciptakan solusi inovatif dan terukur untuk berbagai aplikasi, mulai dari analisis jaringan hingga algoritma pencarian dan pengurutan data. Konsep-konsep ini memberikan fondasi yang kuat untuk menjelajahi berbagai aplikasi dalam pemrosesan informasi modern.
 
 ## Referensi
-[1] Bart J. Van Zeghbroeck, et al., Josephson Sampler Response Using a Binary Search Algorithm, Colorado: IEEE, 2024. <br/>
-[2] Asisten Praktikum. Modul 8 Algoritma Searching. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
+[1] Anita Sindar RMS, ST., M.TI., STRUKTUR DATA DAN ALGORITMA DENGAN C++. Serang: CV. AA. RIZKY, 2020. <br/>
+[2] Asisten Praktikum. Modul 9 Grpah dan Tree. Purwokerto: Institut Teknologi Purwokerto. 2024. <br/>
 [3] Malik, D.S., C++ Programming. Boston: Course Technology, 2023.
 
 
