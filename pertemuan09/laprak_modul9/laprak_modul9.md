@@ -1,432 +1,939 @@
-  # <h1 align="center">Laporan Praktikum Modul 8 - ALGORITMA SEARCHING</h1>
+  # <h1 align="center">Laporan Praktikum Modul 9 - GRAPH DAN TREE</h1>
 <p align="center">Satrio Wibowo - 2311102149</p>
 
 
 ## Dasar Teori
-Algoritma Searching (pencarian) adalah urutan langkah-langkah logis yang dirancang untuk menemukan data tertentu dalam kumpulan data. Kumpulan data ini bisa berupa apa saja, seperti daftar kata, array bilangan, atau database besar. Algoritma ini bekerja dengan cara membandingkan data yang dicari dengan elemen-elemen dalam kumpulan data, hingga data yang dicari ditemukan atau dipastikan tidak ada.
-
-Algoritma pencarian memiliki berbagai macam jenis dan kegunaannya, masing-masing dengan kelebihan dan kekurangannya. Beberapa jenis algoritma pencarian yang umum digunakan adalah:
-## 1. Sequential Search
-
-![sequential searching - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/de7105a6-5881-485d-8b7b-45e77e4822bd) <br/>
-
-Konsep Sequential Search, juga dikenal sebagai Linear Search, adalah salah satu metode pencarian sederhana yang digunakan untuk menemukan keberadaan suatu nilai tertentu dalam sebuah kumpulan data yang tidak terurut.Cara kerja pencarian sekuensial:
-
-- Mulai dari elemen pertama dalam kumpulan data.
-- Bandingkan elemen tersebut dengan data yang sedang dicari.
-- Jika elemen tersebut cocok dengan data yang dicari, pencarian selesai dan elemen tersebut dikembalikan.
-- Jika elemen tersebut tidak cocok, lanjutkan ke elemen berikutnya dalam kumpulan data.
-- Ulangi langkah 2 dan 3 hingga seluruh elemen dalam kumpulan data telah diperiksa.
-- Jika tidak ada elemen yang cocok ditemukan, pencarian dinyatakan gagal.
-
-Kelebihan pencarian sekuensial:
-
-- Sederhana dan mudah diimplementasikan.
-- Tidak memerlukan data yang diurutkan sebelumnya.
-
-Kekurangan pencarian sekuensial:
-
-- Inefisien untuk kumpulan data yang besar.
-- Semakin besar kumpulan data, semakin banyak perbandingan yang perlu dilakukan, sehingga waktu pencarian menjadi semakin lama.
-- Tidak cocok untuk aplikasi real-time yang membutuhkan pencarian cepat.
-
-Penggunaan pencarian sekuensial:
-
-- Biasanya digunakan untuk kumpulan data yang kecil.
-- Digunakan sebagai dasar untuk memahami algoritma pencarian yang lebih kompleks.
-
-## 2.  Binary Search
-![binary search - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/47f14912-cff9-4e2b-92c3-14cc66df9a0e) <br/>
 
 
-Binary search adalah algoritma pencarian yang digunakan untuk menemukan lokasi (indeks) suatu elemen tertentu dalam kumpulan data yang telah diurutkan secara terurut. 
-Cara kerja pencarian biner:
 
-- Hitung indeks tengah dari kumpulan data.
-- Bandingkan data yang dicari dengan elemen pada indeks tengah tersebut.
-- Jika data yang dicari cocok dengan elemen pada indeks tengah, pencarian selesai dan elemen tersebut dikembalikan.
-- Jika data yang dicari lebih kecil dari elemen pada indeks tengah, maka data yang dicari pasti berada di bagian kiri dari kumpulan data yang tersisa. Ulangi langkah 1-3 untuk bagian kiri tersebut.
-- Jika data yang dicari lebih besar dari elemen pada indeks tengah, maka data yang dicari pasti berada di bagian kanan dari kumpulan data yang tersisa. Ulangi langkah 1-3 untuk bagian kanan tersebut
-
-Kelebihan pencarian biner:
-
-- Sangat efisien untuk kumpulan data yang besar.
-- Waktu pencarian rata-rata berbanding lurus dengan logaritma dari ukuran kumpulan data (記号 (kì hào) bìng hào, notation). Dengan kata lain, waktu pencarian meningkat jauh lebih lambat dibandingkan pencarian sekuensial - seiring dengan bertambahnya ukuran data.
-
-Kekurangan pencarian biner:
-
-- Memerlukan data yang sudah diurutkan sebelumnya.
-- Kurang efisien untuk kumpulan data yang kecil (karena proses pengulangan untuk mencari indeks tengah bisa jadi lebih memakan waktu dibandingkan pencarian sekuensial).
-
-Penggunaan pencarian biner:
-
-- Digunakan untuk mencari data dalam array atau daftar yang sudah diurutkan.
-- Digunakan dalam berbagai aplikasi, seperti mesin pencari, sistem basis data, dan algoritma sorting lainnya.
 
 ## Guided
 
-### 1. Buatlah sebuah project dengan menggunakan sequential search sederhana untuk melakukan pencarian data.
+### 1. Guided I Program Graph
 
 ```C++
 #include <iostream>
-
-using namespace std;
-
-int main() {
-  int n = 10;
-  int data[n] = {9, 4, 1, 7, 5, 12, 4, 13, 4, 10};
-  int cari = 10;
-  bool ketemu = false;
-  int i;
-  // Algoritma Sequential Search
-  for (i = 0; i < n; i++) {
-    if (data[i] == cari) {
-      ketemu = true;
-      break;
-    }
-  }
-  cout << "\tProgram Sequential Search Sederhana\n" << endl;
-  cout << "data: {9, 4, 1, 7, 5, 12, 4, 13, 4, 10}" << endl;
-  if (ketemu) {
-    cout << "\nAngka " << cari << " ditemukan pada indeks ke-" << i << endl;
-  } else {
-    cout << cari << " tidak dapat ditemukan pada data." << endl;
-  }
-  return 0;
-}
-
-```
-
-Program di atas adalah program pencarian data menggunakan metode Sequential Search. Program ini mencari data yang diminta dalam sebuah array. Jika data tersebut ditemukan, program akan menampilkan indeks dari data tersebut. Jika data tidak ditemukan, program akan memberikan pesan bahwa data tersebut tidak ditemukan. Dalam program ini, data yang dicari adalah angka 10. Sequential Search akan mencari angka 10 dalam array dengan menggunakan perulangan for. Setelah data ditemukan, program akan menampilkan pesan bahwa angka 10 ditemukan pada indeks ke-9. Kesimpulannya, program tersebut berhasil menemukan data yang dicari dalam array. 
-
-### 2. Buatlah sebuah project untuk melakukan pencarian data dengan menggunakan Binary Search.
-
-```C++
-
-#include <conio.h>
 #include <iomanip>
+
+using namespace std;
+
+string simpul[7] = {
+    "Ciamis", "Bandung", "Bekai", "Tasikmalaya", "Cianjur", "Purwokerto", "Yogyakarta"
+};
+
+int busur [7][7] = {
+    {0, 7, 8, 0, 0, 0, 0},
+    {0, 0, 5, 0, 0, 15, 0},
+    {0, 6, 0, 0, 5, 0, 0},
+    {0, 5, 0, 0, 2, 4, 0},
+    {23, 0, 0, 10, 0, 0, 8},
+    {0, 0, 0, 0, 7, 0, 3},
+    {0, 0, 0, 0, 9, 4, 0}
+};
+
+void tampilGraph(){
+    for( int baris=0; baris<7; baris++){
+        cout<<" "<<setiosflags(ios::left)<<setw(15)<<simpul[baris]<<" : ";
+        for (int kolom=0; kolom<7; kolom++){
+            if (busur[baris][kolom] !=0){
+                cout<<" "<<simpul[kolom]<<" ("<<busur[baris][kolom]<<" )";
+            }
+
+        }cout<<endl;
+    }  
+}
+
+int main(){
+    tampilGraph();
+    return 0;
+}
+
+```
+Program ini menampilkan graf berarah yang terdiri dari 7 simpul dan 12 busur, menggunakan array 2 dimensi sebagai representasi graf. Terdapat fungsi tampilGraph() yang bertugas menampilkan graf ini. Array simpul menyimpan nama-nama simpul, sementara array busur menyimpan bobot antara simpul-simpul tersebut. Dengan menggunakan fungsi tampilGraph(), graf berarah yang terdiri dari 7 simpul dan 12 busur akan ditampilkan. Fungsi tampilGraph() menggunakan perulangan for untuk melakukan hal ini. Pada fungsi main(), kita memanggil tampilGraph() untuk menampilkan graf.
+
+
+### 2. Program Tree
+```C++
 #include <iostream>
 
 using namespace std;
 
-int dataArray[7] = {1, 8, 2, 5, 4, 9, 7};
-int cari;
-void selection_sort() {
-  int temp, min, i, j;
-  for (i = 0; i < 7; i++) {
-    min = i;
-    for (j = i + 1; j < 7; j++) {
-      if (dataArray[j] < dataArray[min]) {
-        min = j;
-      }
-    }
-    temp = dataArray[i];
-    dataArray[i] = dataArray[min];
-    dataArray[min] = temp;
-  }
+// Program Binary Tree
+
+// Deklarasi Pohon
+struct Pohon
+{
+    char data;
+    Pohon *left, *right, *parent;
+};
+Pohon *root, *baru;
+
+// Inisialisasi
+void init()
+{
+    root = NULL;
 }
 
-void binarysearch() {
-  int awal, akhir, tengah;
-  bool b_flag = false;
-  awal = 0;
-  akhir = 6;  // Corrected to 6 to match array bounds
-  while (!b_flag && awal <= akhir) {
-    tengah = (awal + akhir) / 2;
-    if (dataArray[tengah] == cari) {
-      b_flag = true;
-    } else if (dataArray[tengah] < cari) {
-      awal = tengah + 1;
-    } else {
-      akhir = tengah - 1;
-    }
-  }
-  if (b_flag) {
-    cout << "\nData ditemukan pada index ke- " << tengah << endl;
-  } else {
-    cout << "\nData tidak ditemukan\n";
-  }
+// Cek Node
+int isEmpty()
+{
+    if (root == NULL)
+        return 1; // true
+    else
+        return 0; // false
 }
 
-int main() {
-  cout << "\tBINARY SEARCH" << endl;
-  cout << "\nData: ";
-  // Tampilkan data awal
-  for (int x = 0; x < 7; x++) {
-    cout << setw(3) << dataArray[x];
-  }
-  cout << endl;
-  cout << "\nMasukkan data yang ingin Anda cari: ";
-  cin >> cari;
-  cout << "\nData diurutkan: ";
-  // Urutkan data dengan selection sort
-  selection_sort();
-  // Tampilkan data setelah diurutkan
-  for (int x = 0; x < 7; x++) {
-    cout << setw(3) << dataArray[x];
-  }
-  cout << endl;
-  binarysearch();
-  _getche();
-  return 0;
+void buatNode(char data)
+{
+    if (isEmpty() == 1)
+    {
+        root = new Pohon();
+        root->data = data;
+        root->left = NULL;
+        root->right = NULL;
+        root->parent = NULL;
+        cout << "\n Node " << data << " berhasil dibuat menjadi root." << endl;
+    }
+    else
+    {
+        cout << "\n Pohon sudah dibuat" << endl;
+    }
+}
+
+// Tambah Kiri
+Pohon *insertLeft(char data, Pohon *node)
+{
+    if (isEmpty() == 1)
+    {
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+        return NULL;
+    }
+    else
+    {
+        // cek apakah child kiri ada atau tidak
+        if (node->left != NULL)
+        {
+            // kalau ada
+            cout << "\n Node " << node->data << " sudah ada child kiri!" << endl;
+            return NULL;
+        }
+        else
+        {
+            // kalau tidak ada
+            baru = new Pohon();
+            baru->data = data;
+            baru->left = NULL;
+            baru->right = NULL;
+            baru->parent = node;
+            node->left = baru;
+            cout << "\n Node " << data << " berhasil ditambahkan ke child kiri " << baru->parent->data << endl;
+            return baru;
+        }
+    }
+}
+// Tambah Kanan
+Pohon *insertRight(char data, Pohon *node)
+{
+    if (root == NULL)
+    {
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+        return NULL;
+    }
+    else
+    {
+        // cek apakah child kanan ada atau tidak
+        if (node->right != NULL)
+        {
+            // kalau ada
+            cout << "\n Node " << node->data << " sudah ada child kanan!" << endl;
+            return NULL;
+        }
+        else
+        {
+            // kalau tidak ada
+            baru = new Pohon();
+            baru->data = data;
+            baru->left = NULL;
+            baru->right = NULL;
+            baru->parent = node;
+            node->right = baru;
+            cout << "\n Node " << data << " berhasil ditambahkan ke child kanan " << baru->parent->data << endl;
+            return baru;
+        }
+    }
+}
+// Ubah Data Tree
+void update(char data, Pohon *node)
+{
+    if (isEmpty() == 1)
+    {
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    }
+    else
+    {
+        if (!node)
+            cout << "\n Node yang ingin diganti tidak ada!!" << endl;
+        else
+        {
+            char temp = node->data;
+            node->data = data;
+            cout << "\n Node " << temp << " berhasil diubah menjadi " << data << endl;
+        }
+    }
+}
+// Lihat Isi Data Tree
+void retrieve(Pohon *node)
+{
+    if (!root)
+    {
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    }
+    else
+    {
+        if (!node)
+            cout << "\n Node yang ditunjuk tidak ada!" << endl;
+        else
+        {
+            cout << "\n Data node : " << node->data << endl;
+        }
+    }
+}
+// Cari Data Tree
+void find(Pohon *node)
+{
+    if (!root)
+    {
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    }
+    else
+    {
+        if (!node)
+            cout << "\n Node yang ditunjuk tidak ada!" << endl;
+        else
+        {
+            cout << "\n Data Node : " << node->data << endl;
+            cout << " Root : " << root->data << endl;
+            if (!node->parent)
+                cout << " Parent : (tidak punya parent)" << endl;
+            else
+                cout << " Parent : " << node->parent->data << endl;
+            if (node->parent != NULL && node->parent->left != node && node->parent->right == node)
+                cout << " Sibling : " << node->parent->left->data << endl;
+            else if (node->parent != NULL && node->parent->right != node && node->parent->left == node)
+                cout << " Sibling : " << node->parent->right->data << endl;
+            else
+                cout << " Sibling : (tidak punya sibling)" << endl;
+            if (!node->left)
+                cout << " Child Kiri : (tidak punya Child kiri)" << endl;
+            else
+                cout << " Child Kiri : " << node->left->data << endl;
+            if (!node->right)
+                cout << " Child Kanan : (tidak punya Child kanan)" << endl;
+            else
+                cout << " Child Kanan : " << node->right->data << endl;
+        }
+    }
+}
+// Penelurusan (Traversal)
+// preOrder
+void preOrder(Pohon *node = root)
+{
+    if (!root)
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    else
+    {
+        if (node != NULL)
+        {
+            cout << " " << node->data << ", ";
+            preOrder(node->left);
+            preOrder(node->right);
+        }
+    }
+}
+// inOrder
+void inOrder(Pohon *node = root)
+{
+    if (!root)
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    else
+    {
+        if (node != NULL)
+        {
+            inOrder(node->left);
+            cout << " " << node->data << ", ";
+            inOrder(node->right);
+        }
+    }
+}
+// postOrder
+void postOrder(Pohon *node = root)
+{
+    if (!root)
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    else
+    {
+        if (node != NULL)
+        {
+            postOrder(node->left);
+            postOrder(node->right);
+            cout << " " << node->data << ", ";
+        }
+    }
+}
+// Hapus Node Tree
+void deleteTree(Pohon *node)
+{
+    if (!root)
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    else
+    {
+        if (node != NULL)
+        {
+            if (node != root)
+            {
+                node->parent->left = NULL;
+                node->parent->right = NULL;
+            }
+            deleteTree(node->left);
+            deleteTree(node->right);
+            if (node == root)
+            {
+                delete root;
+                root = NULL;
+            }
+            else
+            {
+                delete node;
+            }
+        }
+    }
+}
+// Hapus SubTree
+void deleteSub(Pohon *node)
+{
+    if (!root)
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+    else
+    {
+        deleteTree(node->left);
+        deleteTree(node->right);
+        cout << "\n Node subtree " << node->data << " berhasil dihapus." << endl;
+    }
+}
+// Hapus Tree
+void clear()
+{
+    if (!root)
+        cout << "\n Buat tree terlebih dahulu!!" << endl;
+    else
+    {
+        deleteTree(root);
+        cout << "\n Pohon berhasil dihapus." << endl;
+    }
+}
+// Cek Size Tree
+int size(Pohon *node = root)
+{
+    if (!root)
+    {
+        cout << "\n Buat tree terlebih dahulu!!" << endl;
+        return 0;
+    }
+    else
+    {
+        if (!node)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1 + size(node->left) + size(node->right);
+        }
+    }
+}
+// Cek Height Level Tree
+int height(Pohon *node = root)
+{
+    if (!root)
+    {
+        cout << "\n Buat tree terlebih dahulu!" << endl;
+        return 0;
+    }
+    else
+    {
+        if (!node)
+        {
+            return 0;
+        }
+        else
+        {
+            int heightKiri = height(node->left);
+            int heightKanan = height(node->right);
+            if (heightKiri >= heightKanan)
+            {
+                return heightKiri + 1;
+            }
+            else
+            {
+                return heightKanan + 1;
+            }
+        }
+    }
+}
+// Karakteristik Tree
+void charateristic()
+{
+    cout << "\n Size Tree : " << size() << endl;
+    cout << " Height Tree : " << height() << endl;
+    cout << " Average Node of Tree : " << size() / height() << endl;
+}
+int main()
+{
+    buatNode('A');
+
+    Pohon *nodeB, *nodeC, *nodeD, *nodeE, *nodeF, *nodeG, *nodeH, *nodeI, *nodeJ;
+
+    nodeB = insertLeft('B', root);
+    nodeC = insertRight('C', root);
+    nodeD = insertLeft('D', nodeB);
+    nodeE = insertRight('E', nodeB);
+    nodeF = insertLeft('F', nodeC);
+    nodeG = insertLeft('G', nodeE);
+    nodeH = insertRight('H', nodeE);
+    nodeI = insertLeft('I', nodeG);
+    nodeJ = insertRight('J', nodeG);
+
+    update('Z', nodeC);
+    update('C', nodeC);
+
+    retrieve(nodeC);
+
+    find(nodeC);
+
+    cout << "\n"
+         << endl;
+    charateristic();
+
+    cout << "\n PreOrder :" << endl;
+    preOrder(root);
+
+    cout << "\n"
+         << endl;
+    cout << " InOrder :" << endl;
+    inOrder(root);
+
+    cout << "\n"
+         << endl;
+    cout << " PostOrder :" << endl;
+    postOrder(root);
 }
 
 ```
 
-Program ini mencari data dalam array menggunakan algoritma binary search setelah mengurutkan data dengan selection sort. Dimulai dengan array dataArray berisi tujuh elemen integer, program meminta pengguna memasukkan angka yang ingin dicari.
-
-Fungsi selection_sort() mengurutkan array dengan menemukan elemen terkecil dalam bagian yang belum diurutkan dan menukarnya ke depan, diulang untuk setiap elemen sampai seluruh array terurut. Fungsi binarysearch() mencari data dalam array terurut dengan menentukan posisi tengah, membandingkannya dengan data yang dicari, dan mempersempit pencarian ke separuh array yang relevan, berulang hingga data ditemukan atau tidak.
-
-Fungsi main() menampilkan data awal, meminta input pengguna, mengurutkan data, menampilkan data terurut, dan memanggil binarysearch() untuk mencari data. Hasil pencarian ditampilkan di layar, menunjukkan apakah data ditemukan beserta indeksnya jika ditemukan. Program menunggu input karakter sebelum keluar. Secara keseluruhan, program ini menggabungkan selection sort dan binary search untuk mencari data secara efisien dalam array.
+Program ini mengimplementasikan struktur data tree menggunakan bahasa C++. Program ini mencakup berbagai fungsi, seperti fungsi buatNode untuk membuat node baru, fungsi insertLeft dan insertRight untuk menambahkan node baru pada child kiri dan kanan, serta fungsi update untuk mengubah data pada node. Ada juga fungsi retrieve untuk mengambil data dari node, fungsi find untuk mencari data node, dan fungsi preOrder, inOrder, serta postOrder untuk melakukan penelusuran pada tree. Selain itu, ada fungsi deleteTree untuk menghapus seluruh tree, fungsi deleteSub untuk menghapus subtree, fungsi clear untuk menghapus tree, fungsi size untuk memeriksa ukuran tree, fungsi height untuk memeriksa tinggi tree, dan fungsi characteristic untuk memeriksa karakteristik tree. Pada fungsi main, semua fungsi ini dipanggil sesuai dengan kebutuhan program.
     
 ## Unguided 
 
-### 1. [SEARCHING : Buatlah sebuah program untuk mencari sebuah huruf pada sebuah kalimat yang sudah di input dengan menggunakan Binary Search!]
+### 1. Buatlah program graph dengan menggunakan inputan user untuk menghitung jarak dari sebuah kota ke kota lainnya. Output Program : </br>
+
+![soal unguided1](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/5d9ac0b0-0a67-4a69-9b0b-b43033ac142f)
+
+
 
 
 ```C++
 
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
+#include <string>
 
 using namespace std;
 
-// Fungsi untuk melakukan binary search pada string yang sudah diurutkan
-bool binarySearch_149(const string &sorted_str_149, char target_149) {
-    int left_149 = 0;
-    int right_149 = sorted_str_149.length() - 1;
-
-    while (left_149 <= right_149) {
-        int mid_149 = left_149 + (right_149 - left_149) / 2;
-
-        if (sorted_str_149[mid_149] == target_149) {
-            return true;  // Huruf ditemukan
-        }
-        if (sorted_str_149[mid_149] < target_149) {
-            left_149 = mid_149 + 1;
-        } else {
-            right_149 = mid_149 - 1;
-        }
-    }
-
-    return false;  // Huruf tidak ditemukan
-}
-
-// Fungsi untuk mencari semua indeks dari huruf yang ditemukan dalam kalimat asli
-vector<int> findIndices_149(const string &original_str_149, char target_149) {
-    vector<int> indices_149;
-    for (size_t i = 0; i < original_str_149.length(); ++i) {
-        if (original_str_149[i] == target_149) {
-            indices_149.push_back(i);
-        }
-    }
-    return indices_149;
-}
-
 int main() {
-    string input_149;
-    char target_149;
-    char choice_149;
+    int jumlahSimpul_2311102149;
+    cout << "Silakan masukan jumlah simpul: ";
+    cin >> jumlahSimpul_2311102149;
 
-    cout << "======================================================\n";
-    cout << "                     BINARY SEARCH                    \n";
-    cout << "      Mencari Huruf dari Inputan Sebuah Kalimat       \n";
-    cout << "======================================================\n";
+    vector<string> namaSimpul(jumlahSimpul_2311102149);
+    vector<vector<int>> matriksBobot(jumlahSimpul_2311102149, vector<int>(jumlahSimpul_2311102149));
 
-    do {
-        // Meminta pengguna memasukkan kalimat
-        cout << "Masukkan sebuah kalimat: ";
-        getline(cin, input_149);
+    // Input nama-nama simpul
+    for (int i = 0; i < jumlahSimpul_2311102149; ++i) {
+        cout << "Simpul " << i + 1 << " : ";
+        cin >> namaSimpul[i];
+    }
 
-        // Meminta pengguna memasukkan huruf yang ingin dicari
-        cout << "Masukkan huruf yang ingin dicari: ";
-        cin >> target_149;
-        cin.ignore(); // Membersihkan buffer setelah input karakter
-
-        // Membuat salinan kalimat asli untuk pencarian indeks
-        string original_input_149 = input_149;
-
-        // Mengurutkan string
-        sort(input_149.begin(), input_149.end());
-
-        // Mencetak kalimat yang sudah diurutkan (untuk tujuan debugging atau verifikasi)
-        cout << "Kalimat yang sudah diurutkan: " << input_149 << endl;
-
-        // Melakukan binary search
-        bool found_149 = binarySearch_149(input_149, target_149);
-
-        // Menampilkan hasil pencarian
-        if (found_149) {
-            cout << "Huruf '" << target_149 << "' ditemukan dalam kalimat." << endl;
-
-            // Mencari dan menampilkan semua indeks dari huruf yang ditemukan
-            vector<int> indices_149 = findIndices_149(original_input_149, target_149);
-            cout << "Huruf '" << target_149 << "' terdapat pada index : ";
-            for (size_t i = 0; i < indices_149.size(); ++i) {
-                cout << indices_149[i];
-                if (i < indices_149.size() - 1) {
-                    cout << ", ";  // Menambahkan koma jika bukan indeks terakhir
-                }
-            }
-            cout << endl;
-        } else {
-            cout << "Huruf '" << target_149 << "' tidak ditemukan dalam kalimat." << endl;
+    // Input bobot antar simpul, termasuk bobot dari kota ke kota itu sendiri
+    for (int i = 0; i < jumlahSimpul_2311102149; ++i) {
+        for (int j = 0; j < jumlahSimpul_2311102149; ++j) {
+            cout << namaSimpul[i] << "--> " << namaSimpul[j] << " = ";
+            cin >> matriksBobot[i][j];
         }
+    }
 
-        // Menanyakan pengguna apakah ingin mencoba kalimat lain
-        cout << "Apakah Anda ingin mencoba kalimat lain? (y/n): ";
-        cin >> choice_149;
-        cin.ignore(); // Membersihkan buffer setelah input karakter
+    // Cetak header matriks
+    cout << "\n\t";
+    for (int i = 0; i < jumlahSimpul_2311102149; ++i) {
+        cout << namaSimpul[i] << "\t";
+    }
+    cout << endl;
 
-    } while (choice_149 == 'y' || choice_149 == 'Y');
+    // Cetak baris dan kolom matriks
+    for (int i = 0; i < jumlahSimpul_2311102149; ++i) {
+        cout << namaSimpul[i] << "\t";
+        for (int j = 0; j < jumlahSimpul_2311102149; ++j) {
+            cout << matriksBobot[i][j] << "\t";
+        }
+        cout << endl;
+    }
 
     return 0;
 }
 
-
 ```
 #### Output :
-![output unguided1 modul 8 - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/4caf8ba6-3866-4ff8-8d93-0a5c67274c50) <br/>
 
 
-Kode di atas adalah program C++ yang mencari sebuah huruf dalam sebuah kalimat yang diinput oleh user menggunakan algoritma binary search setelah mengurutkan kalimat tersebut. Program ini dimulai dengan mendeklarasikan beberapa fungsi dan variabel yang diperlukan untuk pencarian.
 
-Fungsi binarySearch_149 digunakan untuk mencari sebuah karakter dalam string yang sudah diurutkan. Fungsi ini melakukan pencarian biner dengan inisialisasi variabel left_149 dan right_149 untuk menentukan batas pencarian. Dalam loop while, posisi tengah (mid_149) dihitung dan dibandingkan dengan target. Jika karakter ditemukan, fungsi mengembalikan nilai true; jika tidak, batas pencarian diperbarui hingga karakter ditemukan atau batas habis.
-
-Fungsi findIndices_149 mencari semua indeks dari karakter target dalam kalimat asli. Fungsi ini menggunakan loop for untuk memeriksa setiap karakter dalam string asli dan menyimpan indeks yang sesuai dalam vector indices_149.
-
-Fungsi main mengelola interaksi dengan user dan menggabungkan kedua fungsi sebelumnya. Program dimulai dengan mencetak header dan kemudian meminta user untuk memasukkan sebuah kalimat dan karakter yang ingin dicari. Setelah itu, kalimat diurutkan menggunakan sort dari STL. Kalimat yang sudah diurutkan dicetak untuk verifikasi.
-
-Selanjutnya, fungsi binarySearch_149 dipanggil untuk mencari karakter dalam kalimat yang sudah diurutkan. Jika karakter ditemukan, program mencetak pesan bahwa karakter tersebut ditemukan dan memanggil findIndices_149 untuk mendapatkan semua indeks dari karakter tersebut dalam kalimat asli. Indeks-indeks ini kemudian dicetak. Jika karakter tidak ditemukan, program mencetak pesan yang sesuai.
-
-Terakhir, user ditanya apakah ingin mencoba kalimat lain. Jika user memilih 'y' atau 'Y', program akan mengulangi proses. Jika tidak, program akan berhenti. Program ini menggabungkan input/output user dengan algoritma sorting dan searching untuk menyediakan fungsionalitas pencarian karakter yang efisien dalam kalimat.
-
-
-### 2. [SEARCHING : Buatlah sebuah program yang dapat menghitung banyaknya huruf vocal dalam sebuah kalimat!]
+### 2. Modifikasi guided tree diatas dengan program menu menggunakan input data tree dari user dan berikan fungsi tambahan untuk menampilkan node child dan descendant dari node yang diinput kan!
 
 ```C++
 
  
 #include <iostream>
-#include <string>
-#include <algorithm>
 
 using namespace std;
 
-// Fungsi untuk menghitung jumlah huruf vokal dalam sebuah kalimat
-int hitungHurufVokal_149(const string& kalimat_149, string& hurufVokalDitemukan_149) {
-    int jumlah_149 = 0;
-    string vokal_149 = "aiueoAIUEO"; // Huruf vokal
+// Struct Declaration for Binary Tree
+struct Pohon {
+    char data;
+    Pohon *left, *right, *parent;
+};
 
-    // Menggunakan fungsi count_if dari <algorithm> untuk menghitung jumlah huruf vokal dalam kalimat
-    jumlah_149 = count_if(kalimat_149.begin(), kalimat_149.end(), [&](char c_149) {
-        if (vokal_149.find(c_149) != string::npos) {
-            if (!hurufVokalDitemukan_149.empty()) {
-                hurufVokalDitemukan_149 += ", "; // Menambahkan tanda koma jika sudah ada huruf vokal sebelumnya
-            }
-            hurufVokalDitemukan_149 += c_149; // Menambahkan huruf vokal yang ditemukan ke dalam string hurufVokalDitemukan
-            return true;
-        }
-        return false;
-    });
+// Global Variables
+Pohon *root, *baru;
 
-    return jumlah_149;
-}
+// Function Declarations
+void init();
+int isEmpty();
+void buatNode(char data);
+Pohon* insertLeft(char data, Pohon *node_2311102149);
+Pohon* insertRight(char data, Pohon *node_2311102149);
+void update(char data, Pohon *node_2311102149);
+void retrieve(Pohon *node_2311102149);
+void find(Pohon *node_2311102149);
+void preOrder(Pohon *node_2311102149 = root);
+void inOrder(Pohon *node_2311102149 = root);
+void postOrder(Pohon *node_2311102149 = root);
+void deleteTree(Pohon *node_2311102149);
+void deleteSub(Pohon *node_2311102149);
+void clear();
+int size(Pohon *node_2311102149 = root);
+int height(Pohon *node_2311102149 = root);
+void characteristic();
+void showChildren(Pohon *node_2311102149);
+void showDescendants(Pohon *node_2311102149);
+Pohon* findNode(Pohon *node_2311102149, char data);
 
 int main() {
-    string kalimat_149;
-    string hurufVokalDitemukan_149;
-    char lanjut_149;
-
-    cout << "=========================================\n";
-    cout << "  FIND THE VOCAL LETTERS IN A SENTENCE\n";
-    cout << "=========================================\n";
+    int pilihan;
+    char data;
+    Pohon *node_2311102149 = NULL;
 
     do {
-        // Meminta user memasukkan kalimat
-        cout << "Masukkan sebuah kalimat: ";
-        getline(cin, kalimat_149);
+        cout << "\nMenu:";
+        cout << "\n1. Buat Root";
+        cout << "\n2. Tambah Node Kiri";
+        cout << "\n3. Tambah Node Kanan";
+        cout << "\n4. Ubah Data Node";
+        cout << "\n5. Lihat Data Node";
+        cout << "\n6. Cari Data Node";
+        cout << "\n7. Hapus Tree";
+        cout << "\n8. Lihat Karakteristik Tree";
+        cout << "\n9. Tampilkan Child dari Node";
+        cout << "\n10. Tampilkan Descendant dari Node";
+        cout << "\n11. PreOrder Traversal";
+        cout << "\n12. InOrder Traversal";
+        cout << "\n13. PostOrder Traversal";
+        cout << "\n14. Keluar";
+        cout << "\nPilihan: ";
+        cin >> pilihan;
 
-        // Reset string hurufVokalDitemukan_149 sebelum menghitung huruf vokal baru
-        hurufVokalDitemukan_149.clear();
-
-        // Menghitung jumlah huruf vokal dalam kalimat dan menambahkan huruf vokal yang ditemukan ke dalam hurufVokalDitemukan
-        int jumlahHurufVokal_149 = hitungHurufVokal_149(kalimat_149, hurufVokalDitemukan_149);
-
-        // Menampilkan hasil
-        cout << "Jumlah huruf vokal dalam kalimat adalah: " << jumlahHurufVokal_149 << endl;
-        if (jumlahHurufVokal_149 > 0) {
-            cout << "Huruf vokal yang ditemukan dalam kalimat: " << hurufVokalDitemukan_149 << endl;
+        switch (pilihan) {
+            case 1:
+                cout << "\nMasukkan data root: ";
+                cin >> data;
+                buatNode(data);
+                break;
+            case 2: {
+                cout << "\nMasukkan data node: ";
+                cin >> data;
+                cout << "\nMasukkan data parent: ";
+                char parentData;
+                cin >> parentData;
+                node_2311102149 = findNode(root, parentData);
+                if (node_2311102149) insertLeft(data, node_2311102149);
+                break;
+            }
+            case 3: {
+                cout << "\nMasukkan data node: ";
+                cin >> data;
+                cout << "\nMasukkan data parent: ";
+                char parentData;
+                cin >> parentData;
+                node_2311102149 = findNode(root, parentData);
+                if (node_2311102149) insertRight(data, node_2311102149);
+                break;
+            }
+            case 4: {
+                cout << "\nMasukkan data baru: ";
+                cin >> data;
+                cout << "\nMasukkan data node yang ingin diubah: ";
+                char parentData;
+                cin >> parentData;
+                node_2311102149 = findNode(root, parentData);
+                if (node_2311102149) update(data, node_2311102149);
+                break;
+            }
+            case 5: {
+                cout << "\nMasukkan data node yang ingin dilihat: ";
+                char parentData;
+                cin >> parentData;
+                node_2311102149 = findNode(root, parentData);
+                if (node_2311102149) retrieve(node_2311102149);
+                break;
+            }
+            case 6: {
+                cout << "\nMasukkan data node yang ingin dicari: ";
+                char parentData;
+                cin >> parentData;
+                node_2311102149 = findNode(root, parentData);
+                if (node_2311102149) find(node_2311102149);
+                break;
+            }
+            case 7:
+                clear();
+                break;
+            case 8:
+                characteristic();
+                break;
+            case 9: {
+                cout << "\nMasukkan data node: ";
+                char parentData;
+                cin >> parentData;
+                node_2311102149 = findNode(root, parentData);
+                if (node_2311102149) showChildren(node_2311102149);
+                break;
+            }
+            case 10: {
+                cout << "\nMasukkan data node: ";
+                char parentData;
+                cin >> parentData;
+                node_2311102149 = findNode(root, parentData);
+                if (node_2311102149) showDescendants(node_2311102149);
+                break;
+            }
+            case 11:
+                cout << "\nPreOrder Traversal: " << endl;
+                preOrder(root);
+                cout << "\n";
+                break;
+            case 12:
+                cout << "\nInOrder Traversal: " << endl;
+                inOrder(root);
+                cout << "\n";
+                break;
+            case 13:
+                cout << "\nPostOrder Traversal: " << endl;
+                postOrder(root);
+                cout << "\n";
+                break;
+            case 14:
+                cout << "\nKeluar dari program." << endl;
+                break;
+            default:
+                cout << "\nPilihan tidak valid!" << endl;
+                break;
         }
-
-        // Meminta user apakah ingin melanjutkan atau tidak
-        cout << "Apakah Anda ingin mencoba pada kalimat lainnya? (y/n): ";
-        cin >> lanjut_149;
-        cin.ignore(); // Mengabaikan newline character yang tersisa di input stream
-    } while (lanjut_149 == 'y' || lanjut_149 == 'Y');
+    } while (pilihan != 14);
 
     return 0;
 }
 
+void init() {
+    root = NULL;
+}
 
-```
+int isEmpty() {
+    return root == NULL ? 1 : 0;
+}
 
-### Output
-![output unguided2 modul 8 - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/6d61f3da-a67f-41eb-87e8-db4a9917100d) <br/>
+void buatNode(char data) {
+    if (isEmpty() == 1) {
+        root = new Pohon();
+        root->data = data;
+        root->left = NULL;
+        root->right = NULL;
+        root->parent = NULL;
+        cout << "\nNode " << data << " berhasil dibuat menjadi root." << endl;
+    } else {
+        cout << "\nPohon sudah dibuat" << endl;
+    }
+}
 
-Program di atas adalah implementasi dalam C++ untuk menghitung jumlah huruf vokal dalam sebuah kalimat yang diinput oleh user. Program ini dimulai dengan mendeklarasikan fungsi hitungHurufVokal_149, yang menghitung jumlah huruf vokal dalam kalimat dan menyimpan huruf-huruf vokal yang ditemukan dalam sebuah string. Fungsi ini menggunakan lambda function dalam count_if dari header <algorithm> untuk memeriksa setiap karakter dalam kalimat, memeriksa apakah karakter tersebut adalah huruf vokal (dari string "aiueoAIUEO"). Jika ditemukan, karakter tersebut ditambahkan ke string hurufVokalDitemukan_149, dan jumlah vokal dihitung.
-
-Fungsi main mengelola interaksi dengan user. Program mencetak header dan meminta user untuk memasukkan sebuah kalimat. Setelah itu, program memanggil fungsi hitungHurufVokal_149 untuk menghitung jumlah huruf vokal dalam kalimat tersebut. Hasilnya kemudian ditampilkan, termasuk jumlah huruf vokal dan huruf-huruf vokal yang ditemukan. Setelah itu, user ditanya apakah ingin mencoba kalimat lain. Jika user memilih 'y' atau 'Y', proses akan diulangi. Jika tidak, program akan berhenti.
-
-Secara keseluruhan, program ini menggabungkan input/output user dengan pemrosesan string menggunakan algoritma untuk menyediakan fungsionalitas menghitung dan menampilkan huruf vokal dalam kalimat secara efisien.
-
-### 3. [SEARCHING : Diketahui data = 9, 4, 1, 4, 7, 10, 5, 4, 12, 4. Hitunglah berapa banyak angka 4 dengan menggunakan algoritma Sequential Search!]
-
-```C++
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-// Fungsi untuk menghitung berapa banyak angka 4 dalam data menggunakan Sequential Search
-int hitungAngkaEmpat_149(const vector<int>& data_149) {
-    int count_149 = 0;
-    int angka_149 = 4; // Angka yang ingin dicari
-
-    for (int i_149 = 0; i_149 < data_149.size(); ++i_149) {
-        if (data_149[i_149] == angka_149) {
-            count_149++;
+Pohon* insertLeft(char data, Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+        return NULL;
+    } else {
+        if (node_2311102149->left != NULL) {
+            cout << "\nNode " << node_2311102149->data << " sudah ada child kiri!" << endl;
+            return NULL;
+        } else {
+            baru = new Pohon();
+            baru->data = data;
+            baru->left = NULL;
+            baru->right = NULL;
+            baru->parent = node_2311102149;
+            node_2311102149->left = baru;
+            cout << "\nNode " << data << " berhasil ditambahkan ke child kiri " << baru->parent->data << endl;
+            return baru;
         }
     }
-
-    return count_149;
 }
 
-int main() {
-    // Data yang diberikan
-    vector<int> data_149 = {9, 4, 1, 4, 7, 10, 5, 4, 12, 4};
-
-    // Menghitung berapa banyak angka 4 dalam data menggunakan Sequential Search
-    int jumlahAngkaEmpat_149 = hitungAngkaEmpat_149(data_149);
-
-    // Menampilkan hasil
-    cout << "Jumlah angka 4 dalam data adalah: " << jumlahAngkaEmpat_149 << endl;
-
-    return 0;
+Pohon* insertRight(char data, Pohon *node_2311102149) {
+    if (root == NULL) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+        return NULL;
+    } else {
+        if (node_2311102149->right != NULL) {
+            cout << "\nNode " << node_2311102149->data << " sudah ada child kanan!" << endl;
+            return NULL;
+        } else {
+            baru = new Pohon();
+            baru->data = data;
+            baru->left = NULL;
+            baru->right = NULL;
+            baru->parent = node_2311102149;
+            node_2311102149->right = baru;
+            cout << "\nNode " << data << " berhasil ditambahkan ke child kanan " << baru->parent->data << endl;
+            return baru;
+        }
+    }
 }
+
+void update(char data, Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    } else {
+        if (!node_2311102149)
+            cout << "\nNode yang ingin diganti tidak ada!!" << endl;
+        else {
+            char temp = node_2311102149->data;
+            node_2311102149->data = data;
+            cout << "\nNode " << temp << " berhasil diubah menjadi " << data << endl;
+        }
+    }
+}
+
+void retrieve(Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    } else {
+        if (!node_2311102149)
+            cout << "\nNode yang ditunjuk tidak ada!" << endl;
+        else {
+            cout << "\nData node: " << node_2311102149->data << endl;
+        }
+    }
+}
+
+void find(Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    } else {
+        if (!node_2311102149)
+            cout << "\nNode yang ditunjuk tidak ada!" << endl;
+        else {
+            cout << "\nNode: " << node_2311102149->data << endl;
+            if (!node_2311102149->left)
+                cout << "Child Kiri: (tidak punya child kiri)" << endl;
+            else
+                cout << "Child Kiri: " << node_2311102149->left->data << endl;
+            if (!node_2311102149->right)
+                cout << "Child Kanan: (tidak punya child kanan)" << endl;
+            else
+                cout << "Child Kanan: " << node_2311102149->right->data << endl;
+        }
+    }
+}
+
+void preOrder(Pohon *node_2311102149) {
+    if (isEmpty() == 1)
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    else {
+        if (node_2311102149 != NULL) {
+            cout << " " << node_2311102149->data << ", ";
+            preOrder(node_2311102149->left);
+            preOrder(node_2311102149->right);
+        }
+    }
+}
+
+void inOrder(Pohon *node_2311102149) {
+    if (isEmpty() == 1)
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    else {
+        if (node_2311102149 != NULL) {
+            inOrder(node_2311102149->left);
+            cout << " " << node_2311102149->data << ", ";
+            inOrder(node_2311102149->right);
+        }
+    }
+}
+
+void postOrder(Pohon *node_2311102149) {
+    if (isEmpty() == 1)
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    else {
+        if (node_2311102149 != NULL) {
+            postOrder(node_2311102149->left);
+            postOrder(node_2311102149->right);
+            cout << " " << node_2311102149->data << ", ";
+        }
+    }
+}
+
+void deleteTree(Pohon *node_2311102149) {
+    if (!root)
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    else {
+        if (node_2311102149 != NULL) {
+            if (node_2311102149 != root) {
+                if (node_2311102149->parent->left == node_2311102149)
+                    node_2311102149->parent->left = NULL;
+                else
+                    node_2311102149->parent->right = NULL;
+            }
+            deleteTree(node_2311102149->left);
+            deleteTree(node_2311102149->right);
+            if (node_2311102149 == root) {
+                delete root;
+                root = NULL;
+            } else {
+                delete node_2311102149;
+            }
+        }
+    }
+}
+
+void deleteSub(Pohon *node_2311102149) {
+    if (!root)
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    else {
+        deleteTree(node_2311102149->left);
+        deleteTree(node_2311102149->right);
+        cout << "\nNode subtree " << node_2311102149->data << " berhasil dihapus." << endl;
+    }
+}
+
+void clear() {
+    if (!root)
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+    else {
+        deleteTree(root);
+        cout << "\nPohon berhasil dihapus." << endl;
+    }
+}
+
+int size(Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+        return 0;
+    } else {
+        if (!node_2311102149) {
+            return 0;
+        } else {
+            return 1 + size(node_2311102149->left) + size(node_2311102149->right);
+        }
+    }
+}
+
+int height(Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+        return 0;
+    } else {
+        if (!node_2311102149) {
+            return 0;
+        } else {
+            int heightKiri = height(node_2311102149->left);
+            int heightKanan = height(node_2311102149->right);
+            return (heightKiri >= heightKanan) ? heightKiri + 1 : heightKanan + 1;
+        }
+    }
+}
+
+void characteristic() {
+    cout << "\nSize Tree: " << size() << endl;
+    cout << "Height Tree: " << height() << endl;
+    cout << "Average Node of Tree: " << size() / height() << endl;
+}
+
+void showChildren(Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+        return;
+    }
+    if (!node_2311102149) {
+        cout << "\nNode yang ditunjuk tidak ada!" << endl;
+        return;
+    }
+    cout << "\nNode: " << node_2311102149->data << endl;
+    if (node_2311102149->left)
+        cout << "Child Kiri: " << node_2311102149->left->data << endl;
+    else
+        cout << "Child Kiri: (tidak punya child kiri)" << endl;
+
+    if (node_2311102149->right)
+        cout << "Child Kanan: " << node_2311102149->right->data << endl;
+    else
+        cout << "Child Kanan: (tidak punya child kanan)" << endl;
+}
+
+void showDescendants(Pohon *node_2311102149) {
+    if (isEmpty() == 1) {
+        cout << "\nBuat tree terlebih dahulu!" << endl;
+        return;
+    }
+    if (!node_2311102149) {
+        cout << "\nNode yang ditunjuk tidak ada!" << endl;
+        return;
+    }
+    cout << "\nDescendants of node " << node_2311102149->data << ": ";
+    preOrder(node_2311102149);
+    cout << endl;
+}
+
+Pohon* findNode(Pohon *node_2311102149, char data) {
+    if (!node_2311102149)
+        return NULL;
+    if (node_2311102149->data == data)
+        return node_2311102149;
+    Pohon *foundNode = findNode(node_2311102149->left, data);
+    if (!foundNode)
+        foundNode = findNode(node_2311102149->right, data);
+    return foundNode;
+}
+
 
 ```
 
 ### Output
-![output unguided3 modul8 - satrio wibowo](https://github.com/kingzox/2311102149_Satrio-WIbowo/assets/151898942/f95ad5fc-5b14-4f10-9228-f8ad24662801) <br/>
 
-Program di atas adalah implementasi dalam C++ untuk menghitung berapa kali angka 4 muncul dalam sebuah vector menggunakan metode Sequential Search. Program ini dimulai dengan mendeklarasikan fungsi hitungAngkaEmpat_149, yang menerima sebuah vector integer sebagai parameter. Fungsi ini menggunakan loop for untuk memeriksa setiap elemen dalam vector. Jika elemen tersebut sama dengan angka 4, maka sebuah variabel penghitung count_149 akan bertambah satu. Setelah loop selesai, fungsi mengembalikan nilai count_149, yang merupakan jumlah angka 4 dalam vector.
 
-Fungsi main menginisialisasi sebuah vector data_149 dengan sepuluh elemen integer yang berisi beberapa angka 4. Selanjutnya, fungsi hitungAngkaEmpat_149 dipanggil dengan vector ini sebagai argumen, dan hasilnya disimpan dalam variabel jumlahAngkaEmpat_149. Program kemudian menampilkan hasil jumlah kemunculan angka 4 dalam vector tersebut ke layar dengan menggunakan cout.
 
-Secara keseluruhan, program ini menggabungkan penggunaan vector dan loop untuk menyediakan fungsionalitas menghitung kemunculan angka tertentu dalam data dengan cara yang sederhana dan langsung.
 
    
 ## Kesimpulan
